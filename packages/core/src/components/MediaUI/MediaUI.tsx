@@ -44,13 +44,17 @@ export type ImageBackgroundProps = RNImageBackgroundProps & {
 };
 
 export const ImageBackground = ({
-  overlayColor = "rgba(0, 0, 0, 0.4)",
+  overlayColor,
   style,
   children,
   ...rest
-}: ImageBackgroundProps) => (
+}: ImageBackgroundProps) => {
+  const { baseTokens } = useTheme();
+  const resolvedOverlay = overlayColor ?? withAlpha(baseTokens.colors.black, 0.4);
+
+  return (
   <RNImageBackground style={[{ overflow: "hidden", position: "relative" }, style]} {...rest}>
-    {overlayColor && (
+    {resolvedOverlay && (
       <View
         style={{
           position: "absolute",
@@ -58,13 +62,14 @@ export const ImageBackground = ({
           left: 0,
           right: 0,
           bottom: 0,
-          backgroundColor: overlayColor,
+          backgroundColor: resolvedOverlay,
         }}
       />
     )}
     {children}
   </RNImageBackground>
-);
+  );
+};
 ImageBackground.displayName = "ImageBackground";
 
 // 3. Thumbnail
@@ -178,7 +183,7 @@ export const ImageViewer = ({ open = false, onClose, title = "Image Preview", sr
             </Pressable>
           </Inline>
 
-          <Box style={{ height: 300, backgroundColor: "#000", alignItems: "center", justifyContent: "center" }}>
+          <Box style={{ height: 300, backgroundColor: baseTokens.colors.black, alignItems: "center", justifyContent: "center" }}>
             {src ? (
               <RNImage source={{ uri: src }} style={{ width: "100%", height: "100%" }} resizeMode="contain" />
             ) : (
@@ -222,7 +227,7 @@ export type CarouselProps = {
 };
 
 export const Carousel = ({ items, style }: CarouselProps) => {
-  const { semanticColors } = useTheme();
+  const { semanticColors, baseTokens } = useTheme();
   const [activeIndex, setActiveIndex] = useState(0);
 
   const prev = () => setActiveIndex((i) => (i > 0 ? i - 1 : items.length - 1));
@@ -236,9 +241,9 @@ export const Carousel = ({ items, style }: CarouselProps) => {
         {
           padding: 20,
           borderRadius: 16,
-          backgroundColor: "rgba(16, 18, 30, 0.95)",
+          backgroundColor: withAlpha(baseTokens.colors.black, 0.95),
           borderWidth: 1,
-          borderColor: "rgba(255, 255, 255, 0.1)",
+          borderColor: withAlpha(baseTokens.colors.white, 0.1),
           maxWidth: 480,
           position: "relative",
         },
@@ -251,8 +256,8 @@ export const Carousel = ({ items, style }: CarouselProps) => {
             Slide {activeIndex + 1} of {items.length}
           </Text>
           {current?.badge && (
-            <Box style={{ paddingHorizontal: 8, paddingVertical: 2, borderRadius: 6, backgroundColor: "rgba(124, 58, 237, 0.2)" }}>
-              <Text size="xs" color="#A78BFA" weight="bold">{current.badge}</Text>
+            <Box style={{ paddingHorizontal: 8, paddingVertical: 2, borderRadius: 6, backgroundColor: withAlpha(baseTokens.colors.brand[500], 0.2) }}>
+              <Text size="xs" color={baseTokens.colors.brand[400]} weight="bold">{current.badge}</Text>
             </Box>
           )}
         </Inline>
@@ -279,7 +284,7 @@ export const Carousel = ({ items, style }: CarouselProps) => {
                   width: activeIndex === idx ? 20 : 6,
                   height: 6,
                   borderRadius: 3,
-                  backgroundColor: activeIndex === idx ? semanticColors.primary : "rgba(255, 255, 255, 0.2)",
+                  backgroundColor: activeIndex === idx ? semanticColors.primary : withAlpha(baseTokens.colors.white, 0.2),
                 }}
               />
             ))}
@@ -316,7 +321,7 @@ export const AudioPlayer = ({
   elapsed = "01:14",
   style,
 }: AudioPlayerProps) => {
-  const { semanticColors } = useTheme();
+  const { semanticColors, baseTokens } = useTheme();
   const [playing, setPlaying] = useState(false);
 
   return (
@@ -325,9 +330,9 @@ export const AudioPlayer = ({
         {
           padding: 16,
           borderRadius: 16,
-          backgroundColor: "rgba(16, 18, 30, 0.95)",
+          backgroundColor: withAlpha(baseTokens.colors.black, 0.95),
           borderWidth: 1,
-          borderColor: "rgba(255, 255, 255, 0.1)",
+          borderColor: withAlpha(baseTokens.colors.white, 0.1),
           maxWidth: 400,
         },
         style,
@@ -336,9 +341,9 @@ export const AudioPlayer = ({
       <VStack gap={3}>
         <Inline justify="space-between" align="center">
           <Inline align="center" gap={3}>
-            <Center circle={38} bg={playing ? semanticColors.primary : "rgba(255, 255, 255, 0.08)"}>
+            <Center circle={38} bg={playing ? semanticColors.primary : withAlpha(baseTokens.colors.white, 0.08)}>
               <Pressable onPress={() => setPlaying(!playing)}>
-                <Text size="sm" color="#FFF">{playing ? "⏸" : "▶"}</Text>
+                <Text size="sm" color={baseTokens.colors.white}>{playing ? "⏸" : "▶"}</Text>
               </Pressable>
             </Center>
             <VStack gap={0}>
@@ -358,7 +363,7 @@ export const AudioPlayer = ({
 
         {/* Audio Waveform / Track Progress Bar */}
         <VStack gap={1}>
-          <Box style={{ width: "100%", height: 6, borderRadius: 3, backgroundColor: "rgba(255, 255, 255, 0.1)", overflow: "hidden" }}>
+          <Box style={{ width: "100%", height: 6, borderRadius: 3, backgroundColor: withAlpha(baseTokens.colors.white, 0.1), overflow: "hidden" }}>
             <Box style={{ width: "38%", height: "100%", backgroundColor: semanticColors.primary }} />
           </Box>
           <Inline justify="space-between">
@@ -380,7 +385,7 @@ export type VideoProps = {
 };
 
 export const Video = ({ title = "Architecture Overview", duration = "12:40", style }: VideoProps) => {
-  const { semanticColors } = useTheme();
+  const { semanticColors, baseTokens } = useTheme();
   const [playing, setPlaying] = useState(false);
 
   return (
@@ -388,16 +393,16 @@ export const Video = ({ title = "Architecture Overview", duration = "12:40", sty
       style={[
         {
           borderRadius: 16,
-          backgroundColor: "rgba(16, 18, 30, 0.95)",
+          backgroundColor: withAlpha(baseTokens.colors.black, 0.95),
           borderWidth: 1,
-          borderColor: "rgba(255, 255, 255, 0.1)",
+          borderColor: withAlpha(baseTokens.colors.white, 0.1),
           overflow: "hidden",
           maxWidth: 420,
         },
         style,
       ]}
     >
-      <Box style={{ height: 180, backgroundColor: "#0A0B14", alignItems: "center", justifyContent: "center", position: "relative" }}>
+      <Box style={{ height: 180, backgroundColor: withAlpha(baseTokens.colors.black, 0.9), alignItems: "center", justifyContent: "center", position: "relative" }}>
         <Text size="4xl">🎬</Text>
         <Center
           style={{
@@ -405,11 +410,11 @@ export const Video = ({ title = "Architecture Overview", duration = "12:40", sty
             width: 48,
             height: 48,
             borderRadius: 24,
-            backgroundColor: "rgba(124, 58, 237, 0.85)",
+            backgroundColor: withAlpha(baseTokens.colors.brand[500], 0.85),
           }}
         >
           <Pressable onPress={() => setPlaying(!playing)}>
-            <Text size="md" color="#FFF">{playing ? "⏸" : "▶"}</Text>
+            <Text size="md" color={baseTokens.colors.white}>{playing ? "⏸" : "▶"}</Text>
           </Pressable>
         </Center>
       </Box>

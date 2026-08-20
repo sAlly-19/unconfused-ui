@@ -2,6 +2,7 @@ import React from "react";
 import { View, ViewStyle } from "react-native";
 import { Box, Center, HStack, Inline, Stack, Text, VStack } from "@unconfused-ui/primitives";
 import { useTheme } from "@unconfused-ui/theme";
+import { withAlpha } from "@unconfused-ui/tokens";
 
 export type ChartDataPoint = {
   label: string;
@@ -18,7 +19,7 @@ export type BarChartProps = {
 };
 
 export const BarChart = ({ data, height = 150, title, style }: BarChartProps) => {
-  const { semanticColors } = useTheme();
+  const { semanticColors, baseTokens } = useTheme();
   const maxValue = Math.max(...data.map((d) => d.value), 1);
 
   return (
@@ -26,10 +27,10 @@ export const BarChart = ({ data, height = 150, title, style }: BarChartProps) =>
       style={[
         {
           padding: 18,
-          backgroundColor: "rgba(16, 18, 30, 0.85)",
+          backgroundColor: withAlpha(baseTokens.colors.black, 0.85),
           borderRadius: 16,
           borderWidth: 1,
-          borderColor: "rgba(255, 255, 255, 0.08)",
+          borderColor: withAlpha(baseTokens.colors.white, 0.08),
         },
         style,
       ]}
@@ -91,7 +92,9 @@ export const Sparkline = ({
   trend = "+32.4%",
   style,
 }: SparklineProps) => {
+  const { baseTokens } = useTheme();
   const max = Math.max(...values, 1);
+  const resolvedColor = color === "#10B981" ? baseTokens.colors.success[500] : color;
 
   return (
     <Inline align="center" gap={2} style={style}>
@@ -103,13 +106,13 @@ export const Sparkline = ({
               width: 4,
               height: Math.max((v / max) * 18, 3),
               borderRadius: 2,
-              backgroundColor: color,
+              backgroundColor: resolvedColor,
             }}
           />
         ))}
       </Inline>
       {trend && (
-        <Text size="xs" weight="bold" color={color}>
+        <Text size="xs" weight="bold" color={resolvedColor}>
           {trend}
         </Text>
       )}
@@ -134,17 +137,17 @@ export const DonutChart = ({
   size = 120,
   style,
 }: DonutChartProps) => {
-  const { semanticColors } = useTheme();
+  const { semanticColors, baseTokens } = useTheme();
 
   return (
     <Box
       style={[
         {
           padding: 18,
-          backgroundColor: "rgba(16, 18, 30, 0.85)",
+          backgroundColor: withAlpha(baseTokens.colors.black, 0.85),
           borderRadius: 16,
           borderWidth: 1,
-          borderColor: "rgba(255, 255, 255, 0.08)",
+          borderColor: withAlpha(baseTokens.colors.white, 0.08),
           alignItems: "center",
         },
         style,
@@ -157,10 +160,10 @@ export const DonutChart = ({
             height: size,
             borderRadius: size / 2,
             borderWidth: 12,
-            borderColor: "rgba(255, 255, 255, 0.08)",
+            borderColor: withAlpha(baseTokens.colors.white, 0.08),
             borderTopColor: data[0]?.color ?? semanticColors.primary,
-            borderRightColor: data[1]?.color ?? "#10B981",
-            borderBottomColor: data[2]?.color ?? "#F59E0B",
+            borderRightColor: data[1]?.color ?? baseTokens.colors.success[500],
+            borderBottomColor: data[2]?.color ?? baseTokens.colors.warning[500],
           }}
         >
           <VStack gap={0} align="center">
@@ -199,17 +202,17 @@ export type ProgressChartProps = {
 };
 
 export const ProgressChart = ({ tracks, style }: ProgressChartProps) => {
-  const { semanticColors } = useTheme();
+  const { semanticColors, baseTokens } = useTheme();
 
   return (
     <Box
       style={[
         {
           padding: 18,
-          backgroundColor: "rgba(16, 18, 30, 0.85)",
+          backgroundColor: withAlpha(baseTokens.colors.black, 0.85),
           borderRadius: 16,
           borderWidth: 1,
-          borderColor: "rgba(255, 255, 255, 0.08)",
+          borderColor: withAlpha(baseTokens.colors.white, 0.08),
         },
         style,
       ]}
@@ -225,7 +228,7 @@ export const ProgressChart = ({ tracks, style }: ProgressChartProps) => {
                 {track.value}%
               </Text>
             </Inline>
-            <Box style={{ width: "100%", height: 6, borderRadius: 3, backgroundColor: "rgba(255, 255, 255, 0.08)", overflow: "hidden" }}>
+            <Box style={{ width: "100%", height: 6, borderRadius: 3, backgroundColor: withAlpha(baseTokens.colors.white, 0.08), overflow: "hidden" }}>
               <Box style={{ width: `${Math.min(100, track.value)}%`, height: "100%", backgroundColor: track.color }} />
             </Box>
           </VStack>
@@ -245,8 +248,8 @@ export type GaugeProps = {
 };
 
 export const Gauge = ({ value, label = "Health Index", statusText = "Optimal", style }: GaugeProps) => {
-  const { semanticColors } = useTheme();
-  const color = value > 80 ? "#10B981" : value > 50 ? "#F59E0B" : "#F43F5E";
+  const { semanticColors, baseTokens } = useTheme();
+  const color = value > 80 ? baseTokens.colors.success[500] : value > 50 ? baseTokens.colors.warning[500] : baseTokens.colors.danger[500];
 
   return (
     <Box
@@ -254,9 +257,9 @@ export const Gauge = ({ value, label = "Health Index", statusText = "Optimal", s
         {
           padding: 18,
           borderRadius: 16,
-          backgroundColor: "rgba(16, 18, 30, 0.85)",
+          backgroundColor: withAlpha(baseTokens.colors.black, 0.85),
           borderWidth: 1,
-          borderColor: "rgba(255, 255, 255, 0.08)",
+          borderColor: withAlpha(baseTokens.colors.white, 0.08),
           alignItems: "center",
         },
         style,

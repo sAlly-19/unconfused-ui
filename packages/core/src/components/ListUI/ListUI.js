@@ -12,8 +12,9 @@ const react_1 = __importDefault(require("react"));
 const react_native_1 = require("react-native");
 const primitives_1 = require("@unconfused-ui/primitives");
 const theme_1 = require("@unconfused-ui/theme");
+const tokens_1 = require("@unconfused-ui/tokens");
 const ListItem = ({ title, subtitle, leftIcon, rightAction, onPress, showChevron = false, selected = false, disabled = false, style, }) => {
-    const { semanticColors } = (0, theme_1.useTheme)();
+    const { semanticColors, baseTokens } = (0, theme_1.useTheme)();
     return ((0, jsx_runtime_1.jsxs)(primitives_1.Pressable, { onPress: onPress, disabled: disabled || !onPress, accessibilityRole: "button", accessibilityState: { selected, disabled }, style: [
             {
                 flexDirection: "row",
@@ -21,9 +22,9 @@ const ListItem = ({ title, subtitle, leftIcon, rightAction, onPress, showChevron
                 justifyContent: "space-between",
                 paddingVertical: 14,
                 paddingHorizontal: 16,
-                backgroundColor: selected ? "rgba(124, 58, 237, 0.15)" : "transparent",
+                backgroundColor: selected ? (0, tokens_1.withAlpha)(baseTokens.colors.brand[500], 0.15) : "transparent",
                 borderBottomWidth: 1,
-                borderBottomColor: "rgba(255, 255, 255, 0.06)",
+                borderBottomColor: (0, tokens_1.withAlpha)(baseTokens.colors.white, 0.06),
                 minHeight: 52,
                 opacity: disabled ? 0.4 : 1,
             },
@@ -34,34 +35,43 @@ exports.ListItem = ListItem;
 exports.ListItem.displayName = "ListItem";
 // 2. ListHeader, ListFooter, ListSection
 const ListHeader = ({ title, count }) => {
-    const { semanticColors } = (0, theme_1.useTheme)();
+    const { semanticColors, baseTokens } = (0, theme_1.useTheme)();
     return ((0, jsx_runtime_1.jsxs)(primitives_1.Inline, { justify: "space-between", align: "center", style: {
             paddingHorizontal: 16,
             paddingVertical: 10,
-            backgroundColor: "rgba(255, 255, 255, 0.03)",
+            backgroundColor: (0, tokens_1.withAlpha)(baseTokens.colors.white, 0.03),
             borderBottomWidth: 1,
-            borderBottomColor: "rgba(255, 255, 255, 0.08)",
+            borderBottomColor: (0, tokens_1.withAlpha)(baseTokens.colors.white, 0.08),
         }, children: [(0, jsx_runtime_1.jsx)(primitives_1.Text, { size: "xs", weight: "bold", style: { textTransform: "uppercase", letterSpacing: 1.2 }, color: semanticColors.primary, children: title }), count !== undefined && ((0, jsx_runtime_1.jsx)(primitives_1.Text, { size: "xs", color: semanticColors.foregroundSubtle, weight: "bold", children: count }))] }));
 };
 exports.ListHeader = ListHeader;
 exports.ListHeader.displayName = "ListHeader";
-const ListFooter = ({ children, style }) => ((0, jsx_runtime_1.jsx)(primitives_1.Box, { style: [{ padding: 14, backgroundColor: "rgba(255, 255, 255, 0.02)" }, style], children: typeof children === "string" ? ((0, jsx_runtime_1.jsx)(primitives_1.Text, { size: "xs", color: "rgba(255, 255, 255, 0.5)", children: children })) : (children) }));
+const ListFooter = ({ children, style }) => {
+    const { baseTokens } = (0, theme_1.useTheme)();
+    return ((0, jsx_runtime_1.jsx)(primitives_1.Box, { style: [{ padding: 14, backgroundColor: (0, tokens_1.withAlpha)(baseTokens.colors.white, 0.02) }, style], children: typeof children === "string" ? ((0, jsx_runtime_1.jsx)(primitives_1.Text, { size: "xs", color: (0, tokens_1.withAlpha)(baseTokens.colors.white, 0.5), children: children })) : (children) }));
+};
 exports.ListFooter = ListFooter;
 exports.ListFooter.displayName = "ListFooter";
-const ListSection = ({ title, count, children, }) => ((0, jsx_runtime_1.jsxs)(primitives_1.VStack, { gap: 0, style: { borderBottomWidth: 1, borderBottomColor: "rgba(255, 255, 255, 0.08)" }, children: [(0, jsx_runtime_1.jsx)(exports.ListHeader, { title: title, count: count }), children] }));
+const ListSection = ({ title, count, children, }) => {
+    const { baseTokens } = (0, theme_1.useTheme)();
+    return ((0, jsx_runtime_1.jsxs)(primitives_1.VStack, { gap: 0, style: { borderBottomWidth: 1, borderBottomColor: (0, tokens_1.withAlpha)(baseTokens.colors.white, 0.08) }, children: [(0, jsx_runtime_1.jsx)(exports.ListHeader, { title: title, count: count }), children] }));
+};
 exports.ListSection = ListSection;
 exports.ListSection.displayName = "ListSection";
 // 3. List
-exports.List = Object.assign(({ children, style }) => ((0, jsx_runtime_1.jsx)(primitives_1.Box, { style: [
-        {
-            borderRadius: 14,
-            overflow: "hidden",
-            borderWidth: 1,
-            borderColor: "rgba(255, 255, 255, 0.1)",
-            backgroundColor: "rgba(16, 18, 30, 0.8)",
-        },
-        style,
-    ], children: children })), {
+exports.List = Object.assign(({ children, style }) => {
+    const { baseTokens } = (0, theme_1.useTheme)();
+    return ((0, jsx_runtime_1.jsx)(primitives_1.Box, { style: [
+            {
+                borderRadius: 14,
+                overflow: "hidden",
+                borderWidth: 1,
+                borderColor: (0, tokens_1.withAlpha)(baseTokens.colors.white, 0.1),
+                backgroundColor: (0, tokens_1.withAlpha)(baseTokens.colors.black, 0.8),
+            },
+            style,
+        ], children: children }));
+}, {
     Item: exports.ListItem,
     Header: exports.ListHeader,
     Footer: exports.ListFooter,

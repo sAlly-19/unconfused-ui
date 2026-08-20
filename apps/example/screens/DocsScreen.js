@@ -43,7 +43,7 @@ const theme_1 = require("@unconfused-ui/theme");
 const core_2 = require("@unconfused-ui/core");
 const tokens_1 = require("@unconfused-ui/tokens");
 function DocsScreen() {
-    const { semanticColors } = (0, theme_1.useTheme)();
+    const { semanticColors, baseTokens } = (0, theme_1.useTheme)();
     const { toast } = (0, core_2.useToast)();
     const [copiedCode, setCopiedCode] = (0, react_1.useState)(null);
     const [selectedSection, setSelectedSection] = (0, react_1.useState)("quickstart");
@@ -86,7 +86,7 @@ export default function App() {
           <Text size="sm">Interface fluida, acessível e sem complicação.</Text>
         </Card.Content>
         <Card.Footer>
-          <Button variant="primary" icon={<SparklesIcon size={16} color="#FFF" />}>
+          <Button variant="primary" icon={<SparklesIcon size={16} color={baseTokens.colors.white} />}>
             Começar Agora
           </Button>
         </Card.Footer>
@@ -238,9 +238,9 @@ export function TableExample() {
                                 borderColor: isActive ? semanticColors.primary : semanticColors.borderSubtle,
                                 gap: 6,
                             }, children: [react_1.default.cloneElement(sec.icon, {
-                                    color: isActive ? "#FFFFFF" : semanticColors.foreground,
-                                }), (0, jsx_runtime_1.jsx)(primitives_1.Text, { size: "sm", weight: isActive ? "bold" : "medium", color: isActive ? "#FFFFFF" : semanticColors.foreground, children: sec.label })] }, sec.id));
-                    }) }) }), (0, jsx_runtime_1.jsxs)(primitives_1.VStack, { gap: 6, children: [selectedSection === "quickstart" && ((0, jsx_runtime_1.jsxs)(primitives_1.VStack, { gap: 4, children: [(0, jsx_runtime_1.jsxs)(core_1.Card, { variant: "default", children: [(0, jsx_runtime_1.jsx)(core_1.Card.Header, { children: (0, jsx_runtime_1.jsxs)(primitives_1.Inline, { align: "center", justify: "space-between", children: [(0, jsx_runtime_1.jsxs)(primitives_1.Inline, { align: "center", gap: 2, children: [(0, jsx_runtime_1.jsx)(core_1.Badge, { variant: "primary", size: "sm", children: "1" }), (0, jsx_runtime_1.jsx)(primitives_1.Text, { size: "lg", weight: "bold", color: semanticColors.foreground, children: "Instala\u00E7\u00E3o dos Pacotes" })] }), (0, jsx_runtime_1.jsx)(core_1.Button, { variant: "ghost", size: "sm", onPress: () => copySnippet(codeSnippets.install, "install"), leftIcon: copiedCode === "install" ? (0, jsx_runtime_1.jsx)(icons_1.CheckIcon, { size: 14, color: "#10B981" }) : (0, jsx_runtime_1.jsx)(icons_1.CopyIcon, { size: 14, color: semanticColors.foregroundMuted }), children: copiedCode === "install" ? "Copiado!" : "Copiar" })] }) }), (0, jsx_runtime_1.jsx)(core_1.Card.Content, { children: (0, jsx_runtime_1.jsx)(primitives_1.Box, { style: {
+                                    color: isActive ? baseTokens.colors.white : semanticColors.foreground,
+                                }), (0, jsx_runtime_1.jsx)(primitives_1.Text, { size: "sm", weight: isActive ? "bold" : "medium", color: isActive ? baseTokens.colors.white : semanticColors.foreground, children: sec.label })] }, sec.id));
+                    }) }) }), (0, jsx_runtime_1.jsxs)(primitives_1.VStack, { gap: 6, children: [selectedSection === "quickstart" && ((0, jsx_runtime_1.jsxs)(primitives_1.VStack, { gap: 4, children: [(0, jsx_runtime_1.jsxs)(core_1.Card, { variant: "default", children: [(0, jsx_runtime_1.jsx)(core_1.Card.Header, { children: (0, jsx_runtime_1.jsxs)(primitives_1.Inline, { align: "center", justify: "space-between", children: [(0, jsx_runtime_1.jsxs)(primitives_1.Inline, { align: "center", gap: 2, children: [(0, jsx_runtime_1.jsx)(core_1.Badge, { variant: "primary", size: "sm", children: "1" }), (0, jsx_runtime_1.jsx)(primitives_1.Text, { size: "lg", weight: "bold", color: semanticColors.foreground, children: "Instala\u00E7\u00E3o dos Pacotes" })] }), (0, jsx_runtime_1.jsx)(core_1.Button, { variant: "ghost", size: "sm", onPress: () => copySnippet(codeSnippets.install, "install"), leftIcon: copiedCode === "install" ? (0, jsx_runtime_1.jsx)(icons_1.CheckIcon, { size: 14, color: baseTokens.colors.success[500] }) : (0, jsx_runtime_1.jsx)(icons_1.CopyIcon, { size: 14, color: semanticColors.foregroundMuted }), children: copiedCode === "install" ? "Copiado!" : "Copiar" })] }) }), (0, jsx_runtime_1.jsx)(core_1.Card.Content, { children: (0, jsx_runtime_1.jsx)(primitives_1.Box, { style: {
                                                 backgroundColor: (0, tokens_1.withAlpha)("#000000", 0.5),
                                                 borderRadius: 8,
                                                 padding: 14,

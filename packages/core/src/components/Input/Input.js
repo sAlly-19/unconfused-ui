@@ -39,6 +39,7 @@ const react_1 = __importStar(require("react"));
 const react_native_1 = require("react-native");
 const primitives_1 = require("@unconfused-ui/primitives");
 const theme_1 = require("@unconfused-ui/theme");
+const tokens_1 = require("@unconfused-ui/tokens");
 exports.Input = react_1.default.forwardRef(({ size = "md", variant = "default", label, helperText, error, success, required = false, disabled = false, clearable = false, onClear, leftIcon, rightIcon, prefix, suffix, loading = false, value, onChangeText, containerStyle, inputStyle, style, onFocus, onBlur, ...rest }, ref) => {
     const { semanticColors, baseTokens } = (0, theme_1.useTheme)();
     const [isFocused, setIsFocused] = (0, react_1.useState)(false);
@@ -66,29 +67,29 @@ exports.Input = react_1.default.forwardRef(({ size = "md", variant = "default", 
     };
     const getBgColor = () => {
         if (disabled)
-            return "rgba(255, 255, 255, 0.02)";
+            return (0, tokens_1.withAlpha)(baseTokens.colors.white, 0.02);
         switch (variant) {
             case "glass":
-                return "rgba(255, 255, 255, 0.03)";
+                return (0, tokens_1.withAlpha)(baseTokens.colors.white, 0.03);
             case "filled":
-                return "rgba(255, 255, 255, 0.05)";
+                return (0, tokens_1.withAlpha)(baseTokens.colors.white, 0.05);
             case "bordered":
                 return "transparent";
             case "default":
             default:
-                return "rgba(255, 255, 255, 0.03)";
+                return (0, tokens_1.withAlpha)(baseTokens.colors.white, 0.03);
         }
     };
     const getBorderColor = () => {
         if (disabled)
-            return "rgba(255, 255, 255, 0.04)";
+            return (0, tokens_1.withAlpha)(baseTokens.colors.white, 0.04);
         if (error)
             return semanticColors.danger;
         if (success)
             return baseTokens.colors.success[500];
         if (isFocused)
             return semanticColors.primary;
-        return "rgba(255, 255, 255, 0.08)";
+        return (0, tokens_1.withAlpha)(baseTokens.colors.white, 0.08);
     };
     const hasValue = value !== undefined && value.length > 0;
     return ((0, jsx_runtime_1.jsxs)(primitives_1.Box, { style: [{ gap: 6, opacity: disabled ? 0.6 : 1 }, containerStyle], children: [label && ((0, jsx_runtime_1.jsxs)(primitives_1.Inline, { align: "center", gap: 1, children: [(0, jsx_runtime_1.jsx)(primitives_1.Text, { size: "xs", weight: "bold", color: error ? semanticColors.danger : semanticColors.foregroundMuted, style: { textTransform: "uppercase", letterSpacing: 0.8, fontSize: 11 }, children: label }), required && ((0, jsx_runtime_1.jsx)(primitives_1.Text, { size: "xs", weight: "bold", color: semanticColors.danger, children: "*" }))] })), (0, jsx_runtime_1.jsxs)(react_native_1.View, { style: [

@@ -1,5 +1,6 @@
 import { createRecipe } from "@unconfused-ui/recipes";
 import { SemanticTokens } from "@unconfused-ui/tokens";
+import { withAlpha } from "@unconfused-ui/tokens";
 
 export function getSidebarNavItemRecipe(colors: SemanticTokens) {
   return createRecipe({
@@ -15,9 +16,9 @@ export function getSidebarNavItemRecipe(colors: SemanticTokens) {
     variants: {
       active: {
         active: {
-          backgroundColor: "rgba(255, 255, 255, 0.08)",
+          backgroundColor: withAlpha(colors.foreground, 0.08),
           borderWidth: 1,
-          borderColor: "rgba(255, 255, 255, 0.12)",
+          borderColor: withAlpha(colors.foreground, 0.12),
         },
         inactive: {
           backgroundColor: "transparent",

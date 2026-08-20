@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import { Box, HStack, Inline, Pressable, Text } from "@unconfused-ui/primitives";
 import { useTheme } from "@unconfused-ui/theme";
+import { withAlpha } from "@unconfused-ui/tokens";
 
 export type InputSize = "sm" | "md" | "lg";
 export type InputVariant = "default" | "glass" | "filled" | "bordered";
@@ -90,26 +91,26 @@ export const Input = React.forwardRef<RNTextInput, InputProps>(
     };
 
     const getBgColor = () => {
-      if (disabled) return "rgba(255, 255, 255, 0.02)";
+      if (disabled) return withAlpha(baseTokens.colors.white, 0.02);
       switch (variant) {
         case "glass":
-          return "rgba(255, 255, 255, 0.03)";
+          return withAlpha(baseTokens.colors.white, 0.03);
         case "filled":
-          return "rgba(255, 255, 255, 0.05)";
+          return withAlpha(baseTokens.colors.white, 0.05);
         case "bordered":
           return "transparent";
         case "default":
         default:
-          return "rgba(255, 255, 255, 0.03)";
+          return withAlpha(baseTokens.colors.white, 0.03);
       }
     };
 
     const getBorderColor = () => {
-      if (disabled) return "rgba(255, 255, 255, 0.04)";
+      if (disabled) return withAlpha(baseTokens.colors.white, 0.04);
       if (error) return semanticColors.danger;
       if (success) return baseTokens.colors.success[500];
       if (isFocused) return semanticColors.primary;
-      return "rgba(255, 255, 255, 0.08)";
+      return withAlpha(baseTokens.colors.white, 0.08);
     };
 
     const hasValue = value !== undefined && value.length > 0;

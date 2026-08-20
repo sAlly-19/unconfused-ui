@@ -8,7 +8,8 @@ const hooks_1 = require("@unconfused-ui/hooks");
 const primitives_1 = require("@unconfused-ui/primitives");
 const recipes_1 = require("@unconfused-ui/recipes");
 const theme_1 = require("@unconfused-ui/theme");
-const getTabsRecipe = (semanticColors) => (0, recipes_1.createSlotRecipe)({
+const tokens_1 = require("@unconfused-ui/tokens");
+const getTabsRecipe = (semanticColors, baseTokens) => (0, recipes_1.createSlotRecipe)({
     slots: ["root", "list", "trigger", "content"],
     base: {
         root: {
@@ -22,7 +23,7 @@ const getTabsRecipe = (semanticColors) => (0, recipes_1.createSlotRecipe)({
             borderRadius: 10,
             backgroundColor: semanticColors.surfaceSubtle,
             borderWidth: 1,
-            borderColor: "rgba(255, 255, 255, 0.06)",
+            borderColor: (0, tokens_1.withAlpha)(baseTokens.colors.white, 0.06),
         },
         trigger: {
             flex: 1,
@@ -65,13 +66,13 @@ function useTabsContext() {
     return context;
 }
 const TabsRoot = ({ value: propValue, defaultValue = "", onValueChange, variant = "default", style, children, }) => {
-    const { semanticColors } = (0, theme_1.useTheme)();
+    const { semanticColors, baseTokens } = (0, theme_1.useTheme)();
     const [value, setValue] = (0, hooks_1.useControllableState)({
         value: propValue,
         defaultValue,
         onChange: onValueChange,
     });
-    const recipe = getTabsRecipe(semanticColors);
+    const recipe = getTabsRecipe(semanticColors, baseTokens);
     const styles = (0, react_1.useMemo)(() => recipe({ variant }), [recipe, variant]);
     return ((0, jsx_runtime_1.jsx)(TabsContext.Provider, { value: { value, setValue, styles }, children: (0, jsx_runtime_1.jsx)(primitives_1.Stack, { style: [styles.root, style], children: children }) }));
 };
@@ -85,13 +86,13 @@ exports.TabsList = TabsList;
 exports.TabsList.displayName = "Tabs.List";
 const TabsTrigger = ({ value: triggerValue, label, style, children }) => {
     const { value, setValue, styles } = useTabsContext();
-    const { semanticColors } = (0, theme_1.useTheme)();
+    const { semanticColors, baseTokens } = (0, theme_1.useTheme)();
     const isSelected = value === triggerValue;
     const activeTriggerStyle = {
         backgroundColor: isSelected ? semanticColors.surface : "transparent",
         borderWidth: isSelected ? 1 : 0,
-        borderColor: isSelected ? "rgba(255, 255, 255, 0.1)" : "transparent",
-        shadowColor: isSelected ? "#000" : "transparent",
+        borderColor: isSelected ? (0, tokens_1.withAlpha)(baseTokens.colors.white, 0.1) : "transparent",
+        shadowColor: isSelected ? (0, tokens_1.withAlpha)(baseTokens.colors.black, 0.15) : "transparent",
         shadowOffset: { width: 0, height: 1 },
         shadowOpacity: isSelected ? 0.15 : 0,
         shadowRadius: 3,

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { View, ViewStyle } from "react-native";
 import { Box, HStack, Inline, Pressable, Stack, Text, VStack } from "@unconfused-ui/primitives";
 import { useTheme } from "@unconfused-ui/theme";
+import { withAlpha } from "@unconfused-ui/tokens";
 import { Accordion, AccordionItem, AccordionItemProps, AccordionProps } from "./Accordion";
 
 export * from "./Accordion";
@@ -72,7 +73,7 @@ export const Collapsible = ({
             paddingBottom: 16,
             paddingTop: 4,
             borderTopWidth: 1,
-            borderTopColor: "rgba(255, 255, 255, 0.06)",
+            borderTopColor: withAlpha("#FFFFFF", 0.06),
           }}
         >
           {typeof children === "string" ? (

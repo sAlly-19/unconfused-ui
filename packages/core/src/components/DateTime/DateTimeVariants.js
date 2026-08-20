@@ -6,6 +6,7 @@ const react_1 = require("react");
 const react_native_1 = require("react-native");
 const primitives_1 = require("@unconfused-ui/primitives");
 const theme_1 = require("@unconfused-ui/theme");
+const tokens_1 = require("@unconfused-ui/tokens");
 const Button_1 = require("../Button");
 const Input_1 = require("../Input");
 const DateInput = (props) => ((0, jsx_runtime_1.jsx)(Input_1.Input, { placeholder: "YYYY-MM-DD", leftIcon: (0, jsx_runtime_1.jsx)(primitives_1.Text, { size: "xs", children: "\uD83D\uDCC5" }), ...props }));
@@ -16,14 +17,14 @@ exports.TimeInput = TimeInput;
 exports.TimeInput.displayName = "TimeInput";
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 const MonthPicker = ({ selectedMonth = 7, onSelectMonth, style }) => {
-    const { semanticColors } = (0, theme_1.useTheme)();
+    const { semanticColors, baseTokens } = (0, theme_1.useTheme)();
     return ((0, jsx_runtime_1.jsx)(primitives_1.Box, { style: [
             {
                 padding: 16,
-                backgroundColor: "rgba(16, 18, 30, 0.95)",
+                backgroundColor: (0, tokens_1.withAlpha)(baseTokens.colors.black, 0.95),
                 borderRadius: 16,
                 borderWidth: 1,
-                borderColor: "rgba(255, 255, 255, 0.1)",
+                borderColor: (0, tokens_1.withAlpha)(baseTokens.colors.white, 0.1),
             },
             style,
         ], children: (0, jsx_runtime_1.jsx)(primitives_1.Inline, { gap: 2, wrap: true, style: { maxWidth: 280 }, children: MONTHS.map((month, idx) => {
@@ -32,24 +33,24 @@ const MonthPicker = ({ selectedMonth = 7, onSelectMonth, style }) => {
                         width: 60,
                         height: 38,
                         borderRadius: 10,
-                        backgroundColor: isSelected ? semanticColors.primary : "rgba(255, 255, 255, 0.05)",
+                        backgroundColor: isSelected ? semanticColors.primary : (0, tokens_1.withAlpha)(baseTokens.colors.white, 0.05),
                         alignItems: "center",
                         justifyContent: "center",
-                    }, children: (0, jsx_runtime_1.jsx)(primitives_1.Text, { size: "xs", weight: isSelected ? "bold" : "medium", color: isSelected ? "#FFF" : semanticColors.foreground, children: month }) }, month));
+                    }, children: (0, jsx_runtime_1.jsx)(primitives_1.Text, { size: "xs", weight: isSelected ? "bold" : "medium", color: isSelected ? baseTokens.colors.white : semanticColors.foreground, children: month }) }, month));
             }) }) }));
 };
 exports.MonthPicker = MonthPicker;
 exports.MonthPicker.displayName = "MonthPicker";
 const YearPicker = ({ startYear = 2020, selectedYear = 2026, onSelectYear, style }) => {
-    const { semanticColors } = (0, theme_1.useTheme)();
+    const { semanticColors, baseTokens } = (0, theme_1.useTheme)();
     const years = Array.from({ length: 12 }, (_, i) => startYear + i);
     return ((0, jsx_runtime_1.jsx)(primitives_1.Box, { style: [
             {
                 padding: 16,
-                backgroundColor: "rgba(16, 18, 30, 0.95)",
+                backgroundColor: (0, tokens_1.withAlpha)(baseTokens.colors.black, 0.95),
                 borderRadius: 16,
                 borderWidth: 1,
-                borderColor: "rgba(255, 255, 255, 0.1)",
+                borderColor: (0, tokens_1.withAlpha)(baseTokens.colors.white, 0.1),
             },
             style,
         ], children: (0, jsx_runtime_1.jsx)(primitives_1.Inline, { gap: 2, wrap: true, style: { maxWidth: 280 }, children: years.map((yr) => {
@@ -58,25 +59,25 @@ const YearPicker = ({ startYear = 2020, selectedYear = 2026, onSelectYear, style
                         width: 60,
                         height: 38,
                         borderRadius: 10,
-                        backgroundColor: isSelected ? semanticColors.primary : "rgba(255, 255, 255, 0.05)",
+                        backgroundColor: isSelected ? semanticColors.primary : (0, tokens_1.withAlpha)(baseTokens.colors.white, 0.05),
                         alignItems: "center",
                         justifyContent: "center",
-                    }, children: (0, jsx_runtime_1.jsx)(primitives_1.Text, { size: "xs", weight: isSelected ? "bold" : "medium", color: isSelected ? "#FFF" : semanticColors.foreground, children: yr }) }, yr));
+                    }, children: (0, jsx_runtime_1.jsx)(primitives_1.Text, { size: "xs", weight: isSelected ? "bold" : "medium", color: isSelected ? baseTokens.colors.white : semanticColors.foreground, children: yr }) }, yr));
             }) }) }));
 };
 exports.YearPicker = YearPicker;
 exports.YearPicker.displayName = "YearPicker";
 const WEEKDAYS = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"];
 const Calendar = ({ month = "August 2026", selectedDate = 19, onSelectDate, events = [14, 19, 24], style, }) => {
-    const { semanticColors } = (0, theme_1.useTheme)();
+    const { semanticColors, baseTokens } = (0, theme_1.useTheme)();
     const days = Array.from({ length: 31 }, (_, i) => i + 1);
     return ((0, jsx_runtime_1.jsx)(primitives_1.Box, { style: [
             {
                 padding: 18,
-                backgroundColor: "rgba(16, 18, 30, 0.95)",
+                backgroundColor: (0, tokens_1.withAlpha)(baseTokens.colors.black, 0.95),
                 borderRadius: 16,
                 borderWidth: 1,
-                borderColor: "rgba(255, 255, 255, 0.1)",
+                borderColor: (0, tokens_1.withAlpha)(baseTokens.colors.white, 0.1),
                 maxWidth: 320,
             },
             style,
@@ -91,7 +92,7 @@ const Calendar = ({ month = "August 2026", selectedDate = 19, onSelectDate, even
                                 alignItems: "center",
                                 justifyContent: "center",
                                 position: "relative",
-                            }, children: [(0, jsx_runtime_1.jsx)(primitives_1.Text, { size: "xs", weight: isSelected ? "bold" : "medium", color: isSelected ? "#FFF" : semanticColors.foreground, children: day }), hasEvent && !isSelected && ((0, jsx_runtime_1.jsx)(react_native_1.View, { style: {
+                            }, children: [(0, jsx_runtime_1.jsx)(primitives_1.Text, { size: "xs", weight: isSelected ? "bold" : "medium", color: isSelected ? baseTokens.colors.white : semanticColors.foreground, children: day }), hasEvent && !isSelected && ((0, jsx_runtime_1.jsx)(react_native_1.View, { style: {
                                         position: "absolute",
                                         bottom: 3,
                                         width: 4,

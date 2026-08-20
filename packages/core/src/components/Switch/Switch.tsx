@@ -3,6 +3,7 @@ import { View, ViewStyle } from "react-native";
 import { useControllableState } from "@unconfused-ui/hooks";
 import { Inline, Pressable, Text } from "@unconfused-ui/primitives";
 import { useTheme } from "@unconfused-ui/theme";
+import { withAlpha } from "@unconfused-ui/tokens";
 
 export type SwitchProps = {
   checked?: boolean;
@@ -21,7 +22,7 @@ export const Switch = ({
   label,
   style,
 }: SwitchProps) => {
-  const { semanticColors } = useTheme();
+  const { semanticColors, baseTokens } = useTheme();
   const [isChecked, setIsChecked] = useControllableState({
     value: propChecked,
     defaultValue: defaultChecked,
@@ -42,7 +43,7 @@ export const Switch = ({
     borderColor: isChecked ? semanticColors.primary : semanticColors.border,
     padding: 2,
     justifyContent: "center",
-    shadowColor: isChecked ? semanticColors.primary : "transparent",
+    shadowColor: isChecked ? withAlpha(baseTokens.colors.black, 0.15) : "transparent",
     shadowOffset: { width: 0, height: 0 },
     shadowOpacity: 0.3,
     shadowRadius: 8,
@@ -53,9 +54,9 @@ export const Switch = ({
     width: 20,
     height: 20,
     borderRadius: 10,
-    backgroundColor: "#FFFFFF",
+    backgroundColor: baseTokens.colors.white,
     alignSelf: isChecked ? "flex-end" : "flex-start",
-    shadowColor: "#000",
+    shadowColor: withAlpha(baseTokens.colors.black, 0.2),
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
     shadowRadius: 3,

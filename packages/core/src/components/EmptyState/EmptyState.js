@@ -4,29 +4,32 @@ exports.LoadingState = exports.OfflineState = exports.ErrorState = exports.NotFo
 const jsx_runtime_1 = require("react/jsx-runtime");
 const primitives_1 = require("@unconfused-ui/primitives");
 const theme_1 = require("@unconfused-ui/theme");
+const tokens_1 = require("@unconfused-ui/tokens");
 const Button_1 = require("../Button");
 const FeedbackVariants_1 = require("../Feedback/FeedbackVariants");
+const getEmptyStateSurfaceStyle = (semanticColors, baseTokens) => ({
+    padding: 36,
+    borderRadius: 20,
+    backgroundColor: (0, tokens_1.withAlpha)(baseTokens.colors.black, 0.8),
+    borderWidth: 1,
+    borderColor: semanticColors.borderSubtle,
+    alignItems: "center",
+    justifyContent: "center",
+});
+const getIconGlowStyle = (semanticColors) => ({
+    width: 72,
+    height: 72,
+    borderRadius: 36,
+    backgroundColor: (0, tokens_1.withAlpha)(semanticColors.primary, 0.15),
+    borderWidth: 1,
+    borderColor: (0, tokens_1.withAlpha)(semanticColors.primary, 0.3),
+});
 const EmptyState = ({ title = "No Items Found", description = "There is no data to display at the moment.", icon = (0, jsx_runtime_1.jsx)(primitives_1.Text, { size: "3xl", children: "\uD83D\uDCED" }), actionLabel, onAction, secondaryActionLabel, onSecondaryAction, style, }) => {
-    const { semanticColors } = (0, theme_1.useTheme)();
+    const { semanticColors, baseTokens } = (0, theme_1.useTheme)();
     return ((0, jsx_runtime_1.jsx)(primitives_1.Box, { style: [
-            {
-                padding: 36,
-                borderRadius: 20,
-                backgroundColor: "rgba(16, 18, 30, 0.8)",
-                borderWidth: 1,
-                borderColor: "rgba(255, 255, 255, 0.08)",
-                alignItems: "center",
-                justifyContent: "center",
-            },
+            getEmptyStateSurfaceStyle(semanticColors, baseTokens),
             style,
-        ], children: (0, jsx_runtime_1.jsxs)(primitives_1.VStack, { gap: 4, align: "center", style: { maxWidth: 380 }, children: [(0, jsx_runtime_1.jsx)(primitives_1.Center, { style: {
-                        width: 72,
-                        height: 72,
-                        borderRadius: 36,
-                        backgroundColor: "rgba(124, 58, 237, 0.15)",
-                        borderWidth: 1,
-                        borderColor: "rgba(124, 58, 237, 0.3)",
-                    }, children: icon }), (0, jsx_runtime_1.jsxs)(primitives_1.VStack, { gap: 1.5, align: "center", children: [(0, jsx_runtime_1.jsx)(primitives_1.Text, { size: "lg", weight: "bold", color: semanticColors.foreground, style: { textAlign: "center" }, children: title }), (0, jsx_runtime_1.jsx)(primitives_1.Text, { size: "xs", color: semanticColors.foregroundMuted, style: { textAlign: "center", lineHeight: 18 }, children: description })] }), (actionLabel || secondaryActionLabel) && ((0, jsx_runtime_1.jsxs)(primitives_1.Inline, { gap: 2, style: { marginTop: 4 }, children: [secondaryActionLabel && onSecondaryAction && ((0, jsx_runtime_1.jsx)(Button_1.Button, { size: "sm", variant: "ghost", onPress: onSecondaryAction, children: secondaryActionLabel })), actionLabel && onAction && ((0, jsx_runtime_1.jsx)(Button_1.Button, { size: "sm", variant: "primary", onPress: onAction, children: actionLabel }))] }))] }) }));
+        ], children: (0, jsx_runtime_1.jsxs)(primitives_1.VStack, { gap: 4, align: "center", style: { maxWidth: 380 }, children: [(0, jsx_runtime_1.jsx)(primitives_1.Center, { style: getIconGlowStyle(semanticColors), children: icon }), (0, jsx_runtime_1.jsxs)(primitives_1.VStack, { gap: 1.5, align: "center", children: [(0, jsx_runtime_1.jsx)(primitives_1.Text, { size: "lg", weight: "bold", color: semanticColors.foreground, style: { textAlign: "center" }, children: title }), (0, jsx_runtime_1.jsx)(primitives_1.Text, { size: "xs", color: semanticColors.foregroundMuted, style: { textAlign: "center", lineHeight: 18 }, children: description })] }), (actionLabel || secondaryActionLabel) && ((0, jsx_runtime_1.jsxs)(primitives_1.Inline, { gap: 2, style: { marginTop: 4 }, children: [secondaryActionLabel && onSecondaryAction && ((0, jsx_runtime_1.jsx)(Button_1.Button, { size: "sm", variant: "ghost", onPress: onSecondaryAction, children: secondaryActionLabel })), actionLabel && onAction && ((0, jsx_runtime_1.jsx)(Button_1.Button, { size: "sm", variant: "primary", onPress: onAction, children: actionLabel }))] }))] }) }));
 };
 exports.EmptyState = EmptyState;
 exports.EmptyState.displayName = "EmptyState";
@@ -48,17 +51,9 @@ exports.OfflineState = OfflineState;
 exports.OfflineState.displayName = "OfflineState";
 // 5. LoadingState (Activity container)
 const LoadingState = ({ title = "Synchronizing Telemetry...", description = "Pulling latest replica metrics from distributed edge workers.", style, }) => {
-    const { semanticColors } = (0, theme_1.useTheme)();
+    const { semanticColors, baseTokens } = (0, theme_1.useTheme)();
     return ((0, jsx_runtime_1.jsx)(primitives_1.Box, { style: [
-            {
-                padding: 36,
-                borderRadius: 20,
-                backgroundColor: "rgba(16, 18, 30, 0.8)",
-                borderWidth: 1,
-                borderColor: "rgba(255, 255, 255, 0.08)",
-                alignItems: "center",
-                justifyContent: "center",
-            },
+            getEmptyStateSurfaceStyle(semanticColors, baseTokens),
             style,
         ], children: (0, jsx_runtime_1.jsxs)(primitives_1.VStack, { gap: 3, align: "center", style: { maxWidth: 360 }, children: [(0, jsx_runtime_1.jsx)(FeedbackVariants_1.Spinner, { size: "large" }), (0, jsx_runtime_1.jsxs)(primitives_1.VStack, { gap: 1, align: "center", children: [(0, jsx_runtime_1.jsx)(primitives_1.Text, { size: "md", weight: "bold", color: semanticColors.foreground, style: { textAlign: "center" }, children: title }), (0, jsx_runtime_1.jsx)(primitives_1.Text, { size: "xs", color: semanticColors.foregroundMuted, style: { textAlign: "center" }, children: description })] })] }) }));
 };

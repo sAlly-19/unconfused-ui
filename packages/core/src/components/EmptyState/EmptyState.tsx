@@ -17,6 +17,25 @@ export type EmptyStateProps = {
   style?: ViewStyle;
 };
 
+const getEmptyStateSurfaceStyle = (semanticColors: any, baseTokens: any): ViewStyle => ({
+  padding: 36,
+  borderRadius: 20,
+  backgroundColor: withAlpha(baseTokens.colors.black, 0.8),
+  borderWidth: 1,
+  borderColor: semanticColors.borderSubtle,
+  alignItems: "center" as const,
+  justifyContent: "center" as const,
+});
+
+const getIconGlowStyle = (semanticColors: any): ViewStyle => ({
+  width: 72,
+  height: 72,
+  borderRadius: 36,
+  backgroundColor: withAlpha(semanticColors.primary, 0.15),
+  borderWidth: 1,
+  borderColor: withAlpha(semanticColors.primary, 0.3),
+});
+
 export const EmptyState = ({
   title = "No Items Found",
   description = "There is no data to display at the moment.",
@@ -32,29 +51,14 @@ export const EmptyState = ({
   return (
     <Box
       style={[
-        {
-          padding: 36,
-          borderRadius: 20,
-          backgroundColor: withAlpha(baseTokens.colors.black, 0.8),
-          borderWidth: 1,
-          borderColor: semanticColors.borderSubtle,
-          alignItems: "center",
-          justifyContent: "center",
-        },
+        getEmptyStateSurfaceStyle(semanticColors, baseTokens),
         style,
       ]}
     >
       <VStack gap={4} align="center" style={{ maxWidth: 380 }}>
         {/* Icon Circle Glow */}
         <Center
-          style={{
-            width: 72,
-            height: 72,
-            borderRadius: 36,
-            backgroundColor: withAlpha(semanticColors.primary, 0.15),
-            borderWidth: 1,
-            borderColor: withAlpha(semanticColors.primary, 0.3),
-          }}
+          style={getIconGlowStyle(semanticColors)}
         >
           {icon}
         </Center>
@@ -147,15 +151,7 @@ export const LoadingState = ({
   return (
     <Box
       style={[
-        {
-          padding: 36,
-          borderRadius: 20,
-          backgroundColor: withAlpha(baseTokens.colors.black, 0.8),
-          borderWidth: 1,
-          borderColor: semanticColors.borderSubtle,
-          alignItems: "center",
-          justifyContent: "center",
-        },
+        getEmptyStateSurfaceStyle(semanticColors, baseTokens),
         style,
       ]}
     >

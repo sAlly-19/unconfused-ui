@@ -3,6 +3,7 @@ import { Modal, ScrollView, TextInput, TextStyle, View, ViewStyle } from "react-
 import { useControllableState } from "@unconfused-ui/hooks";
 import { Box, HStack, Inline, Pressable, Stack, Text, VStack } from "@unconfused-ui/primitives";
 import { useTheme } from "@unconfused-ui/theme";
+import { withAlpha } from "@unconfused-ui/tokens";
 import { Badge } from "../Badge";
 import { Checkbox } from "../Checkbox";
 import { SelectOption } from "../Select";
@@ -74,7 +75,7 @@ export const Toggle = ({
   style,
   children,
 }: ToggleProps) => {
-  const { semanticColors } = useTheme();
+  const { semanticColors, baseTokens } = useTheme();
   const [pressed, setPressed] = useControllableState({
     value: propPressed,
     defaultValue: defaultPressed,
@@ -95,7 +96,7 @@ export const Toggle = ({
           height,
           paddingHorizontal: padding,
           borderRadius: 8,
-          backgroundColor: pressed ? "rgba(124, 58, 237, 0.2)" : "rgba(255, 255, 255, 0.05)",
+          backgroundColor: pressed ? withAlpha(semanticColors.primary, 0.2) : withAlpha(baseTokens.colors.white, 0.05),
           borderWidth: 1,
           borderColor: pressed ? semanticColors.primary : semanticColors.border,
           alignItems: "center",

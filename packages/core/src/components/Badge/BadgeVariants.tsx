@@ -2,6 +2,7 @@ import React from "react";
 import { View, ViewStyle } from "react-native";
 import { Box, Center, Inline, Pressable, Text } from "@unconfused-ui/primitives";
 import { useTheme } from "@unconfused-ui/theme";
+import { withAlpha } from "@unconfused-ui/tokens";
 import { Badge, BadgeProps } from "./Badge";
 
 export * from "./Badge";
@@ -37,18 +38,22 @@ export type TagProps = BadgeProps & {
   onRemove?: () => void;
 };
 
-export const Tag = ({ onRemove, children, ...props }: TagProps) => (
-  <Badge {...props}>
-    <Inline align="center" gap={1.5}>
-      <Text size="xs" weight="medium">{children}</Text>
-      {onRemove && (
-        <Pressable onPress={onRemove} accessibilityLabel="Remove Tag">
-          <Text size="xs" color="rgba(255,255,255,0.6)">✕</Text>
-        </Pressable>
-      )}
-    </Inline>
-  </Badge>
-);
+export const Tag = ({ onRemove, children, ...props }: TagProps) => {
+  const { baseTokens } = useTheme();
+
+  return (
+    <Badge {...props}>
+      <Inline align="center" gap={1.5}>
+        <Text size="xs" weight="medium">{children}</Text>
+        {onRemove && (
+          <Pressable onPress={onRemove} accessibilityLabel="Remove Tag">
+            <Text size="xs" color={withAlpha(baseTokens.colors.white, 0.6)}>✕</Text>
+          </Pressable>
+        )}
+      </Inline>
+    </Badge>
+  );
+};
 Tag.displayName = "Tag";
 
 // 3. Chip (Interactive selectable chip)
@@ -61,7 +66,7 @@ export type ChipProps = {
 };
 
 export const Chip = ({ label, icon, selected = false, onPress, style }: ChipProps) => {
-  const { semanticColors } = useTheme();
+  const { semanticColors, baseTokens } = useTheme();
 
   return (
     <Pressable
@@ -77,9 +82,9 @@ export const Chip = ({ label, icon, selected = false, onPress, style }: ChipProp
           paddingHorizontal: 12,
           paddingVertical: 6,
           borderRadius: 20,
-          backgroundColor: selected ? "rgba(124, 58, 237, 0.25)" : "rgba(255, 255, 255, 0.05)",
+          backgroundColor: selected ? withAlpha(baseTokens.brand[500], 0.25) : withAlpha(baseTokens.colors.white, 0.05),
           borderWidth: 1,
-          borderColor: selected ? semanticColors.primary : "rgba(255, 255, 255, 0.12)",
+          borderColor: selected ? semanticColors.primary : withAlpha(baseTokens.colors.white, 0.12),
         },
         style,
       ]}
@@ -111,7 +116,7 @@ export type DotProps = {
 };
 
 export const Dot = ({ color, size = 8, pulse = false, style }: DotProps) => {
-  const { semanticColors } = useTheme();
+  const { semanticColors, baseTokens } = useTheme();
   const activeColor = color ?? semanticColors.primary;
 
   return (
@@ -122,9 +127,9 @@ export const Dot = ({ color, size = 8, pulse = false, style }: DotProps) => {
           height: size,
           borderRadius: size / 2,
           backgroundColor: activeColor,
-          shadowColor: pulse ? activeColor : "transparent",
+          shadowColor: pulse ? withAlpha(baseTokens.colors.black, 0.8) : "transparent",
           shadowOffset: { width: 0, height: 0 },
-          shadowOpacity: 0.8,
+          shadowOpacity: pulse ? 1 : 0,
           shadowRadius: 6,
           elevation: pulse ? 3 : 0,
         },
@@ -146,7 +151,7 @@ export type CounterProps = {
 };
 
 export const Counter = ({ count, max = 99, variant = "danger", style }: CounterProps) => {
-  const { semanticColors } = useTheme();
+  const { semanticColors, baseTokens } = useTheme();
   const display = count > max ? `${max}+` : count.toString();
 
   const bg =
@@ -171,7 +176,7 @@ export const Counter = ({ count, max = 99, variant = "danger", style }: CounterP
         style,
       ]}
     >
-      <Text size="xs" weight="bold" color="#FFF" style={{ fontSize: 10 }}>
+      <Text size="xs" weight="bold" color={baseTokens.colors.white} style={{ fontSize: 10 }}>
         {display}
       </Text>
     </Center>

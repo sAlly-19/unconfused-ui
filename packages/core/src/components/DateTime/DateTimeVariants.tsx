@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Modal, View, ViewStyle } from "react-native";
 import { Box, HStack, Inline, Pressable, Stack, Text, VStack } from "@unconfused-ui/primitives";
 import { useTheme } from "@unconfused-ui/theme";
+import { withAlpha } from "@unconfused-ui/tokens";
 import { Button } from "../Button";
 import { Input, InputProps } from "../Input";
 
@@ -28,17 +29,17 @@ export type MonthPickerProps = {
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
 export const MonthPicker = ({ selectedMonth = 7, onSelectMonth, style }: MonthPickerProps) => {
-  const { semanticColors } = useTheme();
+  const { semanticColors, baseTokens } = useTheme();
 
   return (
     <Box
       style={[
         {
           padding: 16,
-          backgroundColor: "rgba(16, 18, 30, 0.95)",
+          backgroundColor: withAlpha(baseTokens.colors.black, 0.95),
           borderRadius: 16,
           borderWidth: 1,
-          borderColor: "rgba(255, 255, 255, 0.1)",
+          borderColor: withAlpha(baseTokens.colors.white, 0.1),
         },
         style,
       ]}
@@ -54,7 +55,7 @@ export const MonthPicker = ({ selectedMonth = 7, onSelectMonth, style }: MonthPi
                 width: 60,
                 height: 38,
                 borderRadius: 10,
-                backgroundColor: isSelected ? semanticColors.primary : "rgba(255, 255, 255, 0.05)",
+                backgroundColor: isSelected ? semanticColors.primary : withAlpha(baseTokens.colors.white, 0.05),
                 alignItems: "center",
                 justifyContent: "center",
               }}
@@ -62,7 +63,7 @@ export const MonthPicker = ({ selectedMonth = 7, onSelectMonth, style }: MonthPi
               <Text
                 size="xs"
                 weight={isSelected ? "bold" : "medium"}
-                color={isSelected ? "#FFF" : semanticColors.foreground}
+                color={isSelected ? baseTokens.colors.white : semanticColors.foreground}
               >
                 {month}
               </Text>
@@ -84,7 +85,7 @@ export type YearPickerProps = {
 };
 
 export const YearPicker = ({ startYear = 2020, selectedYear = 2026, onSelectYear, style }: YearPickerProps) => {
-  const { semanticColors } = useTheme();
+  const { semanticColors, baseTokens } = useTheme();
   const years = Array.from({ length: 12 }, (_, i) => startYear + i);
 
   return (
@@ -92,10 +93,10 @@ export const YearPicker = ({ startYear = 2020, selectedYear = 2026, onSelectYear
       style={[
         {
           padding: 16,
-          backgroundColor: "rgba(16, 18, 30, 0.95)",
+          backgroundColor: withAlpha(baseTokens.colors.black, 0.95),
           borderRadius: 16,
           borderWidth: 1,
-          borderColor: "rgba(255, 255, 255, 0.1)",
+          borderColor: withAlpha(baseTokens.colors.white, 0.1),
         },
         style,
       ]}
@@ -111,7 +112,7 @@ export const YearPicker = ({ startYear = 2020, selectedYear = 2026, onSelectYear
                 width: 60,
                 height: 38,
                 borderRadius: 10,
-                backgroundColor: isSelected ? semanticColors.primary : "rgba(255, 255, 255, 0.05)",
+                backgroundColor: isSelected ? semanticColors.primary : withAlpha(baseTokens.colors.white, 0.05),
                 alignItems: "center",
                 justifyContent: "center",
               }}
@@ -119,7 +120,7 @@ export const YearPicker = ({ startYear = 2020, selectedYear = 2026, onSelectYear
               <Text
                 size="xs"
                 weight={isSelected ? "bold" : "medium"}
-                color={isSelected ? "#FFF" : semanticColors.foreground}
+                color={isSelected ? baseTokens.colors.white : semanticColors.foreground}
               >
                 {yr}
               </Text>
@@ -150,7 +151,7 @@ export const Calendar = ({
   events = [14, 19, 24],
   style,
 }: CalendarProps) => {
-  const { semanticColors } = useTheme();
+  const { semanticColors, baseTokens } = useTheme();
   const days = Array.from({ length: 31 }, (_, i) => i + 1);
 
   return (
@@ -158,10 +159,10 @@ export const Calendar = ({
       style={[
         {
           padding: 18,
-          backgroundColor: "rgba(16, 18, 30, 0.95)",
+          backgroundColor: withAlpha(baseTokens.colors.black, 0.95),
           borderRadius: 16,
           borderWidth: 1,
-          borderColor: "rgba(255, 255, 255, 0.1)",
+          borderColor: withAlpha(baseTokens.colors.white, 0.1),
           maxWidth: 320,
         },
         style,
@@ -217,7 +218,7 @@ export const Calendar = ({
                 <Text
                   size="xs"
                   weight={isSelected ? "bold" : "medium"}
-                  color={isSelected ? "#FFF" : semanticColors.foreground}
+                  color={isSelected ? baseTokens.colors.white : semanticColors.foreground}
                 >
                   {day}
                 </Text>

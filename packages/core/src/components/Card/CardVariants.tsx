@@ -2,6 +2,7 @@ import React from "react";
 import { View, ViewStyle } from "react-native";
 import { Box, HStack, Inline, Pressable, Stack, Surface, SurfaceProps, Text, VStack } from "@unconfused-ui/primitives";
 import { useTheme } from "@unconfused-ui/theme";
+import { withAlpha } from "@unconfused-ui/tokens";
 import { Card, CardHeader, CardContent, CardFooter, CardTitle, CardDescription } from "./Card";
 
 export * from "./Card";
@@ -67,7 +68,7 @@ export type TileProps = {
 };
 
 export const Tile = ({ title, value, subtitle, icon, badge, trend, style }: TileProps) => {
-  const { semanticColors } = useTheme();
+  const { semanticColors, baseTokens } = useTheme();
 
   return (
     <Box
@@ -75,9 +76,9 @@ export const Tile = ({ title, value, subtitle, icon, badge, trend, style }: Tile
         {
           padding: 16,
           borderRadius: 14,
-          backgroundColor: "rgba(16, 18, 30, 0.8)",
+          backgroundColor: withAlpha(baseTokens.colors.black, 0.8),
           borderWidth: 1,
-          borderColor: "rgba(255, 255, 255, 0.1)",
+          borderColor: withAlpha(baseTokens.colors.white, 0.1),
           gap: 12,
         },
         style,
@@ -100,7 +101,7 @@ export const Tile = ({ title, value, subtitle, icon, badge, trend, style }: Tile
         {(subtitle || trend) && (
           <Inline align="center" gap={2}>
             {trend && (
-              <Text size="xs" weight="bold" color="#10B981">
+              <Text size="xs" weight="bold" color={baseTokens.colors.success[500]}>
                 {trend}
               </Text>
             )}
@@ -140,7 +141,7 @@ export const FeatureCard = ({
   onCtaPress,
   style,
 }: FeatureCardProps) => {
-  const { semanticColors } = useTheme();
+  const { semanticColors, baseTokens } = useTheme();
 
   return (
     <Card variant="glass" accentBar style={style}>
@@ -151,9 +152,9 @@ export const FeatureCard = ({
               width: 44,
               height: 44,
               borderRadius: 12,
-              backgroundColor: "rgba(124, 58, 237, 0.2)",
+              backgroundColor: withAlpha(semanticColors.primary, 0.2),
               borderWidth: 1,
-              borderColor: "rgba(124, 58, 237, 0.4)",
+              borderColor: withAlpha(semanticColors.primary, 0.4),
               alignItems: "center",
               justifyContent: "center",
               marginBottom: 8,
@@ -202,7 +203,7 @@ export const ActionCard = ({
   badge,
   style,
 }: ActionCardProps) => {
-  const { semanticColors } = useTheme();
+  const { semanticColors, baseTokens } = useTheme();
 
   return (
     <Pressable onPress={onAction} disabled={!onAction}>
@@ -211,9 +212,9 @@ export const ActionCard = ({
           {
             padding: 18,
             borderRadius: 16,
-            backgroundColor: "rgba(16, 18, 30, 0.8)",
+            backgroundColor: withAlpha(baseTokens.colors.black, 0.8),
             borderWidth: 1,
-            borderColor: "rgba(255, 255, 255, 0.1)",
+            borderColor: withAlpha(baseTokens.colors.white, 0.1),
             gap: 12,
           },
           style,
@@ -227,7 +228,7 @@ export const ActionCard = ({
                   width: 38,
                   height: 38,
                   borderRadius: 10,
-                  backgroundColor: "rgba(124, 58, 237, 0.15)",
+                  backgroundColor: withAlpha(semanticColors.primary, 0.15),
                   alignItems: "center",
                   justifyContent: "center",
                 }}

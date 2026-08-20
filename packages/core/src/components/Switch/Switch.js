@@ -6,8 +6,9 @@ const react_native_1 = require("react-native");
 const hooks_1 = require("@unconfused-ui/hooks");
 const primitives_1 = require("@unconfused-ui/primitives");
 const theme_1 = require("@unconfused-ui/theme");
+const tokens_1 = require("@unconfused-ui/tokens");
 const Switch = ({ checked: propChecked, defaultChecked = false, onCheckedChange, disabled = false, label, style, }) => {
-    const { semanticColors } = (0, theme_1.useTheme)();
+    const { semanticColors, baseTokens } = (0, theme_1.useTheme)();
     const [isChecked, setIsChecked] = (0, hooks_1.useControllableState)({
         value: propChecked,
         defaultValue: defaultChecked,
@@ -27,7 +28,7 @@ const Switch = ({ checked: propChecked, defaultChecked = false, onCheckedChange,
         borderColor: isChecked ? semanticColors.primary : semanticColors.border,
         padding: 2,
         justifyContent: "center",
-        shadowColor: isChecked ? semanticColors.primary : "transparent",
+        shadowColor: isChecked ? (0, tokens_1.withAlpha)(baseTokens.colors.black, 0.15) : "transparent",
         shadowOffset: { width: 0, height: 0 },
         shadowOpacity: 0.3,
         shadowRadius: 8,
@@ -37,9 +38,9 @@ const Switch = ({ checked: propChecked, defaultChecked = false, onCheckedChange,
         width: 20,
         height: 20,
         borderRadius: 10,
-        backgroundColor: "#FFFFFF",
+        backgroundColor: baseTokens.colors.white,
         alignSelf: isChecked ? "flex-end" : "flex-start",
-        shadowColor: "#000",
+        shadowColor: (0, tokens_1.withAlpha)(baseTokens.colors.black, 0.2),
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.2,
         shadowRadius: 3,

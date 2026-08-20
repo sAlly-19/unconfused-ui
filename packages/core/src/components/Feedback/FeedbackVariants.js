@@ -20,6 +20,7 @@ const react_1 = require("react");
 const react_native_1 = require("react-native");
 const primitives_1 = require("@unconfused-ui/primitives");
 const theme_1 = require("@unconfused-ui/theme");
+const tokens_1 = require("@unconfused-ui/tokens");
 const Button_1 = require("../Button");
 const Progress_1 = require("../Progress");
 __exportStar(require("../Toast"), exports);
@@ -33,37 +34,37 @@ const Alert = ({ title, description, variant = "info", icon, dismissible = false
         switch (variant) {
             case "success":
                 return {
-                    bg: "rgba(16, 185, 129, 0.12)",
-                    border: "rgba(16, 185, 129, 0.35)",
+                    bg: (0, tokens_1.withAlpha)(baseTokens.colors.success[500], 0.12),
+                    border: (0, tokens_1.withAlpha)(baseTokens.colors.success[500], 0.35),
                     defaultIcon: "✓",
                     iconColor: baseTokens.colors.success[500],
                 };
             case "warning":
                 return {
-                    bg: "rgba(245, 158, 11, 0.12)",
-                    border: "rgba(245, 158, 11, 0.35)",
+                    bg: (0, tokens_1.withAlpha)(baseTokens.colors.warning[500], 0.12),
+                    border: (0, tokens_1.withAlpha)(baseTokens.colors.warning[500], 0.35),
                     defaultIcon: "⚠️",
                     iconColor: baseTokens.colors.warning[500],
                 };
             case "danger":
                 return {
-                    bg: "rgba(244, 63, 94, 0.12)",
-                    border: "rgba(244, 63, 94, 0.35)",
+                    bg: (0, tokens_1.withAlpha)(baseTokens.colors.danger[500], 0.12),
+                    border: (0, tokens_1.withAlpha)(baseTokens.colors.danger[500], 0.35),
                     defaultIcon: "🛑",
                     iconColor: semanticColors.danger,
                 };
             case "glass":
                 return {
-                    bg: "rgba(16, 18, 30, 0.75)",
-                    border: "rgba(255, 255, 255, 0.15)",
+                    bg: (0, tokens_1.withAlpha)(baseTokens.colors.black, 0.75),
+                    border: (0, tokens_1.withAlpha)(baseTokens.colors.white, 0.15),
                     defaultIcon: "⚡",
                     iconColor: semanticColors.primary,
                 };
             case "info":
             default:
                 return {
-                    bg: "rgba(124, 58, 237, 0.12)",
-                    border: "rgba(124, 58, 237, 0.35)",
+                    bg: (0, tokens_1.withAlpha)(semanticColors.primary, 0.12),
+                    border: (0, tokens_1.withAlpha)(semanticColors.primary, 0.35),
                     defaultIcon: "ℹ️",
                     iconColor: semanticColors.primary,
                 };
@@ -87,10 +88,10 @@ const Alert = ({ title, description, variant = "info", icon, dismissible = false
 exports.Alert = Alert;
 exports.Alert.displayName = "Alert";
 const ConfirmDialog = ({ open = false, onOpenChange, title, description, confirmText = "Confirm", cancelText = "Cancel", variant = "primary", onConfirm, onCancel, }) => {
-    const { semanticColors } = (0, theme_1.useTheme)();
+    const { semanticColors, baseTokens } = (0, theme_1.useTheme)();
     return ((0, jsx_runtime_1.jsx)(react_native_1.Modal, { visible: open, transparent: true, animationType: "fade", onRequestClose: () => onOpenChange?.(false), children: (0, jsx_runtime_1.jsx)(primitives_1.Pressable, { onPress: () => onOpenChange?.(false), style: {
                 flex: 1,
-                backgroundColor: "rgba(0,0,0,0.65)",
+                backgroundColor: (0, tokens_1.withAlpha)(baseTokens.colors.black, 0.65),
                 alignItems: "center",
                 justifyContent: "center",
                 padding: 24,
@@ -106,23 +107,23 @@ exports.ConfirmDialog = ConfirmDialog;
 exports.ConfirmDialog.displayName = "ConfirmDialog";
 exports.AlertDialog = exports.ConfirmDialog;
 const Snackbar = ({ visible = true, message, actionLabel = "UNDO", onAction, style, }) => {
-    const { semanticColors } = (0, theme_1.useTheme)();
+    const { semanticColors, baseTokens } = (0, theme_1.useTheme)();
     if (!visible)
         return null;
     return ((0, jsx_runtime_1.jsxs)(primitives_1.Box, { style: [
             {
-                backgroundColor: "rgba(16, 18, 30, 0.95)",
+                backgroundColor: (0, tokens_1.withAlpha)(baseTokens.colors.black, 0.95),
                 borderWidth: 1,
-                borderColor: "rgba(255, 255, 255, 0.15)",
+                borderColor: (0, tokens_1.withAlpha)(baseTokens.colors.white, 0.15),
                 borderRadius: 12,
                 paddingHorizontal: 16,
                 paddingVertical: 12,
                 flexDirection: "row",
                 alignItems: "center",
                 justifyContent: "space-between",
-                shadowColor: "#000",
+                shadowColor: (0, tokens_1.withAlpha)(baseTokens.colors.black, 0.4),
                 shadowOffset: { width: 0, height: 4 },
-                shadowOpacity: 0.4,
+                shadowOpacity: 1,
                 shadowRadius: 10,
             },
             style,
@@ -171,7 +172,7 @@ exports.InfoMessage = InfoMessage;
 // 8. ProgressBar & ProgressCircle
 exports.ProgressBar = Progress_1.Progress;
 const ProgressCircle = ({ value = 65, size = 64, strokeWidth = 6, color, style, }) => {
-    const { semanticColors } = (0, theme_1.useTheme)();
+    const { semanticColors, baseTokens } = (0, theme_1.useTheme)();
     const activeColor = color ?? semanticColors.primary;
     return ((0, jsx_runtime_1.jsx)(primitives_1.Box, { style: [
             {
@@ -179,9 +180,9 @@ const ProgressCircle = ({ value = 65, size = 64, strokeWidth = 6, color, style, 
                 height: size,
                 borderRadius: size / 2,
                 borderWidth: strokeWidth,
-                borderColor: "rgba(255, 255, 255, 0.1)",
+                borderColor: (0, tokens_1.withAlpha)(baseTokens.colors.white, 0.1),
                 borderTopColor: activeColor,
-                borderRightColor: value > 50 ? activeColor : "rgba(255, 255, 255, 0.1)",
+                borderRightColor: value > 50 ? activeColor : (0, tokens_1.withAlpha)(baseTokens.colors.white, 0.1),
                 alignItems: "center",
                 justifyContent: "center",
             },

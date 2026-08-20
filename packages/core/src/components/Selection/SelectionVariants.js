@@ -7,6 +7,7 @@ const react_native_1 = require("react-native");
 const hooks_1 = require("@unconfused-ui/hooks");
 const primitives_1 = require("@unconfused-ui/primitives");
 const theme_1 = require("@unconfused-ui/theme");
+const tokens_1 = require("@unconfused-ui/tokens");
 const Badge_1 = require("../Badge");
 const Checkbox_1 = require("../Checkbox");
 const CheckboxGroup = ({ options, value: propValue, defaultValue = [], onValueChange, orientation = "vertical", style, }) => {
@@ -25,7 +26,7 @@ const CheckboxGroup = ({ options, value: propValue, defaultValue = [], onValueCh
 exports.CheckboxGroup = CheckboxGroup;
 exports.CheckboxGroup.displayName = "CheckboxGroup";
 const Toggle = ({ pressed: propPressed, defaultPressed = false, onPressedChange, disabled = false, size = "md", style, children, }) => {
-    const { semanticColors } = (0, theme_1.useTheme)();
+    const { semanticColors, baseTokens } = (0, theme_1.useTheme)();
     const [pressed, setPressed] = (0, hooks_1.useControllableState)({
         value: propPressed,
         defaultValue: defaultPressed,
@@ -38,7 +39,7 @@ const Toggle = ({ pressed: propPressed, defaultPressed = false, onPressedChange,
                 height,
                 paddingHorizontal: padding,
                 borderRadius: 8,
-                backgroundColor: pressed ? "rgba(124, 58, 237, 0.2)" : "rgba(255, 255, 255, 0.05)",
+                backgroundColor: pressed ? (0, tokens_1.withAlpha)(semanticColors.primary, 0.2) : (0, tokens_1.withAlpha)(baseTokens.colors.white, 0.05),
                 borderWidth: 1,
                 borderColor: pressed ? semanticColors.primary : semanticColors.border,
                 alignItems: "center",

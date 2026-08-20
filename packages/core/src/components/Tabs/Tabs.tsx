@@ -4,8 +4,9 @@ import { useControllableState } from "@unconfused-ui/hooks";
 import { Box, Inline, Pressable, Stack, Text } from "@unconfused-ui/primitives";
 import { createSlotRecipe } from "@unconfused-ui/recipes";
 import { useTheme } from "@unconfused-ui/theme";
+import { withAlpha } from "@unconfused-ui/tokens";
 
-const getTabsRecipe = (semanticColors: any) =>
+const getTabsRecipe = (semanticColors: any, baseTokens: any) =>
   createSlotRecipe({
     slots: ["root", "list", "trigger", "content"],
     base: {
@@ -20,7 +21,7 @@ const getTabsRecipe = (semanticColors: any) =>
         borderRadius: 10,
         backgroundColor: semanticColors.surfaceSubtle,
         borderWidth: 1,
-        borderColor: "rgba(255, 255, 255, 0.06)",
+        borderColor: withAlpha(baseTokens.colors.white, 0.06),
       },
       trigger: {
         flex: 1,
@@ -88,14 +89,14 @@ export const TabsRoot = ({
   style,
   children,
 }: TabsProps) => {
-  const { semanticColors } = useTheme();
+  const { semanticColors, baseTokens } = useTheme();
   const [value, setValue] = useControllableState({
     value: propValue,
     defaultValue,
     onChange: onValueChange,
   });
 
-  const recipe = getTabsRecipe(semanticColors);
+  const recipe = getTabsRecipe(semanticColors, baseTokens);
   const styles = useMemo(() => recipe({ variant }), [recipe, variant]);
 
   return (
@@ -125,15 +126,15 @@ export type TabsTriggerProps = {
 
 export const TabsTrigger = ({ value: triggerValue, label, style, children }: TabsTriggerProps) => {
   const { value, setValue, styles } = useTabsContext();
-  const { semanticColors } = useTheme();
+  const { semanticColors, baseTokens } = useTheme();
 
   const isSelected = value === triggerValue;
 
   const activeTriggerStyle: ViewStyle = {
     backgroundColor: isSelected ? semanticColors.surface : "transparent",
     borderWidth: isSelected ? 1 : 0,
-    borderColor: isSelected ? "rgba(255, 255, 255, 0.1)" : "transparent",
-    shadowColor: isSelected ? "#000" : "transparent",
+    borderColor: isSelected ? withAlpha(baseTokens.colors.white, 0.1) : "transparent",
+    shadowColor: isSelected ? withAlpha(baseTokens.colors.black, 0.15) : "transparent",
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: isSelected ? 0.15 : 0,
     shadowRadius: 3,

@@ -8,6 +8,7 @@ const react_native_1 = require("react-native");
 const hooks_1 = require("@unconfused-ui/hooks");
 const primitives_1 = require("@unconfused-ui/primitives");
 const theme_1 = require("@unconfused-ui/theme");
+const tokens_1 = require("@unconfused-ui/tokens");
 const Sidebar_styles_1 = require("./Sidebar.styles");
 const SidebarContext = (0, react_1.createContext)(null);
 function useSidebarContext() {
@@ -18,7 +19,7 @@ function useSidebarContext() {
     return context;
 }
 const SidebarRoot = ({ collapsed: propCollapsed, defaultCollapsed = false, onCollapseChange, width = 260, collapsedWidth = 72, style, children, }) => {
-    const { semanticColors } = (0, theme_1.useTheme)();
+    const { semanticColors, baseTokens } = (0, theme_1.useTheme)();
     const [collapsed, setCollapsed] = (0, hooks_1.useControllableState)({
         value: propCollapsed,
         defaultValue: defaultCollapsed,
@@ -28,9 +29,9 @@ const SidebarRoot = ({ collapsed: propCollapsed, defaultCollapsed = false, onCol
     const sidebarStyle = {
         width: activeWidth,
         height: "100%",
-        backgroundColor: "rgba(12, 14, 24, 0.95)",
+        backgroundColor: (0, tokens_1.withAlpha)(baseTokens.colors.black, 0.95),
         borderRightWidth: 1,
-        borderRightColor: "rgba(255, 255, 255, 0.08)",
+        borderRightColor: (0, tokens_1.withAlpha)(baseTokens.colors.white, 0.08),
         paddingVertical: 16,
         paddingHorizontal: collapsed ? 8 : 14,
         justifyContent: "space-between",
@@ -59,20 +60,23 @@ const SidebarNavItem = ({ icon, label, badge, active = false, onPress, style, ch
 };
 exports.SidebarNavItem = SidebarNavItem;
 exports.SidebarNavItem.displayName = "Sidebar.NavItem";
-const SidebarFooter = ({ children, style }) => ((0, jsx_runtime_1.jsx)(primitives_1.Box, { style: [{ paddingTop: 16, borderTopWidth: 1, borderTopColor: "rgba(255, 255, 255, 0.06)" }, style], children: children }));
+const SidebarFooter = ({ children, style }) => {
+    const { baseTokens } = (0, theme_1.useTheme)();
+    return ((0, jsx_runtime_1.jsx)(primitives_1.Box, { style: [{ paddingTop: 16, borderTopWidth: 1, borderTopColor: (0, tokens_1.withAlpha)(baseTokens.colors.white, 0.06) }, style], children: children }));
+};
 exports.SidebarFooter = SidebarFooter;
 exports.SidebarFooter.displayName = "Sidebar.Footer";
 const SidebarToggle = ({ style }) => {
     const { collapsed, setCollapsed } = useSidebarContext();
-    const { semanticColors } = (0, theme_1.useTheme)();
+    const { semanticColors, baseTokens } = (0, theme_1.useTheme)();
     return ((0, jsx_runtime_1.jsx)(primitives_1.Pressable, { onPress: () => setCollapsed(!collapsed), accessibilityRole: "button", accessibilityLabel: collapsed ? "Expand sidebar" : "Collapse sidebar", style: [
             {
                 paddingVertical: 6,
                 paddingHorizontal: 10,
                 borderRadius: 6,
-                backgroundColor: "rgba(255, 255, 255, 0.04)",
+                backgroundColor: (0, tokens_1.withAlpha)(baseTokens.colors.white, 0.04),
                 borderWidth: 1,
-                borderColor: "rgba(255, 255, 255, 0.08)",
+                borderColor: (0, tokens_1.withAlpha)(baseTokens.colors.white, 0.08),
                 alignItems: "center",
                 justifyContent: "center",
             },

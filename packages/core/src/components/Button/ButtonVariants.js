@@ -8,6 +8,7 @@ const jsx_runtime_1 = require("react/jsx-runtime");
 const react_1 = __importDefault(require("react"));
 const primitives_1 = require("@unconfused-ui/primitives");
 const theme_1 = require("@unconfused-ui/theme");
+const tokens_1 = require("@unconfused-ui/tokens");
 const Button_1 = require("./Button");
 const ButtonGroup = ({ attached = false, orientation = "horizontal", gap = 2, style, children, }) => {
     const childrenArray = react_1.default.Children.toArray(children).filter(Boolean);
@@ -50,8 +51,9 @@ const ButtonGroup = ({ attached = false, orientation = "horizontal", gap = 2, st
 };
 exports.ButtonGroup = ButtonGroup;
 exports.ButtonGroup.displayName = "ButtonGroup";
-const FloatingActionButton = ({ label, icon = (0, jsx_runtime_1.jsx)(primitives_1.Text, { size: "md", color: "#FFF", children: "\uFF0B" }), position = "bottom-right", style, children, ...rest }) => {
-    const { semanticColors } = (0, theme_1.useTheme)();
+const FloatingActionButton = ({ label, icon, position = "bottom-right", style, children, ...rest }) => {
+    const { semanticColors, baseTokens } = (0, theme_1.useTheme)();
+    const resolvedIcon = icon ?? (0, jsx_runtime_1.jsx)(primitives_1.Text, { size: "md", color: baseTokens.colors.white, children: "\uFF0B" });
     const getPosStyle = () => {
         switch (position) {
             case "bottom-left":
@@ -80,7 +82,7 @@ const FloatingActionButton = ({ label, icon = (0, jsx_runtime_1.jsx)(primitives_
             shadowRadius: 14,
             elevation: 8,
             ...style,
-        }, leftIcon: icon, accessibilityLabel: label ?? "Floating Action", ...rest, children: label ?? children }));
+        }, leftIcon: resolvedIcon, accessibilityLabel: label ?? "Floating Action", ...rest, children: label ?? children }));
 };
 exports.FloatingActionButton = FloatingActionButton;
 exports.FloatingActionButton.displayName = "FloatingActionButton";
@@ -96,7 +98,7 @@ const LinkButton = ({ underline = false, style, children, ...rest }) => {
 exports.LinkButton = LinkButton;
 exports.LinkButton.displayName = "LinkButton";
 const CloseButton = ({ size = "md", style, ...rest }) => {
-    const { semanticColors } = (0, theme_1.useTheme)();
+    const { semanticColors, baseTokens } = (0, theme_1.useTheme)();
     const dimension = size === "sm" ? 32 : size === "lg" ? 44 : 36;
     const fontSize = size === "sm" ? "sm" : size === "lg" ? "xl" : "md";
     return ((0, jsx_runtime_1.jsx)(Button_1.Button, { variant: "ghost", rounded: "full", accessibilityLabel: "Close", style: {
@@ -107,7 +109,7 @@ const CloseButton = ({ size = "md", style, ...rest }) => {
             paddingVertical: 0,
             alignItems: "center",
             justifyContent: "center",
-            backgroundColor: "rgba(255, 255, 255, 0.05)",
+            backgroundColor: (0, tokens_1.withAlpha)(baseTokens.colors.white, 0.05),
             ...style,
         }, ...rest, children: (0, jsx_runtime_1.jsx)(primitives_1.Text, { size: fontSize, weight: "bold", color: semanticColors.foreground, children: "\u2715" }) }));
 };

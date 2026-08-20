@@ -32,7 +32,7 @@ import { useToast } from "@unconfused-ui/core";
 import { withAlpha } from "@unconfused-ui/tokens";
 
 export function UsageModesScreen(): React.JSX.Element {
-  const { semanticColors } = useTheme();
+  const { semanticColors, baseTokens } = useTheme();
   const { toast } = useToast();
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
 
@@ -76,12 +76,12 @@ export function UsageModesScreen(): React.JSX.Element {
                   width: 40,
                   height: 40,
                   borderRadius: 10,
-                  backgroundColor: withAlpha("#3B82F6", 0.15),
+                  backgroundColor: withAlpha(baseTokens.colors.brand[500], 0.15),
                   alignItems: "center",
                   justifyContent: "center",
                 }}
               >
-                <LayersIcon size={20} color="#3B82F6" />
+                <LayersIcon size={20} color={baseTokens.colors.brand[500]} />
               </Box>
               <Card.Title>1. Modo Pacote NPM</Card.Title>
               <Card.Description>
@@ -104,11 +104,11 @@ export function UsageModesScreen(): React.JSX.Element {
                 }}
               >
                 <Inline align="center" justify="space-between">
-                  <Text size="xs" color="#3B82F6" style={{ fontFamily: "monospace" }}>
+                  <Text size="xs" color={baseTokens.colors.brand[500]} style={{ fontFamily: "monospace" }}>
                     npm i @unconfused-ui/core
                   </Text>
                   <Pressable onPress={() => copyText("npm i @unconfused-ui/core", "m1")}>
-                    {copiedKey === "m1" ? <CheckIcon size={14} color="#10B981" /> : <CopyIcon size={14} color={semanticColors.foregroundMuted} />}
+                    {copiedKey === "m1" ? <CheckIcon size={14} color={baseTokens.colors.success[500]} /> : <CopyIcon size={14} color={semanticColors.foregroundMuted} />}
                   </Pressable>
                 </Inline>
               </Box>
@@ -157,7 +157,7 @@ export function UsageModesScreen(): React.JSX.Element {
                     npx unconfused add button dialog
                   </Text>
                   <Pressable onPress={() => copyText("npx unconfused add button dialog", "m2")}>
-                    {copiedKey === "m2" ? <CheckIcon size={14} color="#10B981" /> : <CopyIcon size={14} color={semanticColors.foregroundMuted} />}
+                    {copiedKey === "m2" ? <CheckIcon size={14} color={baseTokens.colors.success[500]} /> : <CopyIcon size={14} color={semanticColors.foregroundMuted} />}
                   </Pressable>
                 </Inline>
               </Box>
@@ -174,12 +174,12 @@ export function UsageModesScreen(): React.JSX.Element {
                   width: 40,
                   height: 40,
                   borderRadius: 10,
-                  backgroundColor: withAlpha("#10B981", 0.15),
+                  backgroundColor: withAlpha(baseTokens.colors.success[500], 0.15),
                   alignItems: "center",
                   justifyContent: "center",
                 }}
               >
-                <SparklesIcon size={20} color="#10B981" />
+                <SparklesIcon size={20} color={baseTokens.colors.success[500]} />
               </Box>
               <Card.Title>3. Modo AI-Native</Card.Title>
               <Card.Description>
@@ -202,11 +202,11 @@ export function UsageModesScreen(): React.JSX.Element {
                 }}
               >
                 <Inline align="center" justify="space-between">
-                  <Text size="xs" color="#10B981" style={{ fontFamily: "monospace" }}>
+                  <Text size="xs" color={baseTokens.colors.success[500]} style={{ fontFamily: "monospace" }}>
                     npx unconfused ai-context
                   </Text>
                   <Pressable onPress={() => copyText("npx unconfused ai-context", "m3")}>
-                    {copiedKey === "m3" ? <CheckIcon size={14} color="#10B981" /> : <CopyIcon size={14} color={semanticColors.foregroundMuted} />}
+                    {copiedKey === "m3" ? <CheckIcon size={14} color={baseTokens.colors.success[500]} /> : <CopyIcon size={14} color={semanticColors.foregroundMuted} />}
                   </Pressable>
                 </Inline>
               </Box>
@@ -262,7 +262,7 @@ export function Dashboard() {
         <HStack justify="space-between" align="center">
           <VStack gap={0}>
             <Text size="2xl" weight="bold">Painel de Controle</Text>
-            <Text size="xs" color="rgba(255,255,255,0.6)">Café - Sistemas & Softwares</Text>
+            <Text size="xs" color={withAlpha(baseTokens.colors.white, 0.6)}>Café - Sistemas & Softwares</Text>
           </VStack>
           <Button
             variant="primary"

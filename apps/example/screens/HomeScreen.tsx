@@ -32,6 +32,7 @@ import {
   StatTile,
 } from "@unconfused-ui/core";
 import { useTheme } from "@unconfused-ui/theme";
+import { withAlpha } from "@unconfused-ui/tokens";
 import { Logo } from "../components/Logo";
 
 export interface HomeScreenProps {
@@ -39,7 +40,7 @@ export interface HomeScreenProps {
 }
 
 export function HomeScreen({ onNavigateTo }: HomeScreenProps) {
-  const { theme, semanticColors, activeColorScheme } = useTheme();
+  const { theme, semanticColors, activeColorScheme, baseTokens } = useTheme();
 
   return (
     <Stack gap={10}>
@@ -52,8 +53,8 @@ export function HomeScreen({ onNavigateTo }: HomeScreenProps) {
               <Inline align="center" gap={2}>
                 <Badge variant="primary" size="md" asChild>
                   <Inline align="center" gap={1.5}>
-                    <SparklesIcon size={14} color="#FFF" />
-                    <Text size="xs" weight="bold" color="#FFF">
+                    <SparklesIcon size={14} color={baseTokens.colors.white} />
+                    <Text size="xs" weight="bold" color={baseTokens.colors.white}>
                       UNCONFUSED UI v2.4
                     </Text>
                   </Inline>
@@ -92,8 +93,8 @@ export function HomeScreen({ onNavigateTo }: HomeScreenProps) {
                   onPress={() => onNavigateTo("foundations")}
                 >
                   <Inline align="center" gap={2}>
-                    <Text size="sm" weight="bold" color="#FFF">Explorar Componentes</Text>
-                    <ChevronRightIcon size={18} color="#FFF" />
+                    <Text size="sm" weight="bold" color={baseTokens.colors.white}>Explorar Componentes</Text>
+                    <ChevronRightIcon size={18} color={baseTokens.colors.white} />
                   </Inline>
                 </Button>
 
@@ -205,12 +206,12 @@ export function HomeScreen({ onNavigateTo }: HomeScreenProps) {
                     width: 40,
                     height: 40,
                     borderRadius: 10,
-                    backgroundColor: "rgba(16, 185, 129, 0.15)",
+                    backgroundColor: withAlpha(baseTokens.colors.success[500], 0.15),
                     alignItems: "center",
                     justifyContent: "center",
                   }}
                 >
-                  <ZapIcon size={22} color="#10B981" />
+                  <ZapIcon size={22} color={baseTokens.colors.success[500]} />
                 </Box>
                 <VStack gap={1}>
                   <Text size="md" weight="bold" color={semanticColors.foreground}>

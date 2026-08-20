@@ -32,7 +32,7 @@ export function Stepper({
   onComplete,
   style,
 }: StepperProps): React.JSX.Element {
-  const { semanticColors } = useTheme();
+  const { semanticColors, baseTokens } = useTheme();
   const [internalStep, setInternalStep] = useState(0);
 
   const activeIndex = propStep !== undefined ? propStep : internalStep;
@@ -82,7 +82,7 @@ export function Stepper({
                     alignItems: "center",
                     justifyContent: "center",
                     backgroundColor: isDone
-                      ? "#10B981"
+                      ? baseTokens.colors.success[500]
                       : isActive
                       ? semanticColors.primary
                       : semanticColors.surfaceSubtle,
@@ -91,9 +91,8 @@ export function Stepper({
                   }}
                 >
                   {isDone ? (
-                    <CheckIcon size={16} color="#FFFFFF" />
-                  ) : (
-                    <Text
+                    <CheckIcon size={16} color={baseTokens.colors.white} />
+                  ) : (                    <Text
                       size="xs"
                       weight="bold"
                       color={isActive ? semanticColors.primaryForeground : semanticColors.foregroundMuted}
@@ -123,12 +122,12 @@ export function Stepper({
               {/* Connecting line */}
               {idx < steps.length - 1 && (
                 <Box
-                  style={{
-                    flex: 1,
-                    height: 2,
-                    marginHorizontal: 12,
-                    backgroundColor: isDone ? "#10B981" : semanticColors.border,
-                  }}
+                 style={{
+                   flex: 1,
+                   height: 2,
+                   marginHorizontal: 12,
+                   backgroundColor: isDone ? baseTokens.colors.success[500] : semanticColors.border,
+                 }}
                 />
               )}
             </React.Fragment>

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { ScrollView, TextStyle, View, ViewStyle } from "react-native";
 import { Box, HStack, Inline, Pressable, Stack, Text, VStack } from "@unconfused-ui/primitives";
 import { useTheme } from "@unconfused-ui/theme";
+import { withAlpha } from "@unconfused-ui/tokens";
 import { Avatar } from "../Avatar";
 import { Badge } from "../Badge";
 import { Breadcrumbs, BreadcrumbsProps } from "../Breadcrumbs";
@@ -39,16 +40,16 @@ export const BottomTabs = ({
   onSelect,
   style,
 }: BottomTabsProps) => {
-  const { semanticColors } = useTheme();
+  const { semanticColors, baseTokens } = useTheme();
 
   return (
     <Box
       style={[
         {
           height: 64,
-          backgroundColor: "rgba(16, 18, 30, 0.98)",
+          backgroundColor: withAlpha(baseTokens.colors.black, 0.98),
           borderTopWidth: 1,
-          borderTopColor: "rgba(255, 255, 255, 0.1)",
+          borderTopColor: withAlpha(baseTokens.colors.white, 0.1),
           flexDirection: "row",
           alignItems: "center",
           justifyContent: "space-around",
@@ -86,7 +87,7 @@ export const BottomTabs = ({
                     paddingVertical: 1,
                   }}
                 >
-                  <Text size="xs" weight="bold" color="#FFFFFF">
+                  <Text size="xs" weight="bold" color={baseTokens.colors.white}>
                     {tab.badge}
                   </Text>
                 </Box>
@@ -126,7 +127,7 @@ export const NavigationBar = ({
   rightAction,
   style,
 }: NavigationBarProps) => {
-  const { semanticColors } = useTheme();
+  const { semanticColors, baseTokens } = useTheme();
 
   return (
     <Inline
@@ -136,9 +137,9 @@ export const NavigationBar = ({
         {
           height: 60,
           paddingHorizontal: 16,
-          backgroundColor: "rgba(16, 18, 30, 0.95)",
+          backgroundColor: withAlpha(baseTokens.colors.black, 0.95),
           borderBottomWidth: 1,
-          borderBottomColor: "rgba(255, 255, 255, 0.1)",
+          borderBottomColor: withAlpha(baseTokens.colors.white, 0.1),
         },
         style,
       ]}
@@ -188,7 +189,7 @@ export const NavigationRail = ({
   footer,
   style,
 }: NavigationRailProps) => {
-  const { semanticColors } = useTheme();
+  const { semanticColors, baseTokens } = useTheme();
 
   return (
     <Box
@@ -196,9 +197,9 @@ export const NavigationRail = ({
         {
           width: 72,
           height: "100%",
-          backgroundColor: "rgba(16, 18, 30, 0.98)",
+          backgroundColor: withAlpha(baseTokens.colors.black, 0.98),
           borderRightWidth: 1,
-          borderRightColor: "rgba(255, 255, 255, 0.1)",
+          borderRightColor: withAlpha(baseTokens.colors.white, 0.1),
           paddingVertical: 16,
           alignItems: "center",
           justifyContent: "space-between",
@@ -219,7 +220,7 @@ export const NavigationRail = ({
                 width: 52,
                 height: 52,
                 borderRadius: 14,
-                backgroundColor: isActive ? "rgba(124, 58, 237, 0.25)" : "transparent",
+                backgroundColor: isActive ? withAlpha(baseTokens.colors.brand[500], 0.25) : "transparent",
                 borderWidth: isActive ? 1 : 0,
                 borderColor: isActive ? semanticColors.primary : "transparent",
                 alignItems: "center",
@@ -257,7 +258,7 @@ export type NavbarProps = {
 };
 
 export const Navbar = ({ brand, links = [], searchSlot, actions, style }: NavbarProps) => {
-  const { semanticColors } = useTheme();
+  const { semanticColors, baseTokens } = useTheme();
 
   return (
     <Inline
@@ -267,9 +268,9 @@ export const Navbar = ({ brand, links = [], searchSlot, actions, style }: Navbar
         {
           height: 64,
           paddingHorizontal: 20,
-          backgroundColor: "rgba(16, 18, 30, 0.95)",
+          backgroundColor: withAlpha(baseTokens.colors.black, 0.95),
           borderBottomWidth: 1,
-          borderBottomColor: "rgba(255, 255, 255, 0.1)",
+          borderBottomColor: withAlpha(baseTokens.colors.white, 0.1),
           gap: 16,
         },
         style,

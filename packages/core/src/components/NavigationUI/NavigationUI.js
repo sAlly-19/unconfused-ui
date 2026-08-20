@@ -22,6 +22,7 @@ const jsx_runtime_1 = require("react/jsx-runtime");
 const react_1 = __importDefault(require("react"));
 const primitives_1 = require("@unconfused-ui/primitives");
 const theme_1 = require("@unconfused-ui/theme");
+const tokens_1 = require("@unconfused-ui/tokens");
 const Breadcrumbs_1 = require("../Breadcrumbs");
 const Tabs_1 = require("../Tabs");
 __exportStar(require("../Tabs"), exports);
@@ -32,13 +33,13 @@ exports.Tab = Tabs_1.TabsTrigger;
 exports.TabBar = Tabs_1.Tabs.List;
 exports.TopTabs = Tabs_1.Tabs;
 const BottomTabs = ({ items, activeKey = items[0]?.key, onSelect, style, }) => {
-    const { semanticColors } = (0, theme_1.useTheme)();
+    const { semanticColors, baseTokens } = (0, theme_1.useTheme)();
     return ((0, jsx_runtime_1.jsx)(primitives_1.Box, { style: [
             {
                 height: 64,
-                backgroundColor: "rgba(16, 18, 30, 0.98)",
+                backgroundColor: (0, tokens_1.withAlpha)(baseTokens.colors.black, 0.98),
                 borderTopWidth: 1,
-                borderTopColor: "rgba(255, 255, 255, 0.1)",
+                borderTopColor: (0, tokens_1.withAlpha)(baseTokens.colors.white, 0.1),
                 flexDirection: "row",
                 alignItems: "center",
                 justifyContent: "space-around",
@@ -62,7 +63,7 @@ const BottomTabs = ({ items, activeKey = items[0]?.key, onSelect, style, }) => {
                                     borderRadius: 10,
                                     paddingHorizontal: 5,
                                     paddingVertical: 1,
-                                }, children: (0, jsx_runtime_1.jsx)(primitives_1.Text, { size: "xs", weight: "bold", color: "#FFFFFF", children: tab.badge }) }))] }), (0, jsx_runtime_1.jsx)(primitives_1.Text, { size: "xs", weight: isActive ? "bold" : "medium", color: isActive ? semanticColors.primary : semanticColors.foregroundMuted, children: tab.label })] }, tab.key));
+                                }, children: (0, jsx_runtime_1.jsx)(primitives_1.Text, { size: "xs", weight: "bold", color: baseTokens.colors.white, children: tab.badge }) }))] }), (0, jsx_runtime_1.jsx)(primitives_1.Text, { size: "xs", weight: isActive ? "bold" : "medium", color: isActive ? semanticColors.primary : semanticColors.foregroundMuted, children: tab.label })] }, tab.key));
         }) }));
 };
 exports.BottomTabs = BottomTabs;
@@ -70,14 +71,14 @@ exports.BottomTabs.displayName = "BottomTabs";
 // 2. Breadcrumb
 exports.Breadcrumb = Breadcrumbs_1.Breadcrumbs;
 const NavigationBar = ({ title, subtitle, leftAction, rightAction, style, }) => {
-    const { semanticColors } = (0, theme_1.useTheme)();
+    const { semanticColors, baseTokens } = (0, theme_1.useTheme)();
     return ((0, jsx_runtime_1.jsxs)(primitives_1.Inline, { justify: "space-between", align: "center", style: [
             {
                 height: 60,
                 paddingHorizontal: 16,
-                backgroundColor: "rgba(16, 18, 30, 0.95)",
+                backgroundColor: (0, tokens_1.withAlpha)(baseTokens.colors.black, 0.95),
                 borderBottomWidth: 1,
-                borderBottomColor: "rgba(255, 255, 255, 0.1)",
+                borderBottomColor: (0, tokens_1.withAlpha)(baseTokens.colors.white, 0.1),
             },
             style,
         ], children: [(0, jsx_runtime_1.jsx)(primitives_1.Box, { style: { minWidth: 40, justifyContent: "center" }, children: leftAction }), (0, jsx_runtime_1.jsxs)(primitives_1.VStack, { gap: 0, align: "center", style: { flex: 1 }, children: [title && ((0, jsx_runtime_1.jsx)(primitives_1.Text, { size: "md", weight: "bold", color: semanticColors.foreground, children: title })), subtitle && ((0, jsx_runtime_1.jsx)(primitives_1.Text, { size: "xs", color: semanticColors.foregroundMuted, children: subtitle }))] }), (0, jsx_runtime_1.jsx)(primitives_1.Box, { style: { minWidth: 40, alignItems: "flex-end", justifyContent: "center" }, children: rightAction })] }));
@@ -86,14 +87,14 @@ exports.NavigationBar = NavigationBar;
 exports.NavigationBar.displayName = "NavigationBar";
 exports.AppBar = exports.NavigationBar;
 const NavigationRail = ({ items, activeKey = items[0]?.key, onSelect, header, footer, style, }) => {
-    const { semanticColors } = (0, theme_1.useTheme)();
+    const { semanticColors, baseTokens } = (0, theme_1.useTheme)();
     return ((0, jsx_runtime_1.jsxs)(primitives_1.Box, { style: [
             {
                 width: 72,
                 height: "100%",
-                backgroundColor: "rgba(16, 18, 30, 0.98)",
+                backgroundColor: (0, tokens_1.withAlpha)(baseTokens.colors.black, 0.98),
                 borderRightWidth: 1,
-                borderRightColor: "rgba(255, 255, 255, 0.1)",
+                borderRightColor: (0, tokens_1.withAlpha)(baseTokens.colors.white, 0.1),
                 paddingVertical: 16,
                 alignItems: "center",
                 justifyContent: "space-between",
@@ -105,7 +106,7 @@ const NavigationRail = ({ items, activeKey = items[0]?.key, onSelect, header, fo
                             width: 52,
                             height: 52,
                             borderRadius: 14,
-                            backgroundColor: isActive ? "rgba(124, 58, 237, 0.25)" : "transparent",
+                            backgroundColor: isActive ? (0, tokens_1.withAlpha)(baseTokens.colors.brand[500], 0.25) : "transparent",
                             borderWidth: isActive ? 1 : 0,
                             borderColor: isActive ? semanticColors.primary : "transparent",
                             alignItems: "center",
@@ -117,14 +118,14 @@ const NavigationRail = ({ items, activeKey = items[0]?.key, onSelect, header, fo
 exports.NavigationRail = NavigationRail;
 exports.NavigationRail.displayName = "NavigationRail";
 const Navbar = ({ brand, links = [], searchSlot, actions, style }) => {
-    const { semanticColors } = (0, theme_1.useTheme)();
+    const { semanticColors, baseTokens } = (0, theme_1.useTheme)();
     return ((0, jsx_runtime_1.jsxs)(primitives_1.Inline, { justify: "space-between", align: "center", style: [
             {
                 height: 64,
                 paddingHorizontal: 20,
-                backgroundColor: "rgba(16, 18, 30, 0.95)",
+                backgroundColor: (0, tokens_1.withAlpha)(baseTokens.colors.black, 0.95),
                 borderBottomWidth: 1,
-                borderBottomColor: "rgba(255, 255, 255, 0.1)",
+                borderBottomColor: (0, tokens_1.withAlpha)(baseTokens.colors.white, 0.1),
                 gap: 16,
             },
             style,

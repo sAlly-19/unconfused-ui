@@ -2,6 +2,7 @@ import React from "react";
 import { View, ViewStyle } from "react-native";
 import { Box, HStack, Inline, Text, VStack } from "@unconfused-ui/primitives";
 import { useTheme } from "@unconfused-ui/theme";
+import { withAlpha } from "@unconfused-ui/tokens";
 import { Button, ButtonProps, ButtonSize, ButtonVariant } from "./Button";
 
 export type ButtonGroupProps = {
@@ -84,13 +85,14 @@ export type FloatingActionButtonProps = ButtonProps & {
 
 export const FloatingActionButton = ({
   label,
-  icon = <Text size="md" color="#FFF">＋</Text>,
+  icon,
   position = "bottom-right",
   style,
   children,
   ...rest
 }: FloatingActionButtonProps) => {
-  const { semanticColors } = useTheme();
+  const { semanticColors, baseTokens } = useTheme();
+  const resolvedIcon = icon ?? <Text size="md" color={baseTokens.colors.white}>＋</Text>;
 
   const getPosStyle = (): ViewStyle => {
     switch (position) {
@@ -128,7 +130,7 @@ export const FloatingActionButton = ({
         elevation: 8,
         ...(style as object),
       }}
-      leftIcon={icon}
+      leftIcon={resolvedIcon}
       accessibilityLabel={label ?? "Floating Action"}
       {...rest}
     >
@@ -175,7 +177,7 @@ export type CloseButtonProps = Omit<ButtonProps, "children"> & {
 };
 
 export const CloseButton = ({ size = "md", style, ...rest }: CloseButtonProps) => {
-  const { semanticColors } = useTheme();
+  const { semanticColors, baseTokens } = useTheme();
   const dimension = size === "sm" ? 32 : size === "lg" ? 44 : 36;
   const fontSize = size === "sm" ? "sm" : size === "lg" ? "xl" : "md";
 
@@ -192,7 +194,7 @@ export const CloseButton = ({ size = "md", style, ...rest }: CloseButtonProps) =
         paddingVertical: 0,
         alignItems: "center",
         justifyContent: "center",
-        backgroundColor: "rgba(255, 255, 255, 0.05)",
+        backgroundColor: withAlpha(baseTokens.colors.white, 0.05),
         ...(style as object),
       }}
       {...rest}

@@ -3,6 +3,7 @@ import { View, ViewStyle } from "react-native";
 import { useControllableState } from "@unconfused-ui/hooks";
 import { Box, Inline, Pressable, Stack, Text } from "@unconfused-ui/primitives";
 import { useTheme } from "@unconfused-ui/theme";
+import { withAlpha } from "@unconfused-ui/tokens";
 import { getSidebarNavItemRecipe } from "./Sidebar.styles";
 import { SidebarNavItemProps, SidebarProps } from "./Sidebar.types";
 
@@ -32,7 +33,7 @@ export const SidebarRoot = ({
   style,
   children,
 }: SidebarProps) => {
-  const { semanticColors } = useTheme();
+  const { semanticColors, baseTokens } = useTheme();
   const [collapsed, setCollapsed] = useControllableState({
     value: propCollapsed,
     defaultValue: defaultCollapsed,
@@ -44,9 +45,9 @@ export const SidebarRoot = ({
   const sidebarStyle: ViewStyle = {
     width: activeWidth,
     height: "100%",
-    backgroundColor: "rgba(12, 14, 24, 0.95)",
+    backgroundColor: withAlpha(baseTokens.colors.black, 0.95),
     borderRightWidth: 1,
-    borderRightColor: "rgba(255, 255, 255, 0.08)",
+    borderRightColor: withAlpha(baseTokens.colors.white, 0.08),
     paddingVertical: 16,
     paddingHorizontal: collapsed ? 8 : 14,
     justifyContent: "space-between",
@@ -121,16 +122,20 @@ export const SidebarNavItem = ({
 };
 SidebarNavItem.displayName = "Sidebar.NavItem";
 
-export const SidebarFooter = ({ children, style }: { children: React.ReactNode; style?: ViewStyle }) => (
-  <Box style={[{ paddingTop: 16, borderTopWidth: 1, borderTopColor: "rgba(255, 255, 255, 0.06)" }, style]}>
-    {children}
-  </Box>
-);
+export const SidebarFooter = ({ children, style }: { children: React.ReactNode; style?: ViewStyle }) => {
+  const { baseTokens } = useTheme();
+
+  return (
+    <Box style={[{ paddingTop: 16, borderTopWidth: 1, borderTopColor: withAlpha(baseTokens.colors.white, 0.06) }, style]}>
+      {children}
+    </Box>
+  );
+};
 SidebarFooter.displayName = "Sidebar.Footer";
 
 export const SidebarToggle = ({ style }: { style?: ViewStyle }) => {
   const { collapsed, setCollapsed } = useSidebarContext();
-  const { semanticColors } = useTheme();
+  const { semanticColors, baseTokens } = useTheme();
 
   return (
     <Pressable
@@ -142,9 +147,9 @@ export const SidebarToggle = ({ style }: { style?: ViewStyle }) => {
           paddingVertical: 6,
           paddingHorizontal: 10,
           borderRadius: 6,
-          backgroundColor: "rgba(255, 255, 255, 0.04)",
+          backgroundColor: withAlpha(baseTokens.colors.white, 0.04),
           borderWidth: 1,
-          borderColor: "rgba(255, 255, 255, 0.08)",
+          borderColor: withAlpha(baseTokens.colors.white, 0.08),
           alignItems: "center",
           justifyContent: "center",
         },

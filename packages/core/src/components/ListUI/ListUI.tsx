@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import { Box, BoxProps, HStack, Inline, Pressable, Stack, Text, VStack } from "@unconfused-ui/primitives";
 import { useTheme } from "@unconfused-ui/theme";
+import { withAlpha } from "@unconfused-ui/tokens";
 
 // 1. ListItem
 export type ListItemProps = {
@@ -36,7 +37,7 @@ export const ListItem = ({
   disabled = false,
   style,
 }: ListItemProps) => {
-  const { semanticColors } = useTheme();
+  const { semanticColors, baseTokens } = useTheme();
 
   return (
     <Pressable
@@ -51,9 +52,9 @@ export const ListItem = ({
           justifyContent: "space-between",
           paddingVertical: 14,
           paddingHorizontal: 16,
-          backgroundColor: selected ? "rgba(124, 58, 237, 0.15)" : "transparent",
+          backgroundColor: selected ? withAlpha(baseTokens.colors.brand[500], 0.15) : "transparent",
           borderBottomWidth: 1,
-          borderBottomColor: "rgba(255, 255, 255, 0.06)",
+          borderBottomColor: withAlpha(baseTokens.colors.white, 0.06),
           minHeight: 52,
           opacity: disabled ? 0.4 : 1,
         },
@@ -89,7 +90,7 @@ ListItem.displayName = "ListItem";
 
 // 2. ListHeader, ListFooter, ListSection
 export const ListHeader = ({ title, count }: { title: string; count?: number }) => {
-  const { semanticColors } = useTheme();
+  const { semanticColors, baseTokens } = useTheme();
   return (
     <Inline
       justify="space-between"
@@ -97,9 +98,9 @@ export const ListHeader = ({ title, count }: { title: string; count?: number }) 
       style={{
         paddingHorizontal: 16,
         paddingVertical: 10,
-        backgroundColor: "rgba(255, 255, 255, 0.03)",
+        backgroundColor: withAlpha(baseTokens.colors.white, 0.03),
         borderBottomWidth: 1,
-        borderBottomColor: "rgba(255, 255, 255, 0.08)",
+        borderBottomColor: withAlpha(baseTokens.colors.white, 0.08),
       }}
     >
       <Text
@@ -120,17 +121,21 @@ export const ListHeader = ({ title, count }: { title: string; count?: number }) 
 };
 ListHeader.displayName = "ListHeader";
 
-export const ListFooter = ({ children, style }: { children: React.ReactNode; style?: ViewStyle }) => (
-  <Box style={[{ padding: 14, backgroundColor: "rgba(255, 255, 255, 0.02)" }, style]}>
-    {typeof children === "string" ? (
-      <Text size="xs" color="rgba(255, 255, 255, 0.5)">
-        {children}
-      </Text>
-    ) : (
-      children
-    )}
-  </Box>
-);
+export const ListFooter = ({ children, style }: { children: React.ReactNode; style?: ViewStyle }) => {
+  const { baseTokens } = useTheme();
+
+  return (
+    <Box style={[{ padding: 14, backgroundColor: withAlpha(baseTokens.colors.white, 0.02) }, style]}>
+      {typeof children === "string" ? (
+        <Text size="xs" color={withAlpha(baseTokens.colors.white, 0.5)}>
+          {children}
+        </Text>
+      ) : (
+        children
+      )}
+    </Box>
+  );
+};
 ListFooter.displayName = "ListFooter";
 
 export const ListSection = ({
@@ -141,32 +146,40 @@ export const ListSection = ({
   title: string;
   count?: number;
   children: React.ReactNode;
-}) => (
-  <VStack gap={0} style={{ borderBottomWidth: 1, borderBottomColor: "rgba(255, 255, 255, 0.08)" }}>
-    <ListHeader title={title} count={count} />
-    {children}
-  </VStack>
-);
+}) => {
+  const { baseTokens } = useTheme();
+
+  return (
+    <VStack gap={0} style={{ borderBottomWidth: 1, borderBottomColor: withAlpha(baseTokens.colors.white, 0.08) }}>
+      <ListHeader title={title} count={count} />
+      {children}
+    </VStack>
+  );
+};
 ListSection.displayName = "ListSection";
 
 // 3. List
 export const List = Object.assign(
-  ({ children, style }: { children: React.ReactNode; style?: ViewStyle }) => (
-    <Box
-      style={[
-        {
-          borderRadius: 14,
-          overflow: "hidden",
-          borderWidth: 1,
-          borderColor: "rgba(255, 255, 255, 0.1)",
-          backgroundColor: "rgba(16, 18, 30, 0.8)",
-        },
-        style,
-      ]}
-    >
-      {children}
-    </Box>
-  ),
+  ({ children, style }: { children: React.ReactNode; style?: ViewStyle }) => {
+    const { baseTokens } = useTheme();
+
+    return (
+      <Box
+        style={[
+          {
+            borderRadius: 14,
+            overflow: "hidden",
+            borderWidth: 1,
+            borderColor: withAlpha(baseTokens.colors.white, 0.1),
+            backgroundColor: withAlpha(baseTokens.colors.black, 0.8),
+          },
+          style,
+        ]}
+      >
+        {children}
+      </Box>
+    );
+  },
   {
     Item: ListItem,
     Header: ListHeader,

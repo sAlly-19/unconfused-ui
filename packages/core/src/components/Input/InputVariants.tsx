@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { TextStyle, View, ViewStyle } from "react-native";
 import { Box, HStack, Inline, Pressable, Text, VStack } from "@unconfused-ui/primitives";
 import { useTheme } from "@unconfused-ui/theme";
+import { withAlpha } from "@unconfused-ui/tokens";
 import { Input, InputProps } from "./Input";
 
 export * from "../Textarea";
@@ -73,17 +74,17 @@ export const PasswordInput = ({
             <Box
               flex={1}
               rounded="sm"
-              bg={strength >= 1 ? semanticColors.danger : "rgba(255,255,255,0.1)"}
+              bg={strength >= 1 ? semanticColors.danger : withAlpha(baseTokens.colors.white, 0.1)}
             />
             <Box
               flex={1}
               rounded="sm"
-              bg={strength >= 2 ? baseTokens.colors.warning[500] : "rgba(255,255,255,0.1)"}
+              bg={strength >= 2 ? baseTokens.colors.warning[500] : withAlpha(baseTokens.colors.white, 0.1)}
             />
             <Box
               flex={1}
               rounded="sm"
-              bg={strength >= 3 ? baseTokens.colors.success[500] : "rgba(255,255,255,0.1)"}
+              bg={strength >= 3 ? baseTokens.colors.success[500] : withAlpha(baseTokens.colors.white, 0.1)}
             />
           </HStack>
           <Text size="xs" color={semanticColors.foregroundSubtle}>

@@ -23,7 +23,7 @@ import {
 import { useTheme } from "@unconfused-ui/theme";
 
 export function PrivacyPoliciesScreen() {
-  const { theme, semanticColors } = useTheme();
+  const { theme, semanticColors, baseTokens } = useTheme();
 
   return (
     <Stack gap={8}>
@@ -66,7 +66,7 @@ export function PrivacyPoliciesScreen() {
         <Card variant="default">
           <Card.Header>
             <Inline align="center" gap={2}>
-              <LockIcon size={20} color="#10B981" />
+              <LockIcon size={20} color={baseTokens.colors.success[500]} />
               <Text size="lg" weight="bold" color={semanticColors.foreground}>
                 2. Política de Privacidade & Zero Telemetria
               </Text>
@@ -85,7 +85,7 @@ export function PrivacyPoliciesScreen() {
         <Card variant="default">
           <Card.Header>
             <Inline align="center" gap={2}>
-              <SparklesIcon size={20} color="#3B82F6" />
+              <SparklesIcon size={20} color={baseTokens.colors.brand[500]} />
               <Text size="lg" weight="bold" color={semanticColors.foreground}>
                 3. Compromisso de Engenharia & Acessibilidade
               </Text>

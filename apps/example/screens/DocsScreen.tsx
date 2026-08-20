@@ -36,7 +36,7 @@ import { useToast } from "@unconfused-ui/core";
 import { withAlpha } from "@unconfused-ui/tokens";
 
 export function DocsScreen(): React.JSX.Element {
-  const { semanticColors } = useTheme();
+  const { semanticColors, baseTokens } = useTheme();
   const { toast } = useToast();
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
   const [selectedSection, setSelectedSection] = useState<string>("quickstart");
@@ -82,7 +82,7 @@ export default function App() {
           <Text size="sm">Interface fluida, acessível e sem complicação.</Text>
         </Card.Content>
         <Card.Footer>
-          <Button variant="primary" icon={<SparklesIcon size={16} color="#FFF" />}>
+          <Button variant="primary" icon={<SparklesIcon size={16} color={baseTokens.colors.white} />}>
             Começar Agora
           </Button>
         </Card.Footer>
@@ -260,12 +260,12 @@ export function TableExample() {
                 }}
               >
                 {React.cloneElement(sec.icon as any, {
-                  color: isActive ? "#FFFFFF" : semanticColors.foreground,
+                  color: isActive ? baseTokens.colors.white : semanticColors.foreground,
                 })}
                 <Text
                   size="sm"
                   weight={isActive ? "bold" : "medium"}
-                  color={isActive ? "#FFFFFF" : semanticColors.foreground}
+                  color={isActive ? baseTokens.colors.white : semanticColors.foreground}
                 >
                   {sec.label}
                 </Text>
@@ -293,7 +293,7 @@ export function TableExample() {
                     variant="ghost"
                     size="sm"
                     onPress={() => copySnippet(codeSnippets.install, "install")}
-                    leftIcon={copiedCode === "install" ? <CheckIcon size={14} color="#10B981" /> : <CopyIcon size={14} color={semanticColors.foregroundMuted} />}
+                    leftIcon={copiedCode === "install" ? <CheckIcon size={14} color={baseTokens.colors.success[500]} /> : <CopyIcon size={14} color={semanticColors.foregroundMuted} />}
                   >
                     {copiedCode === "install" ? "Copiado!" : "Copiar"}
                   </Button>

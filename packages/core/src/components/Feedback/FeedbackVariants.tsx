@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { ActivityIndicator as RNActivityIndicator, Modal, View, ViewStyle } from "react-native";
 import { Box, HStack, Inline, Pressable, Stack, Text, VStack } from "@unconfused-ui/primitives";
 import { useTheme } from "@unconfused-ui/theme";
+import { withAlpha } from "@unconfused-ui/tokens";
 import { Button } from "../Button";
 import { Dialog, DialogProps } from "../Dialog";
 import { Progress, ProgressProps } from "../Progress";
@@ -45,37 +46,37 @@ export const Alert = ({
     switch (variant) {
       case "success":
         return {
-          bg: "rgba(16, 185, 129, 0.12)",
-          border: "rgba(16, 185, 129, 0.35)",
+          bg: withAlpha(baseTokens.colors.success[500], 0.12),
+          border: withAlpha(baseTokens.colors.success[500], 0.35),
           defaultIcon: "✓",
           iconColor: baseTokens.colors.success[500],
         };
       case "warning":
         return {
-          bg: "rgba(245, 158, 11, 0.12)",
-          border: "rgba(245, 158, 11, 0.35)",
+          bg: withAlpha(baseTokens.colors.warning[500], 0.12),
+          border: withAlpha(baseTokens.colors.warning[500], 0.35),
           defaultIcon: "⚠️",
           iconColor: baseTokens.colors.warning[500],
         };
       case "danger":
         return {
-          bg: "rgba(244, 63, 94, 0.12)",
-          border: "rgba(244, 63, 94, 0.35)",
+          bg: withAlpha(baseTokens.colors.danger[500], 0.12),
+          border: withAlpha(baseTokens.colors.danger[500], 0.35),
           defaultIcon: "🛑",
           iconColor: semanticColors.danger,
         };
       case "glass":
         return {
-          bg: "rgba(16, 18, 30, 0.75)",
-          border: "rgba(255, 255, 255, 0.15)",
+          bg: withAlpha(baseTokens.colors.black, 0.75),
+          border: withAlpha(baseTokens.colors.white, 0.15),
           defaultIcon: "⚡",
           iconColor: semanticColors.primary,
         };
       case "info":
       default:
         return {
-          bg: "rgba(124, 58, 237, 0.12)",
-          border: "rgba(124, 58, 237, 0.35)",
+          bg: withAlpha(semanticColors.primary, 0.12),
+          border: withAlpha(semanticColors.primary, 0.35),
           defaultIcon: "ℹ️",
           iconColor: semanticColors.primary,
         };
@@ -159,7 +160,7 @@ export const ConfirmDialog = ({
   onConfirm,
   onCancel,
 }: ConfirmDialogProps) => {
-  const { semanticColors } = useTheme();
+  const { semanticColors, baseTokens } = useTheme();
 
   return (
     <Modal visible={open} transparent animationType="fade" onRequestClose={() => onOpenChange?.(false)}>
@@ -167,7 +168,7 @@ export const ConfirmDialog = ({
         onPress={() => onOpenChange?.(false)}
         style={{
           flex: 1,
-          backgroundColor: "rgba(0,0,0,0.65)",
+          backgroundColor: withAlpha(baseTokens.colors.black, 0.65),
           alignItems: "center",
           justifyContent: "center",
           padding: 24,
@@ -237,25 +238,25 @@ export const Snackbar = ({
   onAction,
   style,
 }: SnackbarProps) => {
-  const { semanticColors } = useTheme();
+  const { semanticColors, baseTokens } = useTheme();
   if (!visible) return null;
 
   return (
     <Box
       style={[
         {
-          backgroundColor: "rgba(16, 18, 30, 0.95)",
+          backgroundColor: withAlpha(baseTokens.colors.black, 0.95),
           borderWidth: 1,
-          borderColor: "rgba(255, 255, 255, 0.15)",
+          borderColor: withAlpha(baseTokens.colors.white, 0.15),
           borderRadius: 12,
           paddingHorizontal: 16,
           paddingVertical: 12,
           flexDirection: "row",
           alignItems: "center",
           justifyContent: "space-between",
-          shadowColor: "#000",
+          shadowColor: withAlpha(baseTokens.colors.black, 0.4),
           shadowOffset: { width: 0, height: 4 },
-          shadowOpacity: 0.4,
+          shadowOpacity: 1,
           shadowRadius: 10,
         },
         style,
@@ -378,7 +379,7 @@ export const ProgressCircle = ({
   color,
   style,
 }: ProgressCircleProps) => {
-  const { semanticColors } = useTheme();
+  const { semanticColors, baseTokens } = useTheme();
   const activeColor = color ?? semanticColors.primary;
 
   return (
@@ -389,9 +390,9 @@ export const ProgressCircle = ({
           height: size,
           borderRadius: size / 2,
           borderWidth: strokeWidth,
-          borderColor: "rgba(255, 255, 255, 0.1)",
+          borderColor: withAlpha(baseTokens.colors.white, 0.1),
           borderTopColor: activeColor,
-          borderRightColor: value > 50 ? activeColor : "rgba(255, 255, 255, 0.1)",
+          borderRightColor: value > 50 ? activeColor : withAlpha(baseTokens.colors.white, 0.1),
           alignItems: "center",
           justifyContent: "center",
         },
