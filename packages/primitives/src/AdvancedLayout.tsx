@@ -2,6 +2,8 @@ import React from "react";
 import { ViewStyle } from "react-native";
 import { Box, BoxProps } from "./Box";
 import { Inline, InlineProps } from "./Inline";
+import { useTheme } from "@unconfused-ui/theme";
+import { withAlpha } from "@unconfused-ui/tokens";
 
 export type WrapProps = InlineProps;
 export const Wrap = (props: WrapProps): React.JSX.Element => <Inline wrap {...props} />;
@@ -29,13 +31,14 @@ Masonry.displayName = "Masonry";
 
 export type OverlayProps = BoxProps;
 export const Overlay = React.forwardRef<any, OverlayProps>(({ style, children, ...rest }, ref) => {
+  const { baseTokens } = useTheme();
   const overlayStyle: ViewStyle = {
     position: "absolute",
     top: 0,
     bottom: 0,
     left: 0,
     right: 0,
-    backgroundColor: "rgba(0,0,0,0.5)",
+    backgroundColor: withAlpha(baseTokens.colors.black, 0.5),
   };
 
   return (

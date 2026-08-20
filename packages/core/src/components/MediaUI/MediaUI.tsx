@@ -12,6 +12,7 @@ import {
 } from "react-native";
 import { Box, Center, HStack, Inline, Pressable, Stack, Text, VStack } from "@unconfused-ui/primitives";
 import { useTheme } from "@unconfused-ui/theme";
+import { withAlpha } from "@unconfused-ui/tokens";
 import { Avatar } from "../Avatar";
 import { Button } from "../Button";
 
@@ -86,7 +87,7 @@ export const Thumbnail = ({
   onPress,
   style,
 }: ThumbnailProps) => {
-  const { semanticColors } = useTheme();
+  const { semanticColors, baseTokens } = useTheme();
 
   return (
     <Pressable
@@ -97,9 +98,9 @@ export const Thumbnail = ({
           width: size,
           height: size,
           borderRadius: radius,
-          backgroundColor: "rgba(255, 255, 255, 0.05)",
+          backgroundColor: withAlpha(baseTokens.colors.white, 0.05),
           borderWidth: 1,
-          borderColor: "rgba(255, 255, 255, 0.1)",
+          borderColor: withAlpha(baseTokens.colors.white, 0.1),
           overflow: "hidden",
           alignItems: "center",
           justifyContent: "center",
@@ -121,10 +122,10 @@ export const Thumbnail = ({
             width: 24,
             height: 24,
             borderRadius: 12,
-            backgroundColor: "rgba(0, 0, 0, 0.65)",
+            backgroundColor: withAlpha(baseTokens.colors.black, 0.65),
           }}
         >
-          <Text size="xs" color="#FFF">▶</Text>
+          <Text size="xs" color={baseTokens.colors.white}>▶</Text>
         </Center>
       )}
     </Pressable>
@@ -144,7 +145,7 @@ export type ImageViewerProps = {
 };
 
 export const ImageViewer = ({ open = false, onClose, title = "Image Preview", src }: ImageViewerProps) => {
-  const { semanticColors } = useTheme();
+  const { semanticColors, baseTokens } = useTheme();
 
   return (
     <Modal visible={open} transparent animationType="fade" onRequestClose={onClose}>
@@ -152,7 +153,7 @@ export const ImageViewer = ({ open = false, onClose, title = "Image Preview", sr
         onPress={onClose}
         style={{
           flex: 1,
-          backgroundColor: "rgba(0,0,0,0.9)",
+          backgroundColor: withAlpha(baseTokens.colors.black, 0.9),
           justifyContent: "center",
           alignItems: "center",
           padding: 20,
@@ -165,9 +166,9 @@ export const ImageViewer = ({ open = false, onClose, title = "Image Preview", sr
             width: "100%",
             borderRadius: 16,
             overflow: "hidden",
-            backgroundColor: "rgba(16, 18, 30, 0.95)",
+            backgroundColor: withAlpha(baseTokens.colors.black, 0.95),
             borderWidth: 1,
-            borderColor: "rgba(255, 255, 255, 0.15)",
+            borderColor: withAlpha(baseTokens.colors.white, 0.15),
           }}
         >
           <Inline justify="space-between" align="center" style={{ padding: 14 }}>

@@ -67,7 +67,7 @@ export const Button = React.forwardRef<View, ButtonProps>(
         case "secondary":
           return semanticColors.foreground;
         case "destructive":
-          return "#FFFFFF";
+          return semanticColors.dangerForeground;
         case "outline":
         case "ghost":
         case "glass":

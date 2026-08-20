@@ -125,12 +125,12 @@ exports.Link.displayName = "Link";
 exports.Code = react_1.default.forwardRef(({ block = false, style, children, ...rest }, ref) => {
     const { semanticColors } = (0, theme_1.useTheme)();
     if (block) {
-        return ((0, jsx_runtime_1.jsx)(Box_1.Box, { p: 4, rounded: "lg", borderWidth: 1, borderColor: semanticColors.border, bg: "rgba(10, 12, 22, 0.95)", style: { width: "100%", overflow: "hidden" }, children: (0, jsx_runtime_1.jsx)(Text_1.Text, { ref: ref, size: "xs", color: "#E2E8F0", style: [{ fontFamily: "monospace", lineHeight: 20 }, style], ...rest, children: children }) }));
+        return ((0, jsx_runtime_1.jsx)(Box_1.Box, { p: 4, rounded: "lg", borderWidth: 1, borderColor: semanticColors.border, bg: semanticColors.surface, style: { width: "100%", overflow: "hidden" }, children: (0, jsx_runtime_1.jsx)(Text_1.Text, { ref: ref, size: "xs", color: semanticColors.foreground, style: [{ fontFamily: "monospace", lineHeight: 20 }, style], ...rest, children: children }) }));
     }
     return ((0, jsx_runtime_1.jsx)(Text_1.Text, { ref: ref, size: "xs", color: semanticColors.primaryForeground, style: [
             {
                 fontFamily: "monospace",
-                backgroundColor: "rgba(10, 12, 22, 0.85)",
+                backgroundColor: semanticColors.surface,
                 paddingHorizontal: 7,
                 paddingVertical: 3,
                 borderRadius: 6,
@@ -155,7 +155,7 @@ const Blockquote = ({ author, cite, variant = "primary", style, children, }) => 
                 borderLeftColor: borderColor,
                 paddingLeft: 16,
                 paddingVertical: 8,
-                backgroundColor: "rgba(124, 58, 237, 0.05)",
+                backgroundColor: semanticColors.surfaceSubtle,
                 borderRadius: 4,
                 gap: 4,
             },

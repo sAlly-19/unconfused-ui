@@ -30,14 +30,14 @@ function useToast() {
     };
 }
 const ToastProvider = ({ children }) => {
-    const { semanticColors } = (0, theme_1.useTheme)();
+    const { semanticColors, baseTokens, theme } = (0, theme_1.useTheme)();
     const toasts = (0, toastStore_1.useToasts)();
     const getVariantStyle = (variant) => {
         switch (variant) {
             case "success":
                 return {
-                    backgroundColor: (0, tokens_1.withAlpha)("#10B981", 0.15),
-                    borderColor: (0, tokens_1.withAlpha)("#10B981", 0.4),
+                    backgroundColor: (0, tokens_1.withAlpha)(baseTokens.colors.success[500], 0.15),
+                    borderColor: (0, tokens_1.withAlpha)(baseTokens.colors.success[500], 0.4),
                 };
             case "danger":
             case "destructive":
@@ -47,8 +47,8 @@ const ToastProvider = ({ children }) => {
                 };
             case "warning":
                 return {
-                    backgroundColor: (0, tokens_1.withAlpha)("#F59E0B", 0.15),
-                    borderColor: (0, tokens_1.withAlpha)("#F59E0B", 0.4),
+                    backgroundColor: (0, tokens_1.withAlpha)(baseTokens.colors.warning[500], 0.15),
+                    borderColor: (0, tokens_1.withAlpha)(baseTokens.colors.warning[500], 0.4),
                 };
             case "default":
             default:
@@ -73,11 +73,7 @@ const ToastProvider = ({ children }) => {
                             borderRadius: 12,
                             borderWidth: 1,
                             padding: 14,
-                            shadowColor: "#000",
-                            shadowOffset: { width: 0, height: 4 },
-                            shadowOpacity: 0.25,
-                            shadowRadius: 10,
-                            elevation: 6,
+                            ...((theme && theme.shadows && theme.shadows.lg) || {}),
                         },
                         getVariantStyle(toastItem.variant),
                     ], children: (0, jsx_runtime_1.jsxs)(primitives_1.Stack, { gap: 1, children: [(0, jsx_runtime_1.jsx)(primitives_1.Text, { size: "sm", weight: "bold", color: semanticColors.foreground, children: toastItem.title }), toastItem.description && ((0, jsx_runtime_1.jsx)(primitives_1.Text, { size: "xs", color: semanticColors.foregroundMuted, children: toastItem.description }))] }) }, toastItem.id))) }))] }));

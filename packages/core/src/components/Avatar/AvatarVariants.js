@@ -19,6 +19,7 @@ const jsx_runtime_1 = require("react/jsx-runtime");
 const react_native_1 = require("react-native");
 const primitives_1 = require("@unconfused-ui/primitives");
 const theme_1 = require("@unconfused-ui/theme");
+const tokens_1 = require("@unconfused-ui/tokens");
 const Avatar_1 = require("./Avatar");
 __exportStar(require("./Avatar"), exports);
 const AvatarImage = ({ src, style }) => {
@@ -27,7 +28,10 @@ const AvatarImage = ({ src, style }) => {
 };
 exports.AvatarImage = AvatarImage;
 exports.AvatarImage.displayName = "AvatarImage";
-const AvatarFallback = ({ children, style }) => ((0, jsx_runtime_1.jsx)(primitives_1.Text, { size: "sm", weight: "bold", color: "#A78BFA", style: style, children: children.substring(0, 2).toUpperCase() }));
+const AvatarFallback = ({ children, style }) => {
+    const { semanticColors } = (0, theme_1.useTheme)();
+    return ((0, jsx_runtime_1.jsx)(primitives_1.Text, { size: "sm", weight: "bold", color: semanticColors.primary, style: style, children: children.substring(0, 2).toUpperCase() }));
+};
 exports.AvatarFallback = AvatarFallback;
 exports.AvatarFallback.displayName = "AvatarFallback";
 const UserAvatar = ({ name, email, fallback, ...rest }) => ((0, jsx_runtime_1.jsx)(Avatar_1.Avatar, { fallback: fallback ?? (name ? name.substring(0, 2) : "?"), ...rest }));
@@ -56,7 +60,7 @@ const PresenceIndicator = ({ status = "online", size = 10, showGlow = true, styl
                 borderRadius: size / 2,
                 backgroundColor: activeColor,
                 borderWidth: 2,
-                borderColor: "#080911",
+                borderColor: (0, tokens_1.withAlpha)(baseTokens.colors.black, 0.6),
                 shadowColor: showGlow ? activeColor : "transparent",
                 shadowOffset: { width: 0, height: 0 },
                 shadowOpacity: 0.8,

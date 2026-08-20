@@ -53,13 +53,13 @@ exports.Textarea = react_1.default.forwardRef(({ label, error, helperText, showC
         onChangeText?.(text);
     };
     const textareaContainerStyle = {
-        backgroundColor: "rgba(255, 255, 255, 0.03)",
+        backgroundColor: semanticColors.surfaceSubtle,
         borderWidth: 1,
         borderColor: error
             ? semanticColors.danger
             : isFocused
                 ? semanticColors.primary
-                : "rgba(255, 255, 255, 0.08)",
+                : semanticColors.borderSubtle,
         borderRadius: 8,
         paddingHorizontal: 12,
         paddingVertical: 10,

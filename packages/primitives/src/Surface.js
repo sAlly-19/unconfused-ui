@@ -10,7 +10,7 @@ const react_native_1 = require("react-native");
 const theme_1 = require("@unconfused-ui/theme");
 const tokens_1 = require("@unconfused-ui/tokens");
 exports.Surface = react_1.default.forwardRef(({ variant = "default", material, elevation = "none", radius = "md", style, children, ...rest }, ref) => {
-    const { theme } = (0, theme_1.useTheme)();
+    const { theme, baseTokens } = (0, theme_1.useTheme)();
     const resolveRadius = typeof radius === "number" ? radius : theme.radii[radius];
     const getMaterialStyles = () => {
         if (!material)
@@ -21,7 +21,7 @@ exports.Surface = react_1.default.forwardRef(({ variant = "default", material, e
         return {
             backgroundColor: mat.tint,
             opacity: mat.tintOpacity,
-            borderColor: `rgba(255, 255, 255, ${mat.borderLuminance})`,
+            borderColor: (0, tokens_1.withAlpha)(baseTokens.colors.white, mat.borderLuminance),
             borderWidth: mat.borderLuminance > 0 ? 1 : 0,
         };
     };

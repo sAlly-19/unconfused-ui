@@ -266,13 +266,13 @@ export const Code = React.forwardRef<any, CodeProps>(
           rounded="lg"
           borderWidth={1}
           borderColor={semanticColors.border}
-          bg="rgba(10, 12, 22, 0.95)"
+          bg={semanticColors.surface}
           style={{ width: "100%", overflow: "hidden" }}
         >
           <Text
             ref={ref}
             size="xs"
-            color="#E2E8F0"
+            color={semanticColors.foreground}
             style={[{ fontFamily: "monospace", lineHeight: 20 }, style]}
             {...rest}
           >
@@ -290,7 +290,7 @@ export const Code = React.forwardRef<any, CodeProps>(
         style={[
           {
             fontFamily: "monospace",
-            backgroundColor: "rgba(10, 12, 22, 0.85)",
+            backgroundColor: semanticColors.surface,
             paddingHorizontal: 7,
             paddingVertical: 3,
             borderRadius: 6,
@@ -341,7 +341,7 @@ export const Blockquote = ({
           borderLeftColor: borderColor,
           paddingLeft: 16,
           paddingVertical: 8,
-          backgroundColor: "rgba(124, 58, 237, 0.05)",
+          backgroundColor: semanticColors.surfaceSubtle,
           borderRadius: 4,
           gap: 4,
         },

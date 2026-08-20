@@ -46,7 +46,7 @@ export function Combobox({
   clearable = true,
   style,
 }: ComboboxProps): React.JSX.Element {
-  const { semanticColors } = useTheme();
+  const { semanticColors, baseTokens, theme } = useTheme();
   const [internalValue, setInternalValue] = useState(defaultValue);
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState("");
@@ -130,7 +130,7 @@ export function Combobox({
           onPress={() => setOpen(false)}
           style={{
             flex: 1,
-            backgroundColor: "rgba(0, 0, 0, 0.6)",
+            backgroundColor: withAlpha(baseTokens.colors.black, 0.6),
             justifyContent: "center",
             alignItems: "center",
             padding: 20,
@@ -147,11 +147,7 @@ export function Combobox({
               borderWidth: 1,
               borderColor: semanticColors.border,
               overflow: "hidden",
-              shadowColor: "#000",
-              shadowOffset: { width: 0, height: 10 },
-              shadowOpacity: 0.35,
-              shadowRadius: 20,
-              elevation: 12,
+              ...theme.shadows.lg,
             }}
           >
             {/* Search Input Box */}

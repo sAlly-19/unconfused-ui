@@ -2,6 +2,7 @@ import React from "react";
 import { Modal, View, ViewStyle } from "react-native";
 import { Box, Inline, Pressable, Stack, Text, FocusTrap } from "@unconfused-ui/primitives";
 import { useTheme } from "@unconfused-ui/theme";
+import { withAlpha } from "@unconfused-ui/tokens";
 
 export type DialogProps = {
   open?: boolean;
@@ -11,13 +12,13 @@ export type DialogProps = {
 };
 
 export const DialogRoot = ({ open = false, onOpenChange, style, children }: DialogProps): React.JSX.Element => {
-  const { semanticColors, activeColorScheme } = useTheme();
+  const { semanticColors, baseTokens, theme } = useTheme();
 
   return (
     <Modal visible={open} transparent animationType="fade" onRequestClose={() => onOpenChange?.(false)}>
       <View
         style={{
-          position: "fixed" as any,
+          position: "absolute",
           top: 0,
           left: 0,
           right: 0,
@@ -25,7 +26,7 @@ export const DialogRoot = ({ open = false, onOpenChange, style, children }: Dial
           width: "100%",
           height: "100%",
           flex: 1,
-          backgroundColor: "rgba(0, 0, 0, 0.75)",
+          backgroundColor: withAlpha(baseTokens.colors.black, 0.75),
           justifyContent: "center",
           alignItems: "center",
           padding: 20,
@@ -47,27 +48,23 @@ export const DialogRoot = ({ open = false, onOpenChange, style, children }: Dial
         />
 
         <FocusTrap active={open} onRequestClose={() => onOpenChange?.(false)} style={{ width: "100%", maxWidth: 480, zIndex: 10 }}>
-          <View
+          <Stack
+            gap={4}
             style={[
               {
                 width: "100%",
-                backgroundColor: activeColorScheme === "dark" || activeColorScheme === "oled" ? "#121422" : semanticColors.surface,
+                backgroundColor: semanticColors.surface,
                 borderRadius: 22,
                 borderWidth: 1,
                 borderColor: semanticColors.border,
                 padding: 24,
-                gap: 16,
-                shadowColor: "#000",
-                shadowOffset: { width: 0, height: 16 },
-                shadowOpacity: 0.5,
-                shadowRadius: 36,
-                elevation: 24,
+                ...(theme.shadows ? theme.shadows.lg : {}),
               },
               style,
             ]}
           >
             {children}
-          </View>
+          </Stack>
         </FocusTrap>
       </View>
     </Modal>

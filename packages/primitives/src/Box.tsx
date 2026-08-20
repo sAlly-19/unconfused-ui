@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleProp, View, ViewProps, ViewStyle } from "react-native";
 import { useTheme } from "@unconfused-ui/theme";
-import { Radii, Shadows, Spacing } from "@unconfused-ui/tokens";
+import { Radii, Shadows, Spacing, withAlpha } from "@unconfused-ui/tokens";
 
 export type BoxVariant = "flat" | "bordered" | "subtle" | "glass" | "elevated";
 
@@ -158,7 +158,7 @@ export const Box = React.forwardRef<View, BoxProps>(
     },
     ref
   ) => {
-    const { theme, semanticColors } = useTheme();
+    const { theme, semanticColors, baseTokens } = useTheme();
 
     const resolveSpacing = (val: keyof Spacing | number | undefined) => {
       if (val === undefined) return undefined;
@@ -196,9 +196,9 @@ export const Box = React.forwardRef<View, BoxProps>(
           };
         case "glass":
           return {
-            backgroundColor: "rgba(16, 18, 30, 0.75)",
+            backgroundColor: withAlpha(baseTokens.colors.black, 0.75),
             borderWidth: 1,
-            borderColor: "rgba(255, 255, 255, 0.12)",
+            borderColor: withAlpha(baseTokens.colors.white, 0.12),
           };
         case "elevated":
           return {

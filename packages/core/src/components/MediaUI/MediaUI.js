@@ -39,6 +39,7 @@ const react_1 = __importStar(require("react"));
 const react_native_1 = require("react-native");
 const primitives_1 = require("@unconfused-ui/primitives");
 const theme_1 = require("@unconfused-ui/theme");
+const tokens_1 = require("@unconfused-ui/tokens");
 const Avatar_1 = require("../Avatar");
 Object.defineProperty(exports, "Avatar", { enumerable: true, get: function () { return Avatar_1.Avatar; } });
 const Button_1 = require("../Button");
@@ -57,15 +58,15 @@ const ImageBackground = ({ overlayColor = "rgba(0, 0, 0, 0.4)", style, children,
 exports.ImageBackground = ImageBackground;
 exports.ImageBackground.displayName = "ImageBackground";
 const Thumbnail = ({ src, fallbackIcon = "🖼️", size = 64, radius = 12, showPlayBadge = false, onPress, style, }) => {
-    const { semanticColors } = (0, theme_1.useTheme)();
+    const { semanticColors, baseTokens } = (0, theme_1.useTheme)();
     return ((0, jsx_runtime_1.jsxs)(primitives_1.Pressable, { onPress: onPress, disabled: !onPress, style: [
             {
                 width: size,
                 height: size,
                 borderRadius: radius,
-                backgroundColor: "rgba(255, 255, 255, 0.05)",
+                backgroundColor: (0, tokens_1.withAlpha)(baseTokens.colors.white, 0.05),
                 borderWidth: 1,
-                borderColor: "rgba(255, 255, 255, 0.1)",
+                borderColor: (0, tokens_1.withAlpha)(baseTokens.colors.white, 0.1),
                 overflow: "hidden",
                 alignItems: "center",
                 justifyContent: "center",
@@ -77,8 +78,8 @@ const Thumbnail = ({ src, fallbackIcon = "🖼️", size = 64, radius = 12, show
                     width: 24,
                     height: 24,
                     borderRadius: 12,
-                    backgroundColor: "rgba(0, 0, 0, 0.65)",
-                }, children: (0, jsx_runtime_1.jsx)(primitives_1.Text, { size: "xs", color: "#FFF", children: "\u25B6" }) }))] }));
+                    backgroundColor: (0, tokens_1.withAlpha)(baseTokens.colors.black, 0.65),
+                }, children: (0, jsx_runtime_1.jsx)(primitives_1.Text, { size: "xs", color: baseTokens.colors.white, children: "\u25B6" }) }))] }));
 };
 exports.Thumbnail = Thumbnail;
 exports.Thumbnail.displayName = "Thumbnail";
@@ -86,10 +87,10 @@ exports.Thumbnail.displayName = "Thumbnail";
 var icons_1 = require("@unconfused-ui/icons");
 Object.defineProperty(exports, "Icon", { enumerable: true, get: function () { return icons_1.Icon; } });
 const ImageViewer = ({ open = false, onClose, title = "Image Preview", src }) => {
-    const { semanticColors } = (0, theme_1.useTheme)();
+    const { semanticColors, baseTokens } = (0, theme_1.useTheme)();
     return ((0, jsx_runtime_1.jsx)(react_native_1.Modal, { visible: open, transparent: true, animationType: "fade", onRequestClose: onClose, children: (0, jsx_runtime_1.jsx)(primitives_1.Pressable, { onPress: onClose, style: {
                 flex: 1,
-                backgroundColor: "rgba(0,0,0,0.9)",
+                backgroundColor: (0, tokens_1.withAlpha)(baseTokens.colors.black, 0.9),
                 justifyContent: "center",
                 alignItems: "center",
                 padding: 20,
@@ -98,9 +99,9 @@ const ImageViewer = ({ open = false, onClose, title = "Image Preview", src }) =>
                     width: "100%",
                     borderRadius: 16,
                     overflow: "hidden",
-                    backgroundColor: "rgba(16, 18, 30, 0.95)",
+                    backgroundColor: (0, tokens_1.withAlpha)(baseTokens.colors.black, 0.95),
                     borderWidth: 1,
-                    borderColor: "rgba(255, 255, 255, 0.15)",
+                    borderColor: (0, tokens_1.withAlpha)(baseTokens.colors.white, 0.15),
                 }, children: [(0, jsx_runtime_1.jsxs)(primitives_1.Inline, { justify: "space-between", align: "center", style: { padding: 14 }, children: [(0, jsx_runtime_1.jsx)(primitives_1.Text, { size: "sm", weight: "bold", children: title }), (0, jsx_runtime_1.jsx)(primitives_1.Pressable, { onPress: onClose, children: (0, jsx_runtime_1.jsx)(primitives_1.Text, { size: "sm", color: semanticColors.foregroundMuted, children: "\u2715" }) })] }), (0, jsx_runtime_1.jsx)(primitives_1.Box, { style: { height: 300, backgroundColor: "#000", alignItems: "center", justifyContent: "center" }, children: src ? ((0, jsx_runtime_1.jsx)(react_native_1.Image, { source: { uri: src }, style: { width: "100%", height: "100%" }, resizeMode: "contain" })) : ((0, jsx_runtime_1.jsx)(primitives_1.Text, { size: "3xl", children: "\uD83C\uDF0C" })) })] }) }) }));
 };
 exports.ImageViewer = ImageViewer;

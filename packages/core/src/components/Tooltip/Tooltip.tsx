@@ -10,7 +10,7 @@ export type TooltipProps = {
 };
 
 export const Tooltip = ({ content, style, children }: TooltipProps) => {
-  const { semanticColors } = useTheme();
+  const { semanticColors, theme } = useTheme();
   const [visible, setVisible] = useState(false);
 
   return (
@@ -23,18 +23,14 @@ export const Tooltip = ({ content, style, children }: TooltipProps) => {
               bottom: "100%",
               marginBottom: 8,
               alignSelf: "center",
-              backgroundColor: "rgba(12, 14, 24, 0.95)",
+              backgroundColor: semanticColors.surface,
               borderWidth: 1,
-              borderColor: "rgba(255, 255, 255, 0.15)",
+              borderColor: semanticColors.borderSubtle,
               borderRadius: 8,
               paddingHorizontal: 10,
               paddingVertical: 6,
               zIndex: 1500,
-              shadowColor: "#000",
-              shadowOffset: { width: 0, height: 4 },
-              shadowOpacity: 0.25,
-              shadowRadius: 8,
-              elevation: 6,
+              ...((theme && theme.shadows && theme.shadows.lg) || {}),
             },
             style,
           ]}

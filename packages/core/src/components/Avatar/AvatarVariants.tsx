@@ -2,6 +2,7 @@ import React from "react";
 import { Image, ImageSourcePropType, ImageStyle, View, ViewStyle } from "react-native";
 import { Box, HStack, Inline, Pressable, Stack, Text, VStack } from "@unconfused-ui/primitives";
 import { useTheme } from "@unconfused-ui/theme";
+import { withAlpha } from "@unconfused-ui/tokens";
 import { Avatar, AvatarProps, AvatarSize, AvatarStatus } from "./Avatar";
 
 export * from "./Avatar";
@@ -23,11 +24,14 @@ export type AvatarFallbackProps = {
   style?: ViewStyle;
 };
 
-export const AvatarFallback = ({ children, style }: AvatarFallbackProps) => (
-  <Text size="sm" weight="bold" color="#A78BFA" style={style}>
-    {children.substring(0, 2).toUpperCase()}
-  </Text>
-);
+export const AvatarFallback = ({ children, style }: AvatarFallbackProps) => {
+  const { semanticColors } = useTheme();
+  return (
+    <Text size="sm" weight="bold" color={semanticColors.primary} style={style}>
+      {children.substring(0, 2).toUpperCase()}
+    </Text>
+  );
+};
 AvatarFallback.displayName = "AvatarFallback";
 
 // 2. UserAvatar (Enhanced avatar with badge or tooltip)
@@ -82,7 +86,7 @@ export const PresenceIndicator = ({
           borderRadius: size / 2,
           backgroundColor: activeColor,
           borderWidth: 2,
-          borderColor: "#080911",
+          borderColor: withAlpha(baseTokens.colors.black, 0.6),
           shadowColor: showGlow ? activeColor : "transparent",
           shadowOffset: { width: 0, height: 0 },
           shadowOpacity: 0.8,

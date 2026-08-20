@@ -13,7 +13,7 @@ const tokens_1 = require("@unconfused-ui/tokens");
  * Features instant debounced search, WAI-ARIA accessibility, and FlatList virtualization for 1,000+ options.
  */
 function Combobox({ options, value: propValue, defaultValue = "", onValueChange, placeholder = "Selecione uma opção...", searchPlaceholder = "Buscar opções...", disabled = false, clearable = true, style, }) {
-    const { semanticColors } = (0, theme_1.useTheme)();
+    const { semanticColors, baseTokens, theme } = (0, theme_1.useTheme)();
     const [internalValue, setInternalValue] = (0, react_1.useState)(defaultValue);
     const [open, setOpen] = (0, react_1.useState)(false);
     const [search, setSearch] = (0, react_1.useState)("");
@@ -50,7 +50,7 @@ function Combobox({ options, value: propValue, defaultValue = "", onValueChange,
                     gap: 8,
                 }, children: [(0, jsx_runtime_1.jsx)(primitives_1.Text, { size: "sm", color: selectedOption ? semanticColors.foreground : semanticColors.foregroundMuted, numberOfLines: 1, style: { flex: 1 }, children: selectedOption ? selectedOption.label : placeholder }), (0, jsx_runtime_1.jsxs)(primitives_1.Inline, { align: "center", gap: 1, children: [clearable && selectedOption && !disabled && ((0, jsx_runtime_1.jsx)(primitives_1.Pressable, { onPress: handleClear, hitSlop: 8, children: (0, jsx_runtime_1.jsx)(icons_1.CloseIcon, { size: 14, color: semanticColors.foregroundMuted }) })), (0, jsx_runtime_1.jsx)(icons_1.ChevronDownIcon, { size: 16, color: semanticColors.foregroundMuted })] })] }), (0, jsx_runtime_1.jsx)(react_native_1.Modal, { visible: open, transparent: true, animationType: "fade", onRequestClose: () => setOpen(false), children: (0, jsx_runtime_1.jsx)(primitives_1.Pressable, { onPress: () => setOpen(false), style: {
                         flex: 1,
-                        backgroundColor: "rgba(0, 0, 0, 0.6)",
+                        backgroundColor: (0, tokens_1.withAlpha)(baseTokens.colors.black, 0.6),
                         justifyContent: "center",
                         alignItems: "center",
                         padding: 20,
@@ -63,11 +63,7 @@ function Combobox({ options, value: propValue, defaultValue = "", onValueChange,
                             borderWidth: 1,
                             borderColor: semanticColors.border,
                             overflow: "hidden",
-                            shadowColor: "#000",
-                            shadowOffset: { width: 0, height: 10 },
-                            shadowOpacity: 0.35,
-                            shadowRadius: 20,
-                            elevation: 12,
+                            ...theme.shadows.lg,
                         }, children: [(0, jsx_runtime_1.jsxs)(primitives_1.Box, { style: {
                                     flexDirection: "row",
                                     alignItems: "center",

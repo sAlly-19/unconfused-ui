@@ -19,7 +19,7 @@ const getCardRecipe = (semanticColors: any) =>
       footer: {
         paddingTop: 12,
         borderTopWidth: 1,
-        borderTopColor: "rgba(255,255,255,0.06)",
+        borderTopColor: semanticColors.borderSubtle,
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "flex-end",
@@ -30,13 +30,13 @@ const getCardRecipe = (semanticColors: any) =>
         default: {
           root: {
             backgroundColor: semanticColors.surface,
-            borderColor: "rgba(255, 255, 255, 0.06)",
+            borderColor: semanticColors.borderSubtle,
           },
         },
         glass: {
           root: {
-            backgroundColor: "rgba(255, 255, 255, 0.03)",
-            borderColor: "rgba(255, 255, 255, 0.08)",
+            backgroundColor: semanticColors.surfaceSubtle,
+            borderColor: semanticColors.borderSubtle,
           },
         },
         subtle: {
@@ -71,7 +71,7 @@ export type CardProps = {
 
 export const CardRoot = React.forwardRef<View, CardProps>(
   ({ variant = "default", elevation = "none", accentBar = false, style, children, ...rest }, ref) => {
-    const { semanticColors } = useTheme();
+    const { semanticColors, theme } = useTheme();
     const recipe = getCardRecipe(semanticColors);
     const styles = useMemo(() => recipe({ variant }), [recipe, variant]);
 
@@ -81,9 +81,9 @@ export const CardRoot = React.forwardRef<View, CardProps>(
           ref={ref}
           style={[
             ...styles.root,
-            elevation === "sm" && { shadowColor: "#000", shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.12, shadowRadius: 3, elevation: 1 },
-            elevation === "md" && { shadowColor: "#000", shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.18, shadowRadius: 12, elevation: 4 },
-            elevation === "lg" && { shadowColor: "#000", shadowOffset: { width: 0, height: 8 }, shadowOpacity: 0.24, shadowRadius: 24, elevation: 8 },
+            elevation === "sm" && theme.shadows.sm,
+            elevation === "md" && theme.shadows.md,
+            elevation === "lg" && theme.shadows.lg,
             style,
           ]}
           {...rest}

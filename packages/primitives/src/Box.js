@@ -8,8 +8,9 @@ const jsx_runtime_1 = require("react/jsx-runtime");
 const react_1 = __importDefault(require("react"));
 const react_native_1 = require("react-native");
 const theme_1 = require("@unconfused-ui/theme");
+const tokens_1 = require("@unconfused-ui/tokens");
 exports.Box = react_1.default.forwardRef(({ padding, p, paddingHorizontal, px, paddingVertical, py, paddingTop, pt, paddingBottom, pb, paddingLeft, pl, paddingRight, pr, margin, m, marginHorizontal, mx, marginVertical, my, marginTop, mt, marginBottom, mb, marginLeft, ml, marginRight, mr, width, w, height, h, minWidth, minW, maxWidth, maxW, minHeight, minH, maxHeight, maxH, flex, flexGrow, flexShrink, flexBasis, direction, flexDirection, align, alignItems, justify, justifyContent, alignSelf, wrap, flexWrap, gap, bg, backgroundColor, radius, rounded, borderWidth, borderColor, borderStyle, shadow, overflow, opacity, variant, style, children, ...rest }, ref) => {
-    const { theme, semanticColors } = (0, theme_1.useTheme)();
+    const { theme, semanticColors, baseTokens } = (0, theme_1.useTheme)();
     const resolveSpacing = (val) => {
         if (val === undefined)
             return undefined;
@@ -48,9 +49,9 @@ exports.Box = react_1.default.forwardRef(({ padding, p, paddingHorizontal, px, p
                 };
             case "glass":
                 return {
-                    backgroundColor: "rgba(16, 18, 30, 0.75)",
+                    backgroundColor: (0, tokens_1.withAlpha)(baseTokens.colors.black, 0.75),
                     borderWidth: 1,
-                    borderColor: "rgba(255, 255, 255, 0.12)",
+                    borderColor: (0, tokens_1.withAlpha)(baseTokens.colors.white, 0.12),
                 };
             case "elevated":
                 return {

@@ -27,7 +27,7 @@ exports.Button = react_1.default.forwardRef(({ variant = "primary", size = "md",
             case "secondary":
                 return semanticColors.foreground;
             case "destructive":
-                return "#FFFFFF";
+                return semanticColors.dangerForeground;
             case "outline":
             case "ghost":
             case "glass":

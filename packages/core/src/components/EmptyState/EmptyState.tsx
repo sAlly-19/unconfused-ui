@@ -2,6 +2,7 @@ import React from "react";
 import { View, ViewStyle } from "react-native";
 import { Box, Center, Inline, Pressable, Stack, Text, VStack } from "@unconfused-ui/primitives";
 import { useTheme } from "@unconfused-ui/theme";
+import { withAlpha } from "@unconfused-ui/tokens";
 import { Button } from "../Button";
 import { Spinner } from "../Feedback/FeedbackVariants";
 
@@ -26,7 +27,7 @@ export const EmptyState = ({
   onSecondaryAction,
   style,
 }: EmptyStateProps) => {
-  const { semanticColors } = useTheme();
+  const { semanticColors, baseTokens } = useTheme();
 
   return (
     <Box
@@ -34,9 +35,9 @@ export const EmptyState = ({
         {
           padding: 36,
           borderRadius: 20,
-          backgroundColor: "rgba(16, 18, 30, 0.8)",
+          backgroundColor: withAlpha(baseTokens.colors.black, 0.8),
           borderWidth: 1,
-          borderColor: "rgba(255, 255, 255, 0.08)",
+          borderColor: semanticColors.borderSubtle,
           alignItems: "center",
           justifyContent: "center",
         },
@@ -50,9 +51,9 @@ export const EmptyState = ({
             width: 72,
             height: 72,
             borderRadius: 36,
-            backgroundColor: "rgba(124, 58, 237, 0.15)",
+            backgroundColor: withAlpha(semanticColors.primary, 0.15),
             borderWidth: 1,
-            borderColor: "rgba(124, 58, 237, 0.3)",
+            borderColor: withAlpha(semanticColors.primary, 0.3),
           }}
         >
           {icon}
@@ -141,7 +142,7 @@ export const LoadingState = ({
   description = "Pulling latest replica metrics from distributed edge workers.",
   style,
 }: EmptyStateProps) => {
-  const { semanticColors } = useTheme();
+  const { semanticColors, baseTokens } = useTheme();
 
   return (
     <Box
@@ -149,9 +150,9 @@ export const LoadingState = ({
         {
           padding: 36,
           borderRadius: 20,
-          backgroundColor: "rgba(16, 18, 30, 0.8)",
+          backgroundColor: withAlpha(baseTokens.colors.black, 0.8),
           borderWidth: 1,
-          borderColor: "rgba(255, 255, 255, 0.08)",
+          borderColor: semanticColors.borderSubtle,
           alignItems: "center",
           justifyContent: "center",
         },

@@ -20,15 +20,15 @@ export function useToast(): ToastContextValue {
 }
 
 export const ToastProvider = ({ children }: { children: React.ReactNode }) => {
-  const { semanticColors } = useTheme();
+  const { semanticColors, baseTokens, theme } = useTheme();
   const toasts = useToasts();
 
   const getVariantStyle = (variant?: ToastMessage["variant"]): ViewStyle => {
     switch (variant) {
       case "success":
         return {
-          backgroundColor: withAlpha("#10B981", 0.15),
-          borderColor: withAlpha("#10B981", 0.4),
+          backgroundColor: withAlpha(baseTokens.colors.success[500], 0.15),
+          borderColor: withAlpha(baseTokens.colors.success[500], 0.4),
         };
       case "danger":
       case "destructive":
@@ -38,8 +38,8 @@ export const ToastProvider = ({ children }: { children: React.ReactNode }) => {
         };
       case "warning":
         return {
-          backgroundColor: withAlpha("#F59E0B", 0.15),
-          borderColor: withAlpha("#F59E0B", 0.4),
+          backgroundColor: withAlpha(baseTokens.colors.warning[500], 0.15),
+          borderColor: withAlpha(baseTokens.colors.warning[500], 0.4),
         };
       case "default":
       default:
@@ -81,11 +81,7 @@ export const ToastProvider = ({ children }: { children: React.ReactNode }) => {
                   borderRadius: 12,
                   borderWidth: 1,
                   padding: 14,
-                  shadowColor: "#000",
-                  shadowOffset: { width: 0, height: 4 },
-                  shadowOpacity: 0.25,
-                  shadowRadius: 10,
-                  elevation: 6,
+                  ...((theme && theme.shadows && theme.shadows.lg) || {}),
                 },
                 getVariantStyle(toastItem.variant),
               ]}

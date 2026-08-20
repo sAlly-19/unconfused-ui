@@ -1,7 +1,7 @@
 import React from "react";
 import { View, ViewProps, ViewStyle } from "react-native";
 import { useTheme } from "@unconfused-ui/theme";
-import { Radii, Shadows, Materials, materials as defaultMaterials } from "@unconfused-ui/tokens";
+import { Radii, Shadows, Materials, materials as defaultMaterials, withAlpha } from "@unconfused-ui/tokens";
 
 export type SurfaceProps = ViewProps & {
   variant?: "default" | "subtle" | "bordered" | "flat";
@@ -16,7 +16,7 @@ export const Surface = React.forwardRef<View, SurfaceProps>(
     { variant = "default", material, elevation = "none", radius = "md", style, children, ...rest },
     ref
   ) => {
-    const { theme } = useTheme();
+    const { theme, baseTokens } = useTheme();
 
     const resolveRadius = typeof radius === "number" ? radius : theme.radii[radius];
 
@@ -28,7 +28,7 @@ export const Surface = React.forwardRef<View, SurfaceProps>(
       return {
         backgroundColor: mat.tint,
         opacity: mat.tintOpacity,
-        borderColor: `rgba(255, 255, 255, ${mat.borderLuminance})`,
+        borderColor: withAlpha(baseTokens.colors.white, mat.borderLuminance),
         borderWidth: mat.borderLuminance > 0 ? 1 : 0,
       };
     };
