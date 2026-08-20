@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import { Box, Center, HStack, Inline, Pressable, PressableProps, Stack, Text, VStack } from "@unconfused-ui/primitives";
 import { useTheme } from "@unconfused-ui/theme";
+import { withAlpha } from "@unconfused-ui/tokens";
 
 // 1. Touchable & Pressable
 export const Touchable = (props: PressableProps): React.JSX.Element => <Pressable {...props} />;
@@ -23,6 +24,7 @@ export type SwipeableProps = {
 
 export const Swipeable = ({ leftActions, rightActions, children, style }: SwipeableProps) => {
   const [offset, setOffset] = useState(0);
+  const { baseTokens } = useTheme();
 
   return (
     <Box
@@ -30,9 +32,9 @@ export const Swipeable = ({ leftActions, rightActions, children, style }: Swipea
         {
           borderRadius: 14,
           overflow: "hidden",
-          backgroundColor: "rgba(16, 18, 30, 0.85)",
+          backgroundColor: withAlpha(baseTokens.colors.black, 0.85),
           borderWidth: 1,
-          borderColor: "rgba(255, 255, 255, 0.08)",
+          borderColor: withAlpha(baseTokens.colors.white, 0.08),
           position: "relative",
         },
         style,
@@ -48,7 +50,7 @@ export const Swipeable = ({ leftActions, rightActions, children, style }: Swipea
       <Box
         style={{
           transform: [{ translateX: offset }],
-          backgroundColor: "rgba(20, 24, 40, 0.98)",
+          backgroundColor: withAlpha(baseTokens.colors.black, 0.98),
           padding: 16,
         }}
       >
@@ -150,33 +152,39 @@ export const Draggable = ({ children, style }: DraggableProps) => {
 };
 Draggable.displayName = "Draggable";
 
-export const Droppable = ({ children, style }: { children: React.ReactNode; style?: ViewStyle }) => (
-  <Box
-    style={[
-      {
-        borderWidth: 2,
-        borderStyle: "dashed",
-        borderColor: "rgba(124, 58, 237, 0.4)",
-        borderRadius: 16,
-        padding: 20,
-        backgroundColor: "rgba(124, 58, 237, 0.05)",
-        alignItems: "center",
-        justifyContent: "center",
-      },
-      style,
-    ]}
-  >
-    {children}
-  </Box>
-);
+export const Droppable = ({ children, style }: { children: React.ReactNode; style?: ViewStyle }) => {
+  const { baseTokens } = useTheme();
+  return (
+    <Box
+      style={[
+        {
+          borderWidth: 2,
+          borderStyle: "dashed",
+          borderColor: withAlpha(baseTokens.colors.brand[500], 0.4),
+          borderRadius: 16,
+          padding: 20,
+          backgroundColor: withAlpha(baseTokens.colors.brand[500], 0.05),
+          alignItems: "center",
+          justifyContent: "center",
+        },
+        style,
+      ]}
+    >
+      {children}
+    </Box>
+  );
+};
 Droppable.displayName = "Droppable";
 
 // 6. Resizable, PanGesture, PinchZoom
-export const Resizable = ({ children, style }: { children: React.ReactNode; style?: ViewStyle }) => (
-  <Box style={[{ borderWidth: 1, borderColor: "rgba(255,255,255,0.1)", borderRadius: 14, padding: 14 }, style]}>
-    {children}
-  </Box>
-);
+export const Resizable = ({ children, style }: { children: React.ReactNode; style?: ViewStyle }) => {
+  const { baseTokens } = useTheme();
+  return (
+    <Box style={[{ borderWidth: 1, borderColor: withAlpha(baseTokens.colors.white, 0.1), borderRadius: 14, padding: 14 }, style]}>
+      {children}
+    </Box>
+  );
+};
 Resizable.displayName = "Resizable";
 
 export const PanGesture = ({ children, style }: { children: React.ReactNode; style?: ViewStyle }) => (

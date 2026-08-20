@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { View, ViewStyle } from "react-native";
 import { Box, HStack, Inline, Pressable, Stack, Text, VStack } from "@unconfused-ui/primitives";
 import { useTheme } from "@unconfused-ui/theme";
+import { withAlpha } from "@unconfused-ui/tokens";
 import { Avatar } from "../Avatar";
 import { Badge } from "../Badge";
 import { Button } from "../Button";
@@ -54,13 +55,16 @@ export type DateRangePickerProps = {
   style?: ViewStyle;
 };
 
-export const DateRangePicker = ({ style }: DateRangePickerProps) => (
-  <Inline gap={3} align="center" style={style}>
-    <DateInput placeholder="Start Date" style={{ flex: 1 }} />
-    <Text size="xs" color="gray">→</Text>
-    <DateInput placeholder="End Date" style={{ flex: 1 }} />
-  </Inline>
-);
+export const DateRangePicker = ({ style }: DateRangePickerProps) => {
+  const { semanticColors } = useTheme();
+  return (
+    <Inline gap={3} align="center" style={style}>
+      <DateInput placeholder="Start Date" style={{ flex: 1 }} />
+      <Text size="xs" color={semanticColors.foregroundMuted}>→</Text>
+      <DateInput placeholder="End Date" style={{ flex: 1 }} />
+    </Inline>
+  );
+};
 DateRangePicker.displayName = "DateRangePicker";
 
 // 4. FileUploader & ImageUploader
@@ -77,7 +81,7 @@ export const FileUploader = ({
   onUpload,
   style,
 }: FileUploaderProps) => {
-  const { semanticColors } = useTheme();
+  const { semanticColors, baseTokens } = useTheme();
 
   return (
     <Pressable onPress={onUpload}>
@@ -87,10 +91,10 @@ export const FileUploader = ({
             padding: 24,
             borderRadius: 16,
             borderWidth: 1.5,
-            borderColor: "rgba(124, 58, 237, 0.4)",
+            borderColor: withAlpha(semanticColors.primary, 0.4),
             borderStyle: "dashed",
             alignItems: "center",
-            backgroundColor: "rgba(16, 18, 30, 0.6)",
+            backgroundColor: withAlpha(baseTokens.colors.black, 0.6),
           },
           style,
         ]}
@@ -238,7 +242,7 @@ export const PricingCard = ({
   onSelect,
   style,
 }: PricingCardProps) => {
-  const { semanticColors } = useTheme();
+  const { semanticColors, baseTokens } = useTheme();
 
   return (
     <Card
@@ -247,7 +251,7 @@ export const PricingCard = ({
       style={{
         flex: 1,
         minWidth: 260,
-        borderColor: popular ? "rgba(124, 58, 237, 0.6)" : "rgba(255, 255, 255, 0.1)",
+        borderColor: popular ? withAlpha(semanticColors.primary, 0.6) : withAlpha(baseTokens.colors.white, 0.1),
         ...(style as object),
       }}
     >

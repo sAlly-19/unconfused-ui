@@ -272,9 +272,9 @@ export const Gauge = ({ value, label = "Health Index", statusText = "Optimal", s
             height: 90,
             borderRadius: 45,
             borderWidth: 8,
-            borderColor: "rgba(255, 255, 255, 0.08)",
+            borderColor: withAlpha(baseTokens.colors.white, 0.08),
             borderTopColor: color,
-            borderRightColor: value > 50 ? color : "rgba(255, 255, 255, 0.08)",
+            borderRightColor: value > 50 ? color : withAlpha(baseTokens.colors.white, 0.08),
           }}
         >
           <Text size="xl" weight="bold" color={color}>

@@ -6,25 +6,27 @@ const react_1 = require("react");
 const react_native_1 = require("react-native");
 const primitives_1 = require("@unconfused-ui/primitives");
 const theme_1 = require("@unconfused-ui/theme");
+const tokens_1 = require("@unconfused-ui/tokens");
 // 1. Touchable & Pressable
 const Touchable = (props) => (0, jsx_runtime_1.jsx)(primitives_1.Pressable, { ...props });
 exports.Touchable = Touchable;
 exports.Touchable.displayName = "Touchable";
 const Swipeable = ({ leftActions, rightActions, children, style }) => {
     const [offset, setOffset] = (0, react_1.useState)(0);
+    const { baseTokens } = (0, theme_1.useTheme)();
     return ((0, jsx_runtime_1.jsxs)(primitives_1.Box, { style: [
             {
                 borderRadius: 14,
                 overflow: "hidden",
-                backgroundColor: "rgba(16, 18, 30, 0.85)",
+                backgroundColor: (0, tokens_1.withAlpha)(baseTokens.colors.black, 0.85),
                 borderWidth: 1,
-                borderColor: "rgba(255, 255, 255, 0.08)",
+                borderColor: (0, tokens_1.withAlpha)(baseTokens.colors.white, 0.08),
                 position: "relative",
             },
             style,
         ], children: [(0, jsx_runtime_1.jsxs)(primitives_1.Inline, { justify: "space-between", align: "center", style: { position: "absolute", top: 0, bottom: 0, left: 0, right: 0, paddingHorizontal: 12 }, children: [(0, jsx_runtime_1.jsx)(primitives_1.Box, { children: leftActions }), (0, jsx_runtime_1.jsx)(primitives_1.Box, { children: rightActions })] }), (0, jsx_runtime_1.jsx)(primitives_1.Box, { style: {
                     transform: [{ translateX: offset }],
-                    backgroundColor: "rgba(20, 24, 40, 0.98)",
+                    backgroundColor: (0, tokens_1.withAlpha)(baseTokens.colors.black, 0.98),
                     padding: 16,
                 }, children: children })] }));
 };
@@ -72,23 +74,29 @@ const Draggable = ({ children, style }) => {
 };
 exports.Draggable = Draggable;
 exports.Draggable.displayName = "Draggable";
-const Droppable = ({ children, style }) => ((0, jsx_runtime_1.jsx)(primitives_1.Box, { style: [
-        {
-            borderWidth: 2,
-            borderStyle: "dashed",
-            borderColor: "rgba(124, 58, 237, 0.4)",
-            borderRadius: 16,
-            padding: 20,
-            backgroundColor: "rgba(124, 58, 237, 0.05)",
-            alignItems: "center",
-            justifyContent: "center",
-        },
-        style,
-    ], children: children }));
+const Droppable = ({ children, style }) => {
+    const { baseTokens } = (0, theme_1.useTheme)();
+    return ((0, jsx_runtime_1.jsx)(primitives_1.Box, { style: [
+            {
+                borderWidth: 2,
+                borderStyle: "dashed",
+                borderColor: (0, tokens_1.withAlpha)(baseTokens.colors.brand[500], 0.4),
+                borderRadius: 16,
+                padding: 20,
+                backgroundColor: (0, tokens_1.withAlpha)(baseTokens.colors.brand[500], 0.05),
+                alignItems: "center",
+                justifyContent: "center",
+            },
+            style,
+        ], children: children }));
+};
 exports.Droppable = Droppable;
 exports.Droppable.displayName = "Droppable";
 // 6. Resizable, PanGesture, PinchZoom
-const Resizable = ({ children, style }) => ((0, jsx_runtime_1.jsx)(primitives_1.Box, { style: [{ borderWidth: 1, borderColor: "rgba(255,255,255,0.1)", borderRadius: 14, padding: 14 }, style], children: children }));
+const Resizable = ({ children, style }) => {
+    const { baseTokens } = (0, theme_1.useTheme)();
+    return ((0, jsx_runtime_1.jsx)(primitives_1.Box, { style: [{ borderWidth: 1, borderColor: (0, tokens_1.withAlpha)(baseTokens.colors.white, 0.1), borderRadius: 14, padding: 14 }, style], children: children }));
+};
 exports.Resizable = Resizable;
 exports.Resizable.displayName = "Resizable";
 const PanGesture = ({ children, style }) => ((0, jsx_runtime_1.jsx)(primitives_1.Box, { style: style, children: children }));

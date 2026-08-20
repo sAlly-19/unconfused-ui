@@ -82,7 +82,7 @@ export const Chip = ({ label, icon, selected = false, onPress, style }: ChipProp
           paddingHorizontal: 12,
           paddingVertical: 6,
           borderRadius: 20,
-          backgroundColor: selected ? withAlpha(baseTokens.brand[500], 0.25) : withAlpha(baseTokens.colors.white, 0.05),
+          backgroundColor: selected ? withAlpha(baseTokens.colors.brand[500], 0.25) : withAlpha(baseTokens.colors.white, 0.05),
           borderWidth: 1,
           borderColor: selected ? semanticColors.primary : withAlpha(baseTokens.colors.white, 0.12),
         },

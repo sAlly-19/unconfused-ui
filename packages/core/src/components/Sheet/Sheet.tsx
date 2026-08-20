@@ -2,6 +2,7 @@ import React from "react";
 import { Modal, ScrollView, View, ViewStyle } from "react-native";
 import { Box, Inline, Pressable, Stack, Text, FocusTrap } from "@unconfused-ui/primitives";
 import { useTheme } from "@unconfused-ui/theme";
+import { withAlpha } from "@unconfused-ui/tokens";
 
 export type SheetProps = {
   open?: boolean;
@@ -11,7 +12,7 @@ export type SheetProps = {
 };
 
 export const SheetRoot = ({ open = false, onOpenChange, style, children }: SheetProps): React.JSX.Element => {
-  const { semanticColors, activeColorScheme } = useTheme();
+  const { semanticColors, activeColorScheme, baseTokens } = useTheme();
 
   return (
     <Modal visible={open} transparent animationType="slide" onRequestClose={() => onOpenChange?.(false)}>
@@ -25,7 +26,7 @@ export const SheetRoot = ({ open = false, onOpenChange, style, children }: Sheet
           width: "100%",
           height: "100%",
           flex: 1,
-          backgroundColor: "rgba(0, 0, 0, 0.75)",
+          backgroundColor: withAlpha(baseTokens.colors.black, 0.75),
           justifyContent: "flex-end",
           alignItems: "center",
           zIndex: 99999,
@@ -54,7 +55,7 @@ export const SheetRoot = ({ open = false, onOpenChange, style, children }: Sheet
           <View
             style={[
               {
-                backgroundColor: activeColorScheme === "dark" || activeColorScheme === "oled" ? "#121422" : semanticColors.surface,
+                backgroundColor: semanticColors.surface,
                 borderTopLeftRadius: 28,
                 borderTopRightRadius: 28,
                 borderBottomLeftRadius: 0,
@@ -66,7 +67,7 @@ export const SheetRoot = ({ open = false, onOpenChange, style, children }: Sheet
                 padding: 24,
                 paddingBottom: 32,
                 gap: 16,
-                shadowColor: "#000",
+                shadowColor: withAlpha(baseTokens.colors.black, 0.8),
                 shadowOffset: { width: 0, height: -12 },
                 shadowOpacity: 0.5,
                 shadowRadius: 36,

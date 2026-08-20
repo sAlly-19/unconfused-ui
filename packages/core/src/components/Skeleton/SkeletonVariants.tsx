@@ -1,6 +1,8 @@
 import React from "react";
 import { ViewStyle } from "react-native";
 import { Box, HStack, Inline, Stack, VStack } from "@unconfused-ui/primitives";
+import { useTheme } from "@unconfused-ui/theme";
+import { withAlpha } from "@unconfused-ui/tokens";
 import { Skeleton, SkeletonProps } from "./Skeleton";
 
 export * from "./Skeleton";
@@ -42,37 +44,40 @@ export type SkeletonCardProps = {
   style?: ViewStyle;
 };
 
-export const SkeletonCard = ({ hasAvatar = true, style }: SkeletonCardProps) => (
-  <Box
-    style={[
-      {
-        padding: 18,
-        borderRadius: 16,
-        backgroundColor: "rgba(16, 18, 30, 0.8)",
-        borderWidth: 1,
-        borderColor: "rgba(255, 255, 255, 0.08)",
-      },
-      style,
-    ]}
-  >
-    <VStack gap={3}>
-      <Inline align="center" gap={3}>
-        {hasAvatar && <SkeletonAvatar size={40} />}
-        <VStack gap={1} style={{ flex: 1 }}>
-          <Skeleton height={14} width="55%" radius={4} />
-          <Skeleton height={10} width="35%" radius={4} />
-        </VStack>
-      </Inline>
+export const SkeletonCard = ({ hasAvatar = true, style }: SkeletonCardProps) => {
+  const { baseTokens } = useTheme();
+  return (
+    <Box
+      style={[
+        {
+          padding: 18,
+          borderRadius: 16,
+          backgroundColor: withAlpha(baseTokens.colors.black, 0.8),
+          borderWidth: 1,
+          borderColor: withAlpha(baseTokens.colors.white, 0.08),
+        },
+        style,
+      ]}
+    >
+      <VStack gap={3}>
+        <Inline align="center" gap={3}>
+          {hasAvatar && <SkeletonAvatar size={40} />}
+          <VStack gap={1} style={{ flex: 1 }}>
+            <Skeleton height={14} width="55%" radius={4} />
+            <Skeleton height={10} width="35%" radius={4} />
+          </VStack>
+        </Inline>
 
-      <SkeletonText lines={3} height={10} />
+        <SkeletonText lines={3} height={10} />
 
-      <Inline justify="space-between" align="center" style={{ marginTop: 4 }}>
-        <Skeleton height={18} width={64} radius={6} />
-        <Skeleton height={24} width={80} radius={6} />
-      </Inline>
-    </VStack>
-  </Box>
-);
+        <Inline justify="space-between" align="center" style={{ marginTop: 4 }}>
+          <Skeleton height={18} width={64} radius={6} />
+          <Skeleton height={24} width={80} radius={6} />
+        </Inline>
+      </VStack>
+    </Box>
+  );
+};
 SkeletonCard.displayName = "SkeletonCard";
 
 // 4. SkeletonTableRow (Table row skeleton)
@@ -82,17 +87,20 @@ export type SkeletonTableRowProps = {
   style?: ViewStyle;
 };
 
-export const SkeletonTableRow = ({ columns = 4, height = 16, style }: SkeletonTableRowProps) => (
-  <Inline
-    align="center"
-    justify="space-between"
-    style={[{ paddingVertical: 12, paddingHorizontal: 16, borderBottomWidth: 1, borderBottomColor: "rgba(255, 255, 255, 0.05)" }, style]}
-  >
-    {Array.from({ length: columns }).map((_, index) => (
-      <Skeleton key={index} height={height} width={`${80 / columns}%` as any} radius={4} />
-    ))}
-  </Inline>
-);
+export const SkeletonTableRow = ({ columns = 4, height = 16, style }: SkeletonTableRowProps) => {
+  const { baseTokens } = useTheme();
+  return (
+    <Inline
+      align="center"
+      justify="space-between"
+      style={[{ paddingVertical: 12, paddingHorizontal: 16, borderBottomWidth: 1, borderBottomColor: withAlpha(baseTokens.colors.white, 0.05) }, style]}
+    >
+      {Array.from({ length: columns }).map((_, index) => (
+        <Skeleton key={index} height={height} width={`${80 / columns}%` as any} radius={4} />
+      ))}
+    </Inline>
+  );
+};
 SkeletonTableRow.displayName = "SkeletonTableRow";
 
 // Compound export

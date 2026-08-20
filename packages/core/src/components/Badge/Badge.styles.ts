@@ -1,5 +1,5 @@
 import { createRecipe } from "@unconfused-ui/recipes";
-import { SemanticTokens, withAlpha } from "@unconfused-ui/tokens";
+import { SemanticTokens, withAlpha, defaultTokens } from "@unconfused-ui/tokens";
 
 export function getBadgeRecipe(colors: SemanticTokens) {
   return createRecipe({
@@ -20,12 +20,12 @@ export function getBadgeRecipe(colors: SemanticTokens) {
           borderColor: colors.border,
         },
         success: {
-          backgroundColor: withAlpha("#10B981", 0.16),
-          borderColor: withAlpha("#10B981", 0.35),
+          backgroundColor: withAlpha(defaultTokens.colors.success[500], 0.16),
+          borderColor: withAlpha(defaultTokens.colors.success[500], 0.35),
         },
         warning: {
-          backgroundColor: withAlpha("#F59E0B", 0.16),
-          borderColor: withAlpha("#F59E0B", 0.35),
+          backgroundColor: withAlpha(defaultTokens.colors.warning[500], 0.16),
+          borderColor: withAlpha(defaultTokens.colors.warning[500], 0.35),
         },
         danger: {
           backgroundColor: withAlpha(colors.danger, 0.16),

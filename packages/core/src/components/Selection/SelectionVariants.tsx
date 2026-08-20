@@ -309,7 +309,7 @@ export const MultiSelect = ({
   disabled = false,
   style,
 }: MultiSelectProps) => {
-  const { semanticColors } = useTheme();
+  const { semanticColors, baseTokens } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
   const [selected, setSelected] = useControllableState({
     value: propValue,
@@ -342,7 +342,7 @@ export const MultiSelect = ({
           flexDirection: "row",
           alignItems: "center",
           justifyContent: "space-between",
-          backgroundColor: "rgba(16, 18, 30, 0.85)",
+          backgroundColor: withAlpha(baseTokens.colors.black, 0.85),
           borderWidth: 1.5,
           borderColor: isOpen ? semanticColors.primary : semanticColors.border,
           borderRadius: 12,
@@ -375,7 +375,7 @@ export const MultiSelect = ({
           onPress={() => setIsOpen(false)}
           style={{
             flex: 1,
-            backgroundColor: "rgba(0, 0, 0, 0.6)",
+            backgroundColor: withAlpha(baseTokens.colors.black, 0.6),
             justifyContent: "center",
             alignItems: "center",
             padding: 24,

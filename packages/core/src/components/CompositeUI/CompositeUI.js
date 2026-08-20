@@ -5,6 +5,7 @@ const jsx_runtime_1 = require("react/jsx-runtime");
 const react_1 = require("react");
 const primitives_1 = require("@unconfused-ui/primitives");
 const theme_1 = require("@unconfused-ui/theme");
+const tokens_1 = require("@unconfused-ui/tokens");
 const Avatar_1 = require("../Avatar");
 const Badge_1 = require("../Badge");
 const Button_1 = require("../Button");
@@ -25,20 +26,23 @@ exports.LoginForm.displayName = "LoginForm";
 exports.SearchBar = InputVariants_1.SearchInput;
 exports.FilterBar = InputVariants_1.SearchInput;
 exports.FilterSheet = Card_1.Card;
-const DateRangePicker = ({ style }) => ((0, jsx_runtime_1.jsxs)(primitives_1.Inline, { gap: 3, align: "center", style: style, children: [(0, jsx_runtime_1.jsx)(DateTime_1.DateInput, { placeholder: "Start Date", style: { flex: 1 } }), (0, jsx_runtime_1.jsx)(primitives_1.Text, { size: "xs", color: "gray", children: "\u2192" }), (0, jsx_runtime_1.jsx)(DateTime_1.DateInput, { placeholder: "End Date", style: { flex: 1 } })] }));
+const DateRangePicker = ({ style }) => {
+    const { semanticColors } = (0, theme_1.useTheme)();
+    return ((0, jsx_runtime_1.jsxs)(primitives_1.Inline, { gap: 3, align: "center", style: style, children: [(0, jsx_runtime_1.jsx)(DateTime_1.DateInput, { placeholder: "Start Date", style: { flex: 1 } }), (0, jsx_runtime_1.jsx)(primitives_1.Text, { size: "xs", color: semanticColors.foregroundMuted, children: "\u2192" }), (0, jsx_runtime_1.jsx)(DateTime_1.DateInput, { placeholder: "End Date", style: { flex: 1 } })] }));
+};
 exports.DateRangePicker = DateRangePicker;
 exports.DateRangePicker.displayName = "DateRangePicker";
 const FileUploader = ({ label = "Upload Architecture Manifest", description = "Drag & drop .yaml or tap to browse", onUpload, style, }) => {
-    const { semanticColors } = (0, theme_1.useTheme)();
+    const { semanticColors, baseTokens } = (0, theme_1.useTheme)();
     return ((0, jsx_runtime_1.jsx)(primitives_1.Pressable, { onPress: onUpload, children: (0, jsx_runtime_1.jsx)(primitives_1.Box, { style: [
                 {
                     padding: 24,
                     borderRadius: 16,
                     borderWidth: 1.5,
-                    borderColor: "rgba(124, 58, 237, 0.4)",
+                    borderColor: (0, tokens_1.withAlpha)(semanticColors.primary, 0.4),
                     borderStyle: "dashed",
                     alignItems: "center",
-                    backgroundColor: "rgba(16, 18, 30, 0.6)",
+                    backgroundColor: (0, tokens_1.withAlpha)(baseTokens.colors.black, 0.6),
                 },
                 style,
             ], children: (0, jsx_runtime_1.jsxs)(primitives_1.VStack, { gap: 2, align: "center", children: [(0, jsx_runtime_1.jsx)(primitives_1.Text, { size: "2xl", children: "\uD83D\uDCE6" }), (0, jsx_runtime_1.jsx)(primitives_1.Text, { size: "sm", weight: "bold", color: semanticColors.primary, children: label }), (0, jsx_runtime_1.jsx)(primitives_1.Text, { size: "xs", color: semanticColors.foregroundMuted, children: description })] }) }) }));
@@ -71,11 +75,11 @@ exports.StatsCard.displayName = "StatsCard";
 exports.MetricCard = exports.StatsCard;
 exports.DashboardCard = exports.StatsCard;
 const PricingCard = ({ plan, price, period = "/month", popular = false, features, onSelect, style, }) => {
-    const { semanticColors } = (0, theme_1.useTheme)();
+    const { semanticColors, baseTokens } = (0, theme_1.useTheme)();
     return ((0, jsx_runtime_1.jsxs)(Card_1.Card, { variant: "glass", accentBar: popular, style: {
             flex: 1,
             minWidth: 260,
-            borderColor: popular ? "rgba(124, 58, 237, 0.6)" : "rgba(255, 255, 255, 0.1)",
+            borderColor: popular ? (0, tokens_1.withAlpha)(semanticColors.primary, 0.6) : (0, tokens_1.withAlpha)(baseTokens.colors.white, 0.1),
             ...style,
         }, children: [(0, jsx_runtime_1.jsxs)(Card_1.Card.Header, { children: [(0, jsx_runtime_1.jsxs)(primitives_1.Inline, { justify: "space-between", align: "center", children: [(0, jsx_runtime_1.jsx)(Card_1.Card.Title, { children: plan }), popular && (0, jsx_runtime_1.jsx)(Badge_1.Badge, { variant: "primary", size: "sm", children: "POPULAR" })] }), (0, jsx_runtime_1.jsxs)(primitives_1.Inline, { align: "baseline", gap: 1, children: [(0, jsx_runtime_1.jsx)(primitives_1.Text, { size: "3xl", weight: "bold", color: semanticColors.foreground, children: price }), (0, jsx_runtime_1.jsx)(primitives_1.Text, { size: "xs", color: semanticColors.foregroundMuted, children: period })] })] }), (0, jsx_runtime_1.jsx)(Card_1.Card.Content, { children: (0, jsx_runtime_1.jsx)(primitives_1.VStack, { gap: 2.5, children: features.map((f, i) => ((0, jsx_runtime_1.jsxs)(primitives_1.Inline, { gap: 2, align: "center", children: [(0, jsx_runtime_1.jsx)(primitives_1.Text, { size: "xs", color: semanticColors.primary, weight: "bold", children: "\u2713" }), (0, jsx_runtime_1.jsx)(primitives_1.Text, { size: "xs", color: semanticColors.foreground, children: f })] }, i))) }) }), (0, jsx_runtime_1.jsx)(Card_1.Card.Footer, { children: (0, jsx_runtime_1.jsxs)(Button_1.Button, { variant: popular ? "primary" : "outline", style: { width: "100%" }, onPress: onSelect, children: ["Deploy ", plan, " \u2192"] }) })] }));
 };

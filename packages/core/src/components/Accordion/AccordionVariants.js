@@ -19,6 +19,7 @@ const jsx_runtime_1 = require("react/jsx-runtime");
 const react_1 = require("react");
 const primitives_1 = require("@unconfused-ui/primitives");
 const theme_1 = require("@unconfused-ui/theme");
+const tokens_1 = require("@unconfused-ui/tokens");
 const Accordion_1 = require("./Accordion");
 __exportStar(require("./Accordion"), exports);
 const Collapsible = ({ title, subtitle, defaultOpen = false, style, children, }) => {
@@ -44,7 +45,7 @@ const Collapsible = ({ title, subtitle, defaultOpen = false, style, children, })
                     paddingBottom: 16,
                     paddingTop: 4,
                     borderTopWidth: 1,
-                    borderTopColor: "rgba(255, 255, 255, 0.06)",
+                    borderTopColor: (0, tokens_1.withAlpha)("#FFFFFF", 0.06),
                 }, children: typeof children === "string" ? ((0, jsx_runtime_1.jsx)(primitives_1.Text, { size: "xs", color: semanticColors.foregroundMuted, lineHeight: "sm", children: children })) : (children) }))] }));
 };
 exports.Collapsible = Collapsible;

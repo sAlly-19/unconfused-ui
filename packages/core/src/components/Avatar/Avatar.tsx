@@ -2,6 +2,7 @@ import React from "react";
 import { Image, ImageSourcePropType, View, ViewStyle } from "react-native";
 import { Center, Text } from "@unconfused-ui/primitives";
 import { useTheme } from "@unconfused-ui/theme";
+import { withAlpha } from "@unconfused-ui/tokens";
 
 export type AvatarSize = "sm" | "md" | "lg" | "xl";
 export type AvatarStatus = "online" | "busy" | "offline" | "away";
@@ -27,7 +28,7 @@ export const Avatar = ({ src, fallback = "?", size = "md", status, style }: Avat
     borderRadius: dimension / 2,
     backgroundColor: semanticColors.surfaceSubtle,
     borderWidth: 1.5,
-    borderColor: "rgba(124, 58, 237, 0.4)", // Violet Ring Accent
+    borderColor: withAlpha(semanticColors.primary, 0.4), // Violet Ring Accent
     overflow: "hidden",
   };
 
@@ -57,7 +58,7 @@ export const Avatar = ({ src, fallback = "?", size = "md", status, style }: Avat
             resizeMode="cover"
           />
         ) : (
-          <Text size={fontSize} weight="bold" color="#A78BFA">
+          <Text size={fontSize} weight="bold" color={baseTokens.colors.brand[400]}>
             {fallback.substring(0, 2).toUpperCase()}
           </Text>
         )}

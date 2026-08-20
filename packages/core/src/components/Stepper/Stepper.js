@@ -45,7 +45,7 @@ const theme_1 = require("@unconfused-ui/theme");
  * Interactive step indicator, step validation, and form navigation controls.
  */
 function Stepper({ steps, currentStep: propStep, onStepChange, onComplete, style, }) {
-    const { semanticColors } = (0, theme_1.useTheme)();
+    const { semanticColors, baseTokens } = (0, theme_1.useTheme)();
     const [internalStep, setInternalStep] = (0, react_1.useState)(0);
     const activeIndex = propStep !== undefined ? propStep : internalStep;
     const isFirst = activeIndex === 0;
@@ -78,17 +78,17 @@ function Stepper({ steps, currentStep: propStep, onStepChange, onComplete, style
                                             alignItems: "center",
                                             justifyContent: "center",
                                             backgroundColor: isDone
-                                                ? "#10B981"
+                                                ? baseTokens.colors.success[500]
                                                 : isActive
                                                     ? semanticColors.primary
                                                     : semanticColors.surfaceSubtle,
                                             borderWidth: 1,
                                             borderColor: isActive ? semanticColors.primary : semanticColors.border,
-                                        }, children: isDone ? ((0, jsx_runtime_1.jsx)(icons_1.CheckIcon, { size: 16, color: "#FFFFFF" })) : ((0, jsx_runtime_1.jsx)(primitives_1.Text, { size: "xs", weight: "bold", color: isActive ? semanticColors.primaryForeground : semanticColors.foregroundMuted, children: idx + 1 })) }), (0, jsx_runtime_1.jsxs)(primitives_1.VStack, { gap: 0, children: [(0, jsx_runtime_1.jsx)(primitives_1.Text, { size: "xs", weight: isActive ? "bold" : "medium", color: isActive ? semanticColors.foreground : semanticColors.foregroundMuted, children: step.title }), step.description && ((0, jsx_runtime_1.jsx)(primitives_1.Text, { size: "xs", color: semanticColors.foregroundSubtle, children: step.description }))] })] }), idx < steps.length - 1 && ((0, jsx_runtime_1.jsx)(primitives_1.Box, { style: {
+                                        }, children: isDone ? ((0, jsx_runtime_1.jsx)(icons_1.CheckIcon, { size: 16, color: baseTokens.colors.white })) : ((0, jsx_runtime_1.jsx)(primitives_1.Text, { size: "xs", weight: "bold", color: isActive ? semanticColors.primaryForeground : semanticColors.foregroundMuted, children: idx + 1 })) }), (0, jsx_runtime_1.jsxs)(primitives_1.VStack, { gap: 0, children: [(0, jsx_runtime_1.jsx)(primitives_1.Text, { size: "xs", weight: isActive ? "bold" : "medium", color: isActive ? semanticColors.foreground : semanticColors.foregroundMuted, children: step.title }), step.description && ((0, jsx_runtime_1.jsx)(primitives_1.Text, { size: "xs", color: semanticColors.foregroundSubtle, children: step.description }))] })] }), idx < steps.length - 1 && ((0, jsx_runtime_1.jsx)(primitives_1.Box, { style: {
                                     flex: 1,
                                     height: 2,
                                     marginHorizontal: 12,
-                                    backgroundColor: isDone ? "#10B981" : semanticColors.border,
+                                    backgroundColor: isDone ? baseTokens.colors.success[500] : semanticColors.border,
                                 } }))] }, idx));
                 }) }), (0, jsx_runtime_1.jsx)(primitives_1.Box, { style: {
                     padding: 20,

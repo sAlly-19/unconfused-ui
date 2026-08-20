@@ -253,7 +253,7 @@ export type CalendarRangeProps = {
 };
 
 export const CalendarRange = ({ startDate = 10, endDate = 18, onRangeChange, style }: CalendarRangeProps) => {
-  const { semanticColors } = useTheme();
+  const { semanticColors, baseTokens } = useTheme();
   const days = Array.from({ length: 31 }, (_, i) => i + 1);
 
   return (
@@ -261,10 +261,10 @@ export const CalendarRange = ({ startDate = 10, endDate = 18, onRangeChange, sty
       style={[
         {
           padding: 18,
-          backgroundColor: "rgba(16, 18, 30, 0.95)",
+          backgroundColor: withAlpha(baseTokens.colors.black, 0.95),
           borderRadius: 16,
           borderWidth: 1,
-          borderColor: "rgba(255, 255, 255, 0.1)",
+          borderColor: withAlpha(baseTokens.colors.white, 0.1),
           maxWidth: 320,
         },
         style,
@@ -298,7 +298,7 @@ export const CalendarRange = ({ startDate = 10, endDate = 18, onRangeChange, sty
                     isStart || isEnd
                       ? semanticColors.primary
                       : inRange
-                      ? "rgba(124, 58, 237, 0.2)"
+                      ? withAlpha(baseTokens.colors.brand[500], 0.2)
                       : "transparent",
                   alignItems: "center",
                   justifyContent: "center",
@@ -307,7 +307,7 @@ export const CalendarRange = ({ startDate = 10, endDate = 18, onRangeChange, sty
                 <Text
                   size="xs"
                   weight={inRange ? "bold" : "regular"}
-                  color={isStart || isEnd ? "#FFF" : inRange ? semanticColors.primary : semanticColors.foreground}
+                  color={isStart || isEnd ? baseTokens.colors.white : inRange ? semanticColors.primary : semanticColors.foreground}
                 >
                   {day}
                 </Text>
@@ -358,7 +358,7 @@ export const TimePicker = ({ hour = 14, minute = 30, onTimeChange, style }: Time
               paddingHorizontal: 14,
               paddingVertical: 10,
               borderRadius: 10,
-              backgroundColor: "rgba(255, 255, 255, 0.08)",
+              backgroundColor: withAlpha(baseTokens.colors.white, 0.08),
             }}
           >
             <Text size="xl" weight="bold" color={semanticColors.foreground}>
@@ -375,7 +375,7 @@ export const TimePicker = ({ hour = 14, minute = 30, onTimeChange, style }: Time
               paddingHorizontal: 14,
               paddingVertical: 10,
               borderRadius: 10,
-              backgroundColor: "rgba(255, 255, 255, 0.08)",
+              backgroundColor: withAlpha(baseTokens.colors.white, 0.08),
             }}
           >
             <Text size="xl" weight="bold" color={semanticColors.foreground}>
@@ -417,7 +417,7 @@ export const DatePicker = ({ value = "2026-08-19", onChange, style }: DatePicker
 
       <Modal visible={open} transparent animationType="fade" onRequestClose={() => setOpen(false)}>
         <Pressable
-          style={{ flex: 1, backgroundColor: "rgba(0,0,0,0.6)", justifyContent: "center", alignItems: "center" }}
+          style={{ flex: 1, backgroundColor: withAlpha(baseTokens.colors.black, 0.6), justifyContent: "center", alignItems: "center" }}
           onPress={() => setOpen(false)}
         >
           <Pressable onPress={(e) => e.stopPropagation?.()}>

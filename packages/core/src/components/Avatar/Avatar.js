@@ -5,6 +5,7 @@ const jsx_runtime_1 = require("react/jsx-runtime");
 const react_native_1 = require("react-native");
 const primitives_1 = require("@unconfused-ui/primitives");
 const theme_1 = require("@unconfused-ui/theme");
+const tokens_1 = require("@unconfused-ui/tokens");
 const Avatar = ({ src, fallback = "?", size = "md", status, style }) => {
     const { semanticColors, baseTokens } = (0, theme_1.useTheme)();
     const dimension = size === "sm" ? 34 : size === "lg" ? 56 : size === "xl" ? 72 : 44;
@@ -16,7 +17,7 @@ const Avatar = ({ src, fallback = "?", size = "md", status, style }) => {
         borderRadius: dimension / 2,
         backgroundColor: semanticColors.surfaceSubtle,
         borderWidth: 1.5,
-        borderColor: "rgba(124, 58, 237, 0.4)", // Violet Ring Accent
+        borderColor: (0, tokens_1.withAlpha)(semanticColors.primary, 0.4), // Violet Ring Accent
         overflow: "hidden",
     };
     const getStatusColor = () => {
@@ -33,7 +34,7 @@ const Avatar = ({ src, fallback = "?", size = "md", status, style }) => {
         }
     };
     const imageSource = typeof src === "string" ? { uri: src } : src;
-    return ((0, jsx_runtime_1.jsxs)(react_native_1.View, { style: [{ position: "relative" }, style], children: [(0, jsx_runtime_1.jsx)(primitives_1.Center, { style: containerStyle, children: src ? ((0, jsx_runtime_1.jsx)(react_native_1.Image, { source: imageSource, style: { width: "100%", height: "100%" }, resizeMode: "cover" })) : ((0, jsx_runtime_1.jsx)(primitives_1.Text, { size: fontSize, weight: "bold", color: "#A78BFA", children: fallback.substring(0, 2).toUpperCase() })) }), status && ((0, jsx_runtime_1.jsx)(react_native_1.View, { style: {
+    return ((0, jsx_runtime_1.jsxs)(react_native_1.View, { style: [{ position: "relative" }, style], children: [(0, jsx_runtime_1.jsx)(primitives_1.Center, { style: containerStyle, children: src ? ((0, jsx_runtime_1.jsx)(react_native_1.Image, { source: imageSource, style: { width: "100%", height: "100%" }, resizeMode: "cover" })) : ((0, jsx_runtime_1.jsx)(primitives_1.Text, { size: fontSize, weight: "bold", color: baseTokens.colors.brand[400], children: fallback.substring(0, 2).toUpperCase() })) }), status && ((0, jsx_runtime_1.jsx)(react_native_1.View, { style: {
                     position: "absolute",
                     bottom: 0,
                     right: 0,

@@ -39,8 +39,9 @@ const react_1 = __importStar(require("react"));
 const react_native_1 = require("react-native");
 const primitives_1 = require("@unconfused-ui/primitives");
 const theme_1 = require("@unconfused-ui/theme");
+const tokens_1 = require("@unconfused-ui/tokens");
 const MenuItem = ({ label, icon, shortcut, onPress, destructive = false, disabled = false, style, }) => {
-    const { semanticColors } = (0, theme_1.useTheme)();
+    const { semanticColors, baseTokens } = (0, theme_1.useTheme)();
     return ((0, jsx_runtime_1.jsxs)(primitives_1.Pressable, { onPress: onPress, disabled: disabled || !onPress, accessibilityRole: "menuitem", accessibilityState: { disabled }, style: [
             {
                 flexDirection: "row",
@@ -59,37 +60,40 @@ exports.MenuItem = MenuItem;
 exports.MenuItem.displayName = "MenuItem";
 // 2. MenuGroup
 const MenuGroup = ({ title, children }) => {
-    const { semanticColors } = (0, theme_1.useTheme)();
+    const { semanticColors, baseTokens } = (0, theme_1.useTheme)();
     return ((0, jsx_runtime_1.jsxs)(primitives_1.Stack, { gap: 1, children: [title && ((0, jsx_runtime_1.jsx)(primitives_1.Text, { size: "xs", weight: "bold", style: { textTransform: "uppercase", letterSpacing: 1.1, paddingHorizontal: 12, paddingVertical: 4 }, color: semanticColors.foregroundMuted, children: title })), children] }));
 };
 exports.MenuGroup = MenuGroup;
 exports.MenuGroup.displayName = "MenuGroup";
 // 3. MenuSeparator
 const MenuSeparator = () => {
-    const { semanticColors } = (0, theme_1.useTheme)();
-    return (0, jsx_runtime_1.jsx)(primitives_1.Box, { style: { height: 1, backgroundColor: "rgba(255, 255, 255, 0.08)", marginVertical: 4 } });
+    const { semanticColors, baseTokens } = (0, theme_1.useTheme)();
+    return (0, jsx_runtime_1.jsx)(primitives_1.Box, { style: { height: 1, backgroundColor: (0, tokens_1.withAlpha)(baseTokens.colors.white, 0.08), marginVertical: 4 } });
 };
 exports.MenuSeparator = MenuSeparator;
 exports.MenuSeparator.displayName = "MenuSeparator";
 // 4. Menu
-exports.Menu = Object.assign(({ children, style }) => ((0, jsx_runtime_1.jsx)(primitives_1.Stack, { gap: 1, style: [
-        {
-            padding: 6,
-            backgroundColor: "rgba(16, 18, 30, 0.95)",
-            borderRadius: 14,
-            borderWidth: 1,
-            borderColor: "rgba(255, 255, 255, 0.1)",
-        },
-        style,
-    ], children: children })), {
+exports.Menu = Object.assign(({ children, style }) => {
+    const { baseTokens } = (0, theme_1.useTheme)();
+    return ((0, jsx_runtime_1.jsx)(primitives_1.Stack, { gap: 1, style: [
+            {
+                padding: 6,
+                backgroundColor: (0, tokens_1.withAlpha)(baseTokens.colors.black, 0.95),
+                borderRadius: 14,
+                borderWidth: 1,
+                borderColor: (0, tokens_1.withAlpha)(baseTokens.colors.white, 0.1),
+            },
+            style,
+        ], children: children }));
+}, {
     Item: exports.MenuItem,
     Group: exports.MenuGroup,
     Separator: exports.MenuSeparator,
 });
 const Dropdown = ({ trigger, children }) => {
     const [open, setOpen] = (0, react_1.useState)(false);
-    const { semanticColors } = (0, theme_1.useTheme)();
-    return ((0, jsx_runtime_1.jsxs)(primitives_1.Box, { style: { position: "relative" }, children: [(0, jsx_runtime_1.jsx)(primitives_1.Pressable, { onPress: () => setOpen(!open), children: trigger }), (0, jsx_runtime_1.jsx)(react_native_1.Modal, { visible: open, transparent: true, animationType: "fade", onRequestClose: () => setOpen(false), children: (0, jsx_runtime_1.jsx)(primitives_1.Pressable, { style: { flex: 1, backgroundColor: "rgba(0,0,0,0.35)", justifyContent: "center", alignItems: "center" }, onPress: () => setOpen(false), children: (0, jsx_runtime_1.jsx)(primitives_1.FocusTrap, { active: open, onRequestClose: () => setOpen(false), children: (0, jsx_runtime_1.jsx)(primitives_1.Pressable, { onPress: (e) => e.stopPropagation?.(), style: { width: 240 }, children: (0, jsx_runtime_1.jsx)(exports.Menu, { children: children }) }) }) }) })] }));
+    const { semanticColors, baseTokens } = (0, theme_1.useTheme)();
+    return ((0, jsx_runtime_1.jsxs)(primitives_1.Box, { style: { position: "relative" }, children: [(0, jsx_runtime_1.jsx)(primitives_1.Pressable, { onPress: () => setOpen(!open), children: trigger }), (0, jsx_runtime_1.jsx)(react_native_1.Modal, { visible: open, transparent: true, animationType: "fade", onRequestClose: () => setOpen(false), children: (0, jsx_runtime_1.jsx)(primitives_1.Pressable, { style: { flex: 1, backgroundColor: (0, tokens_1.withAlpha)(baseTokens.colors.black, 0.35), justifyContent: "center", alignItems: "center" }, onPress: () => setOpen(false), children: (0, jsx_runtime_1.jsx)(primitives_1.FocusTrap, { active: open, onRequestClose: () => setOpen(false), children: (0, jsx_runtime_1.jsx)(primitives_1.Pressable, { onPress: (e) => e.stopPropagation?.(), style: { width: 240 }, children: (0, jsx_runtime_1.jsx)(exports.Menu, { children: children }) }) }) }) })] }));
 };
 exports.Dropdown = Dropdown;
 exports.Dropdown.displayName = "Dropdown";
@@ -126,7 +130,7 @@ function fuzzyScore(query, text) {
     return qIdx === q.length ? score : 0;
 }
 const CommandPalette = ({ open = false, onOpenChange, items, placeholder = "Type a command or search...", }) => {
-    const { semanticColors } = (0, theme_1.useTheme)();
+    const { semanticColors, baseTokens } = (0, theme_1.useTheme)();
     const [query, setQuery] = (0, react_1.useState)("");
     const [selectedIndex, setSelectedIndex] = (0, react_1.useState)(0);
     const scoredItems = react_1.default.useMemo(() => {
@@ -145,7 +149,7 @@ const CommandPalette = ({ open = false, onOpenChange, items, placeholder = "Type
     }, [items, query]);
     return ((0, jsx_runtime_1.jsx)(react_native_1.Modal, { visible: open, transparent: true, animationType: "fade", onRequestClose: () => onOpenChange?.(false), children: (0, jsx_runtime_1.jsx)(primitives_1.Pressable, { onPress: () => onOpenChange?.(false), style: {
                 flex: 1,
-                backgroundColor: "rgba(0,0,0,0.75)",
+                backgroundColor: (0, tokens_1.withAlpha)(baseTokens.colors.black, 0.75),
                 justifyContent: "flex-start",
                 alignItems: "center",
                 paddingTop: 80,
@@ -153,12 +157,12 @@ const CommandPalette = ({ open = false, onOpenChange, items, placeholder = "Type
             }, children: (0, jsx_runtime_1.jsx)(primitives_1.FocusTrap, { active: open, onRequestClose: () => onOpenChange?.(false), children: (0, jsx_runtime_1.jsxs)(primitives_1.Pressable, { onPress: (e) => e.stopPropagation?.(), style: {
                         width: "100%",
                         maxWidth: 540,
-                        backgroundColor: "rgba(16, 18, 30, 0.98)",
+                        backgroundColor: (0, tokens_1.withAlpha)(baseTokens.colors.black, 0.98),
                         borderRadius: 16,
                         borderWidth: 1,
-                        borderColor: "rgba(255, 255, 255, 0.15)",
+                        borderColor: (0, tokens_1.withAlpha)(baseTokens.colors.white, 0.15),
                         overflow: "hidden",
-                        shadowColor: "#000",
+                        shadowColor: (0, tokens_1.withAlpha)(baseTokens.colors.black, 0.8),
                         shadowOffset: { width: 0, height: 12 },
                         shadowOpacity: 0.5,
                         shadowRadius: 24,
@@ -167,7 +171,7 @@ const CommandPalette = ({ open = false, onOpenChange, items, placeholder = "Type
                                 paddingHorizontal: 16,
                                 paddingVertical: 14,
                                 borderBottomWidth: 1,
-                                borderBottomColor: "rgba(255, 255, 255, 0.1)",
+                                borderBottomColor: (0, tokens_1.withAlpha)(baseTokens.colors.white, 0.1),
                             }, children: [(0, jsx_runtime_1.jsx)(primitives_1.Text, { size: "md", children: "\uD83D\uDD0D" }), (0, jsx_runtime_1.jsx)(react_native_1.TextInput, { placeholder: placeholder, placeholderTextColor: semanticColors.foregroundSubtle, value: query, onChangeText: (text) => {
                                         setQuery(text);
                                         setSelectedIndex(0);
@@ -195,12 +199,12 @@ const CommandPalette = ({ open = false, onOpenChange, items, placeholder = "Type
                                             flexDirection: "row",
                                             alignItems: "center",
                                             justifyContent: "space-between",
-                                            backgroundColor: isSelected ? "rgba(139, 92, 246, 0.15)" : "transparent",
+                                            backgroundColor: isSelected ? (0, tokens_1.withAlpha)(baseTokens.colors.brand[500], 0.15) : "transparent",
                                         }, children: [(0, jsx_runtime_1.jsxs)(primitives_1.Inline, { align: "center", gap: 3, children: [item.icon, (0, jsx_runtime_1.jsxs)(primitives_1.VStack, { gap: 0, children: [(0, jsx_runtime_1.jsx)(primitives_1.Text, { size: "sm", weight: isSelected ? "bold" : "medium", color: isSelected ? semanticColors.primary : semanticColors.foreground, children: item.label }), item.category && ((0, jsx_runtime_1.jsx)(primitives_1.Text, { size: "xs", color: semanticColors.foregroundSubtle, children: item.category }))] })] }), item.shortcut && ((0, jsx_runtime_1.jsx)(primitives_1.Box, { style: {
                                                     paddingHorizontal: 6,
                                                     paddingVertical: 2,
                                                     borderRadius: 4,
-                                                    backgroundColor: "rgba(255, 255, 255, 0.08)",
+                                                    backgroundColor: (0, tokens_1.withAlpha)(baseTokens.colors.white, 0.08),
                                                 }, children: (0, jsx_runtime_1.jsx)(primitives_1.Text, { size: "xs", color: semanticColors.foregroundMuted, weight: "bold", children: item.shortcut }) }))] }, item.id));
                                 })) : ((0, jsx_runtime_1.jsx)(primitives_1.Box, { p: 6, style: { alignItems: "center" }, children: (0, jsx_runtime_1.jsx)(primitives_1.Text, { size: "sm", color: semanticColors.foregroundMuted, children: "No matching commands found." }) })) }) })] }) }) }) }));
 };

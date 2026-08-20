@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Modal, ScrollView, TextInput, TextStyle, View, ViewStyle } from "react-native";
 import { Box, HStack, Inline, Pressable, Stack, Text, VStack, FocusTrap } from "@unconfused-ui/primitives";
 import { useTheme } from "@unconfused-ui/theme";
+import { withAlpha } from "@unconfused-ui/tokens";
 
 // 1. MenuItem
 export type MenuItemProps = {
@@ -23,7 +24,7 @@ export const MenuItem = ({
   disabled = false,
   style,
 }: MenuItemProps) => {
-  const { semanticColors } = useTheme();
+  const { semanticColors, baseTokens } = useTheme();
 
   return (
     <Pressable
@@ -68,7 +69,7 @@ MenuItem.displayName = "MenuItem";
 
 // 2. MenuGroup
 export const MenuGroup = ({ title, children }: { title?: string; children: React.ReactNode }) => {
-  const { semanticColors } = useTheme();
+  const { semanticColors, baseTokens } = useTheme();
   return (
     <Stack gap={1}>
       {title && (
@@ -89,30 +90,33 @@ MenuGroup.displayName = "MenuGroup";
 
 // 3. MenuSeparator
 export const MenuSeparator = () => {
-  const { semanticColors } = useTheme();
-  return <Box style={{ height: 1, backgroundColor: "rgba(255, 255, 255, 0.08)", marginVertical: 4 }} />;
+  const { semanticColors, baseTokens } = useTheme();
+  return <Box style={{ height: 1, backgroundColor: withAlpha(baseTokens.colors.white, 0.08), marginVertical: 4 }} />;
 };
 MenuSeparator.displayName = "MenuSeparator";
 
 // 4. Menu
 export const Menu = Object.assign(
-  ({ children, style }: { children: React.ReactNode; style?: ViewStyle }) => (
-    <Stack
-      gap={1}
-      style={[
-        {
-          padding: 6,
-          backgroundColor: "rgba(16, 18, 30, 0.95)",
-          borderRadius: 14,
-          borderWidth: 1,
-          borderColor: "rgba(255, 255, 255, 0.1)",
-        },
-        style,
-      ]}
-    >
-      {children}
-    </Stack>
-  ),
+  ({ children, style }: { children: React.ReactNode; style?: ViewStyle }) => {
+    const { baseTokens } = useTheme();
+    return (
+      <Stack
+        gap={1}
+        style={[
+          {
+            padding: 6,
+            backgroundColor: withAlpha(baseTokens.colors.black, 0.95),
+            borderRadius: 14,
+            borderWidth: 1,
+            borderColor: withAlpha(baseTokens.colors.white, 0.1),
+          },
+          style,
+        ]}
+      >
+        {children}
+      </Stack>
+    );
+  },
   {
     Item: MenuItem,
     Group: MenuGroup,
@@ -128,7 +132,7 @@ export type DropdownProps = {
 
 export const Dropdown = ({ trigger, children }: DropdownProps) => {
   const [open, setOpen] = useState(false);
-  const { semanticColors } = useTheme();
+  const { semanticColors, baseTokens } = useTheme();
 
   return (
     <Box style={{ position: "relative" }}>
@@ -136,7 +140,7 @@ export const Dropdown = ({ trigger, children }: DropdownProps) => {
 
       <Modal visible={open} transparent animationType="fade" onRequestClose={() => setOpen(false)}>
         <Pressable
-          style={{ flex: 1, backgroundColor: "rgba(0,0,0,0.35)", justifyContent: "center", alignItems: "center" }}
+          style={{ flex: 1, backgroundColor: withAlpha(baseTokens.colors.black, 0.35), justifyContent: "center", alignItems: "center" }}
           onPress={() => setOpen(false)}
         >
           <FocusTrap active={open} onRequestClose={() => setOpen(false)}>
@@ -206,7 +210,7 @@ export const CommandPalette = ({
   items,
   placeholder = "Type a command or search...",
 }: CommandPaletteProps) => {
-  const { semanticColors } = useTheme();
+  const { semanticColors, baseTokens } = useTheme();
   const [query, setQuery] = useState("");
   const [selectedIndex, setSelectedIndex] = useState(0);
 
@@ -231,7 +235,7 @@ export const CommandPalette = ({
         onPress={() => onOpenChange?.(false)}
         style={{
           flex: 1,
-          backgroundColor: "rgba(0,0,0,0.75)",
+        backgroundColor: withAlpha(baseTokens.colors.black, 0.75),
           justifyContent: "flex-start",
           alignItems: "center",
           paddingTop: 80,
@@ -244,12 +248,12 @@ export const CommandPalette = ({
             style={{
               width: "100%",
               maxWidth: 540,
-              backgroundColor: "rgba(16, 18, 30, 0.98)",
+              backgroundColor: withAlpha(baseTokens.colors.black, 0.98),
               borderRadius: 16,
               borderWidth: 1,
-              borderColor: "rgba(255, 255, 255, 0.15)",
+              borderColor: withAlpha(baseTokens.colors.white, 0.15),
               overflow: "hidden",
-              shadowColor: "#000",
+              shadowColor: withAlpha(baseTokens.colors.black, 0.8),
               shadowOffset: { width: 0, height: 12 },
               shadowOpacity: 0.5,
               shadowRadius: 24,
@@ -264,7 +268,7 @@ export const CommandPalette = ({
                 paddingHorizontal: 16,
                 paddingVertical: 14,
                 borderBottomWidth: 1,
-                borderBottomColor: "rgba(255, 255, 255, 0.1)",
+                borderBottomColor: withAlpha(baseTokens.colors.white, 0.1),
               }}
             >
               <Text size="md">🔍</Text>
@@ -316,7 +320,7 @@ export const CommandPalette = ({
                           flexDirection: "row",
                           alignItems: "center",
                           justifyContent: "space-between",
-                          backgroundColor: isSelected ? "rgba(139, 92, 246, 0.15)" : "transparent",
+                          backgroundColor: isSelected ? withAlpha(baseTokens.colors.brand[500], 0.15) : "transparent",
                         }}
                       >
                         <Inline align="center" gap={3}>
@@ -343,7 +347,7 @@ export const CommandPalette = ({
                               paddingHorizontal: 6,
                               paddingVertical: 2,
                               borderRadius: 4,
-                              backgroundColor: "rgba(255, 255, 255, 0.08)",
+                              backgroundColor: withAlpha(baseTokens.colors.white, 0.08),
                             }}
                           >
                             <Text size="xs" color={semanticColors.foregroundMuted} weight="bold">

@@ -1,1 +1,1 @@
-{"version":3,"file":"Badge.styles.d.ts","sourceRoot":"","sources":["Badge.styles.ts"],"names":[],"mappings":"AACA,OAAO,EAAE,cAAc,EAAa,MAAM,uBAAuB,CAAC;AAElE,wBAAgB,cAAc,CAAC,MAAM,EAAE,cAAc;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;sDAmDpD"}
+{"version":3,"file":"Badge.styles.d.ts","sourceRoot":"","sources":["Badge.styles.ts"],"names":[],"mappings":"AACA,OAAO,EAAE,cAAc,EAA4B,MAAM,uBAAuB,CAAC;AAEjF,wBAAgB,cAAc,CAAC,MAAM,EAAE,cAAc;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;sDAmDpD"}

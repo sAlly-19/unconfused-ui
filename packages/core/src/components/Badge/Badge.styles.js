@@ -22,12 +22,12 @@ function getBadgeRecipe(colors) {
                     borderColor: colors.border,
                 },
                 success: {
-                    backgroundColor: (0, tokens_1.withAlpha)("#10B981", 0.16),
-                    borderColor: (0, tokens_1.withAlpha)("#10B981", 0.35),
+                    backgroundColor: (0, tokens_1.withAlpha)(tokens_1.defaultTokens.colors.success[500], 0.16),
+                    borderColor: (0, tokens_1.withAlpha)(tokens_1.defaultTokens.colors.success[500], 0.35),
                 },
                 warning: {
-                    backgroundColor: (0, tokens_1.withAlpha)("#F59E0B", 0.16),
-                    borderColor: (0, tokens_1.withAlpha)("#F59E0B", 0.35),
+                    backgroundColor: (0, tokens_1.withAlpha)(tokens_1.defaultTokens.colors.warning[500], 0.16),
+                    borderColor: (0, tokens_1.withAlpha)(tokens_1.defaultTokens.colors.warning[500], 0.35),
                 },
                 danger: {
                     backgroundColor: (0, tokens_1.withAlpha)(colors.danger, 0.16),
