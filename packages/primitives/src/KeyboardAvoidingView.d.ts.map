@@ -1,0 +1,1 @@
+{"version":3,"file":"KeyboardAvoidingView.d.ts","sourceRoot":"","sources":["KeyboardAvoidingView.tsx"],"names":[],"mappings":"AAAA,OAAO,KAAK,MAAM,OAAO,CAAC;AAC1B,OAAO,EACL,oBAAoB,IAAI,sBAAsB,EAC9C,yBAAyB,IAAI,2BAA2B,EAGzD,MAAM,cAAc,CAAC;AAEtB,MAAM,MAAM,yBAAyB,GAAG,2BAA2B,CAAC;AAEpE,eAAO,MAAM,oBAAoB,4GAgBhC,CAAC"}

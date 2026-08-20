@@ -1,0 +1,44 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.materials = void 0;
+/**
+ * Material definitions for surfaces
+ */
+exports.materials = {
+    glass: {
+        blur: 24,
+        tint: "#10121E",
+        tintOpacity: 0.6,
+        borderLuminance: 0.12,
+        saturation: 1.2,
+    },
+    frosted: {
+        blur: 40,
+        tint: "#0A0C16",
+        tintOpacity: 0.85,
+        borderLuminance: 0.06,
+        saturation: 0.8,
+    },
+    matte: {
+        blur: 0,
+        tint: "#10121E",
+        tintOpacity: 0.95,
+        borderLuminance: 0.08,
+        saturation: 0,
+    },
+    liquid: {
+        blur: 32,
+        tint: "#181C30",
+        tintOpacity: 0.4,
+        borderLuminance: 0.20,
+        saturation: 1.6,
+        specularHighlight: true,
+    },
+    solid: {
+        blur: 0,
+        tint: "#10121E",
+        tintOpacity: 1.0,
+        borderLuminance: 0.08,
+        saturation: 0,
+    },
+};

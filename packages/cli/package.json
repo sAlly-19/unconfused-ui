@@ -1,0 +1,22 @@
+{
+  "name": "@unconfused-ui/cli",
+  "version": "0.1.0",
+  "private": true,
+  "bin": {
+    "unconfused": "./bin/unconfused.js"
+  },
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "scripts": {
+    "build": "tsc",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@unconfused-ui/tokens": "*",
+    "commander": "^12.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.7",
+    "typescript": "^5.4.5"
+  }
+}

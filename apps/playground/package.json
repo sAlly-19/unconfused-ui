@@ -1,0 +1,31 @@
+{
+  "name": "playground",
+  "version": "0.1.0",
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+    "start": "expo start",
+    "web": "expo start --web"
+  },
+  "dependencies": {
+    "@expo/metro-runtime": "~3.2.3",
+    "@unconfused-ui/core": "*",
+    "@unconfused-ui/hooks": "*",
+    "@unconfused-ui/primitives": "*",
+    "@unconfused-ui/recipes": "*",
+    "@unconfused-ui/theme": "*",
+    "@unconfused-ui/tokens": "*",
+    "expo": "~51.0.0",
+    "expo-status-bar": "~1.12.1",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-native": "0.74.5",
+    "react-native-web": "~0.19.10"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.24.0",
+    "@expo/metro-config": "~0.18.0",
+    "@types/react": "~18.2.45",
+    "typescript": "^5.4.5"
+  }
+}
